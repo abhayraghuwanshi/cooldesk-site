@@ -68,9 +68,9 @@ const PrivacyPolicyStatic: React.FC = () => {
                 <div className="flex-1 px-6 py-12 lg:px-16 max-w-3xl">
                     <header className="mb-12">
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
-                        <p className="text-gray-500 text-sm">Last updated: June 2026</p>
+                        <p className="text-gray-500 text-sm">Last updated: November 2026</p>
                         <p className="mt-4 text-gray-600 text-sm bg-blue-50 border border-blue-100 rounded-lg px-4 py-3">
-                            This policy covers both the <strong>CoolDesk browser extension</strong> and the <strong>CoolDesk Windows desktop app</strong>. Everything runs locally and <strong>no sign-up or account is required</strong>. Data only leaves your device in three opt-in or opt-out cases: an anonymous <a href="#app-analytics" className="underline text-blue-600">usage ping</a>, optional <a href="#ai-features" className="underline text-blue-600">cloud AI</a> using your own key, and <a href="#team-sharing" className="underline text-blue-600">Team Sharing</a> when you choose to share with others. Website traffic is covered separately under <a href="#website-analytics" className="underline text-blue-600">Website Analytics</a>.
+                            This policy covers both the <strong>CoolDesk browser extension</strong> and the <strong>CoolDesk desktop app</strong> (Windows, macOS and Linux). Everything runs locally and <strong>no sign-up or account is required</strong>. Data only leaves your device in three opt-in or opt-out cases: an anonymous <a href="#app-analytics" className="underline text-blue-600">usage ping</a>, optional <a href="#ai-features" className="underline text-blue-600">cloud AI</a> using your own key, and <a href="#team-sharing" className="underline text-blue-600">Team Sharing</a> when you choose to share with others. Website traffic is covered separately under <a href="#website-analytics" className="underline text-blue-600">Website Analytics</a>.
                         </p>
                     </header>
 
@@ -140,7 +140,7 @@ const PrivacyPolicyStatic: React.FC = () => {
                             <li>App names, window titles, and folder paths are never sent to CoolDesk's servers. The one exception is if you enable cloud AI, in which case they may be sent to your chosen AI provider — see <a href="#ai-features" className="underline text-blue-600">AI Features</a></li>
                         </ul>
                         <p className="text-sm text-gray-500 mt-2">
-                            The Windows app is not required. The browser extension works fully without it. By default the only data it sends off your device is the anonymous usage ping described below — and that can be turned off. Optional cloud AI is the only other case where data leaves your device, and only when you enable it.
+                            The desktop app is not required. The browser extension works fully without it. By default the only data it sends off your device is the anonymous usage ping described below — and that can be turned off. Optional cloud AI is the only other case where data leaves your device, and only when you enable it.
                         </p>
                     </PolicySection>
 
@@ -187,26 +187,33 @@ const PrivacyPolicyStatic: React.FC = () => {
 
                     <PolicySection id="app-analytics" title="Anonymous Usage Analytics">
                         <p>
-                            To understand how many people use CoolDesk and which versions are active, the Windows app sends a <strong>once-daily anonymous heartbeat</strong> to our analytics endpoint. This same request doubles as the check for new app updates, so the app does not make a separate tracking call.
+                            To understand how many people use CoolDesk, how often, and which features are worth improving, the desktop app (Windows, macOS and Linux) sends a small <strong>anonymous heartbeat</strong> to our analytics endpoint. The same request doubles as the check for app updates. It is sent when the app starts, every few hours while it runs, and once on each new day you use it. The very first launch also sends one, before any window opens, so we can tell how many installs start at all.
                         </p>
                         <p>The heartbeat contains only these non-identifying fields:</p>
                         <ul className="list-disc ml-5 mt-2 space-y-1.5">
                             <li><strong>Install ID</strong> — a random identifier generated on your device the first time the app runs (a UUID). It is not tied to your name, email, or any account, and is used only to avoid double-counting the same install.</li>
                             <li><strong>Operating system</strong> — e.g. "windows"</li>
-                            <li><strong>App version</strong> — e.g. 1.4.0</li>
-                            <li><strong>Install source</strong> — how you installed the app (e.g. winget, GitHub)</li>
-                            <li><strong>Locale</strong> — your system language setting, e.g. "en-US"</li>
-                            <li><strong>Spotlight opens</strong> — a simple count of how many times you opened Spotlight that day</li>
+                            <li><strong>App version</strong> — e.g. 2.0.18</li>
+                            <li><strong>Install source</strong> — how you installed the app (e.g. winget or a direct download)</li>
+                            <li><strong>Release channel</strong> — whether this is a public release or a test build</li>
+                            <li><strong>Locale</strong> — your system language, two letters only, e.g. "en"</li>
+                            <li><strong>Active minutes</strong> — how many minutes you interacted with a CoolDesk window. Only <em>that</em> input happened is counted, never which keys, clicks or text.</li>
+                            <li><strong>Feature counts</strong> — how many times you used a fixed list of features: opening Spotlight, opening a result (and whether it was a tab, link, app or file — never which one), opening or creating a workspace, asking the agent, re-copying from clipboard history, unlocking the vault, turning on the dock, finishing onboarding</li>
+                            <li><strong>Delivery count</strong> — how many earlier heartbeats failed to arrive, so counts from offline days are added late rather than lost</li>
+                            <li><strong>One optional rating</strong> — after you have used CoolDesk on seven different days, the app asks once how it's going (three fixed answers). It is only sent if you answer.</li>
                         </ul>
+                        <p className="mt-3">
+                            When you uninstall the Windows app or the browser extension, a CoolDesk page opens where you can, optionally, pick the main reason from a fixed list. That answer is stored with only the date, the version and whether it was the app or the extension — no install ID.
+                        </p>
                         <p className="mt-3">We explicitly do <strong>not</strong> collect or store:</p>
                         <ul className="list-disc ml-5 mt-2 space-y-1.5">
                             <li>Your IP address (it is never logged or stored)</li>
-                            <li>Search queries, URLs, page contents, notes, or workspace data</li>
-                            <li>The names of your apps, windows, files, or any free-text content</li>
+                            <li>Search queries, URLs, page contents, notes, passwords, clipboard contents, or workspace data</li>
+                            <li>The names of your apps, windows, files, workspaces, or any free-text content</li>
                             <li>Any cross-site or advertising identifier</li>
                         </ul>
                         <p className="text-sm text-gray-500 mt-3">
-                            <strong>Opt out anytime:</strong> turn off usage analytics in the app's settings. With analytics disabled, the app skips the ping entirely and checks for updates directly from GitHub instead.
+                            <strong>Opt out anytime:</strong> turn off "Anonymous Usage Stats" in the app's settings. With it off, the app sends none of the above — no heartbeat, no counts, no rating prompt — and checks for updates directly from GitHub instead.
                         </p>
                     </PolicySection>
 
