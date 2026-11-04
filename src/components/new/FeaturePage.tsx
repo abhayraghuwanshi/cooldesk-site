@@ -146,7 +146,7 @@ export default function FeaturePage(p: FeaturePageProps) {
                 <div className="relative isolate">
                     <SectionBackdrop glow="left-1/2 top-[200px] h-[700px] w-[1300px] -ml-[650px]" tint="rgba(56,189,248,0.12)" />
 
-                    <header ref={heroRef} data-track-area="hero" className="container mx-auto max-w-6xl px-6 pt-32 pb-12">
+                    <header ref={heroRef} data-track-area="hero" className="container mx-auto px-6 pt-32 pb-12">
                         <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
                             <Link to="/" className="text-white/60 transition-colors hover:text-white">Home</Link>
                             {" / "}
@@ -167,7 +167,7 @@ export default function FeaturePage(p: FeaturePageProps) {
                         <Shot shot={p.hero} priority className="mt-12" />
                     </header>
 
-                    <div className="container mx-auto max-w-6xl px-6 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
+                    <div className="container mx-auto px-6 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
                         <PageIndex items={[...p.index, { id: "faq", label: "Questions" }]} accent="sky" />
                         <div className="min-w-0 max-w-3xl">
                             {p.children}
