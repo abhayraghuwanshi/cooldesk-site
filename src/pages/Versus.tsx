@@ -3,7 +3,7 @@ import Navbar from "@/components/new/Navbar";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { relatedComparisons } from "@/config/comparisonGroups";
-import { useSectionView } from "@/lib/analytics";
+import { useReadTracking, useSectionView } from "@/lib/analytics";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 
@@ -907,6 +907,7 @@ export default function VersusPage() {
     const { slug } = useParams<{ slug: string }>();
     const comparison = slug ? comparisons[slug] : undefined;
     const ctaRef = useSectionView<HTMLDivElement>("vs_table_cta", { page_type: "vs", slug });
+    const readRef = useReadTracking<HTMLDivElement>({ page_type: "vs", slug });
 
     if (!comparison) {
         return <NotFound />;
@@ -947,7 +948,7 @@ export default function VersusPage() {
             <div className="relative isolate">
                 <SectionBackdrop variant="dust" />
 
-                <div className="container mx-auto max-w-5xl px-6 pt-28 pb-24">
+                <div ref={readRef} className="container mx-auto max-w-5xl px-6 pt-28 pb-24">
                     {/* Back, then the two names */}
                     <section className="flex flex-col items-start gap-5 pb-8">
                         <Link to="/resources" className="inline-flex min-h-11 items-center text-sm text-white/60 transition-colors hover:text-white">

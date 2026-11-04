@@ -83,6 +83,92 @@ export function useSectionView<T extends Element = HTMLElement>(
   return ref;
 }
 
+const READ_MARKS = [25, 50, 75, 100];
+const IDLE_MS = 30_000;
+
+/**
+ * How much of an article people actually read, which page views alone can't
+ * say. Attach the returned ref to the article body:
+ *   article_read_progress — once per mark (25/50/75/100) as the bottom of the
+ *                           screen passes that share of the body
+ *   article_engaged_time  — on leaving: seconds spent with the tab visible and
+ *                           the reader active (scroll/key/pointer in the last
+ *                           30s), plus the furthest mark reached
+ * Re-arms when the params change, e.g. /blog/a → /blog/b.
+ */
+export function useReadTracking<T extends Element = HTMLElement>(params: EventParams = {}) {
+  const ref = useRef<T | null>(null);
+  const key = JSON.stringify(params);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let maxPercent = 0;
+    let engagedMs = 0;
+    let lastTick = Date.now();
+    let lastActive = Date.now();
+    let sent = false;
+
+    const onScroll = () => {
+      lastActive = Date.now();
+      const rect = el.getBoundingClientRect();
+      if (rect.height <= 0) return;
+      const percent = Math.min(100, ((window.innerHeight - rect.top) / rect.height) * 100);
+      for (const mark of READ_MARKS) {
+        if (percent >= mark && maxPercent < mark) {
+          maxPercent = mark;
+          trackEvent("article_read_progress", { ...params, read_percent: mark });
+        }
+      }
+    };
+    const onActive = () => {
+      lastActive = Date.now();
+    };
+    const tick = () => {
+      const now = Date.now();
+      if (document.visibilityState === "visible" && now - lastActive < IDLE_MS) engagedMs += now - lastTick;
+      lastTick = now;
+    };
+    const send = () => {
+      tick();
+      if (sent || engagedMs < 1000) return;
+      sent = true;
+      trackEvent("article_engaged_time", {
+        ...params,
+        engaged_seconds: Math.round(engagedMs / 1000),
+        read_percent: maxPercent,
+        transport_type: "beacon",
+      });
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === "hidden") send();
+      else lastTick = Date.now();
+    };
+
+    const timer = window.setInterval(tick, 1000);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("keydown", onActive);
+    window.addEventListener("pointermove", onActive, { passive: true });
+    document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pagehide", send);
+    onScroll();
+
+    return () => {
+      send();
+      window.clearInterval(timer);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("keydown", onActive);
+      window.removeEventListener("pointermove", onActive);
+      document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pagehide", send);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
+
+  return ref;
+}
+
 // The page that sent someone to /#downloads, so the download event on the
 // homepage can say which article or comparison earned it. Session-scoped.
 const SOURCE_KEY = "cd_source_page";
@@ -135,6 +221,7 @@ function linkArea(a: Element) {
  *   download_intent_click  — anything pointing at /#downloads or the Chrome Web Store
  *   outbound_click         — other links leaving the site
  *   internal_link_click    — links to other pages (footer, article body, CTAs…)
+ *   in_page_jump           — #anchors on the same page (picks, jump chips, side index)
  * Links that already send their own event (data-gtm-element, data-track-skip,
  * the navbar) are skipped.
  */
@@ -177,6 +264,8 @@ export function useLinkTracking() {
         trackEvent("outbound_click", { ...params, link_domain: url.hostname });
       } else if (url.pathname !== path.current) {
         trackEvent("internal_link_click", params);
+      } else if (url.hash) {
+        trackEvent("in_page_jump", { ...params, target_id: url.hash.slice(1) });
       }
     };
 

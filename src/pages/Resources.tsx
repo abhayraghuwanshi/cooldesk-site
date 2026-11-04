@@ -5,7 +5,8 @@ import SEO from "@/components/SEO";
 import { blogPosts, getCategoryLabel } from "@/config/blogs";
 import { comparisonGroups } from "@/config/comparisonGroups";
 import { Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { comparisons } from "./Versus";
 
@@ -119,6 +120,14 @@ export default function ResourcesPage() {
             e.title.toLowerCase().includes(q),
         );
     }, [query]);
+
+    // What people look for, once they pause typing; zero results show the gaps.
+    useEffect(() => {
+        const q = query.trim().toLowerCase();
+        if (q.length < 2) return;
+        const t = window.setTimeout(() => trackEvent("resources_search", { search_term: q, result_count: results.length }), 1200);
+        return () => window.clearTimeout(t);
+    }, [query, results.length]);
 
     return (
         <main className="min-h-screen text-white scroll-smooth">

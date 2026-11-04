@@ -1,8 +1,15 @@
 import SEO from "@/components/SEO";
+import { trackEvent } from "@/lib/analytics";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const NotFound = () => {
   const location = useLocation();
+
+  // Broken links and mistyped URLs, with where they came from.
+  useEffect(() => {
+    trackEvent("page_not_found", { missing_path: location.pathname, referrer: document.referrer || undefined });
+  }, [location.pathname]);
 
   return (
     <>

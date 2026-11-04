@@ -6,7 +6,7 @@ import Navbar from '../components/new/Navbar';
 import PageIndex, { type IndexItem } from '../components/new/PageIndex';
 import SectionBackdrop from '../components/new/SectionBackdrop';
 import SEO from '../components/SEO';
-import { useSectionView } from '../lib/analytics';
+import { trackEvent, useReadTracking, useSectionView } from '../lib/analytics';
 import { blogPosts, getBlogPostBySlug, getCategoryLabel } from '../config/blogs';
 import { parsePost, slugify, type Tool } from '../lib/parsePost';
 import { comparisons } from './Versus';
@@ -129,6 +129,7 @@ export default function BlogPostPage() {
     const { slug } = useParams<{ slug: string }>();
     const post = slug ? getBlogPostBySlug(slug) : undefined;
     const ctaRef = useSectionView<HTMLElement>('article_close_cta', { page_type: 'blog', slug });
+    const readRef = useReadTracking<HTMLDivElement>({ page_type: 'blog', slug });
 
     if (!post) {
         return (
@@ -206,7 +207,7 @@ export default function BlogPostPage() {
 
                 <article className="container mx-auto max-w-6xl px-6 pt-28 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
                     <PageIndex items={index} accent="sky" />
-                    <div className="min-w-0" data-track-area="article">
+                    <div ref={readRef} className="min-w-0" data-track-area="article">
                     {/* Title */}
                     <header className="max-w-[820px] pt-6 pb-8">
                         <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
@@ -310,7 +311,14 @@ export default function BlogPostPage() {
                         <section id="bp-faq" aria-labelledby="bp-faq-h" className="mt-14 max-w-[800px] scroll-mt-28">
                             <h2 id="bp-faq-h" className="mb-1.5 text-[26px] font-bold">FAQ</h2>
                             {p.faq.map((f, i) => (
-                                <details key={f.q} open={i === 0} className="group border-b border-white/10">
+                                <details
+                                    key={f.q}
+                                    open={i === 0}
+                                    className="group border-b border-white/10"
+                                    onToggle={(e) => {
+                                        if (i > 0 && e.currentTarget.open) trackEvent('blog_faq_open', { page_type: 'blog', slug, question: f.q });
+                                    }}
+                                >
                                     <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-3.5 text-[16.5px] font-semibold [&::-webkit-details-marker]:hidden">
                                         {f.q}
                                         <span aria-hidden="true" className="shrink-0 text-[22px] font-light text-white/50 transition-transform group-open:rotate-45">+</span>
