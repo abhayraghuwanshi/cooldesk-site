@@ -1,0 +1,130 @@
+/* FooterSpace.tsx: the planet horizon behind the footer. */
+
+/* The planet: a huge disc whose top edge is the horizon, 200px above the
+   footer's bottom (160px on phones). The ring and glare are centred on it. */
+.fs-planet {
+    position: absolute;
+    left: 50%;
+    bottom: -3000px;
+    width: 3200px;
+    height: 3200px;
+    margin-left: -1600px;
+    border-radius: 50%;
+    background:
+        radial-gradient(closest-side at 50% 6%, rgba(125, 211, 252, 0.10), transparent 70%),
+        radial-gradient(circle at 50% 0%, #0b1226 0%, #05070f 22%, #020308 45%);
+    box-shadow:
+        0 -1px 0 rgba(186, 230, 253, 0.55),          /* the lit rim */
+        0 -10px 40px -6px rgba(125, 211, 252, 0.35), /* atmosphere */
+        0 -60px 160px -20px rgba(139, 92, 246, 0.22);
+}
+
+/* Faint latitude bands on the surface. */
+.fs-planet::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-radial-gradient(circle at 50% 120%, transparent 0 46px, rgba(148, 163, 184, 0.035) 46px 48px);
+    mask-image: radial-gradient(closest-side at 50% 0%, black, transparent 70%);
+}
+
+/* Sunrise glare where the light first hits the rim. */
+.fs-glare {
+    position: absolute;
+    left: 50%;
+    bottom: 170px;
+    width: 520px;
+    height: 60px;
+    margin-left: -260px;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgba(224, 242, 254, 0.35), transparent);
+    filter: blur(6px);
+    animation: fs-breathe 9s ease-in-out infinite alternate;
+}
+@keyframes fs-breathe {
+    to { opacity: 0.55; transform: scaleX(1.15); }
+}
+
+/* A tilted orbit ring around the planet, with a moon riding it. */
+.fs-ring {
+    position: absolute;
+    left: 50%;
+    bottom: -560px;
+    width: 1500px;
+    height: 1500px;
+    margin-left: -750px;
+    transform: rotateX(78deg) rotateZ(-8deg);
+    transform-style: preserve-3d;
+}
+.fs-ring-line {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 1px solid rgba(196, 181, 253, 0.16);
+}
+.fs-ring-spin {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    animation: fs-orbit 90s linear infinite;
+}
+.fs-moon {
+    position: absolute;
+    left: 50%;
+    top: -7px;
+    width: 14px;
+    height: 14px;
+    margin-left: -7px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #f1f5f9, #94a3b8 55%, #334155);
+    box-shadow: 0 0 18px rgba(196, 181, 253, 0.55);
+    /* Undo the ring's tilt and spin so the moon stays a round disc facing us. */
+    animation: fs-moon 90s linear infinite;
+}
+@keyframes fs-moon {
+    from { transform: rotateZ(0deg) rotateX(-78deg); }
+    to { transform: rotateZ(-360deg) rotateX(-78deg); }
+}
+@keyframes fs-orbit {
+    to { transform: rotate(360deg); }
+}
+
+/* A shooting star now and then. */
+.fs-meteor {
+    position: absolute;
+    top: 18%;
+    left: 70%;
+    width: 140px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), transparent);
+    opacity: 0;
+    transform: rotate(-24deg);
+    animation: fs-meteor 14s ease-in 4s infinite;
+}
+.fs-meteor.b {
+    top: 32%;
+    left: 22%;
+    width: 90px;
+    animation-duration: 21s;
+    animation-delay: 11s;
+}
+@keyframes fs-meteor {
+    0% { opacity: 0; translate: 0 0; }
+    1% { opacity: 1; }
+    6% { opacity: 0; translate: -260px 116px; }
+    100% { opacity: 0; translate: -260px 116px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fs-glare, .fs-ring-spin, .fs-meteor { animation: none; }
+    .fs-moon { animation: none; transform: rotateX(-78deg); }
+    .fs-meteor { display: none; }
+}
+
+/* Phones: a smaller world. */
+@media (max-width: 640px) {
+    .fs-planet { width: 1200px; height: 1200px; margin-left: -600px; bottom: -1040px; }
+    .fs-glare { bottom: 130px; width: 300px; margin-left: -150px; }
+    .fs-ring { width: 900px; height: 900px; margin-left: -450px; bottom: -300px; }
+}

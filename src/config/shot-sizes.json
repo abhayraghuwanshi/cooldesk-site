@@ -1,0 +1,98 @@
+{
+    "/images/sidebar-desktop.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/dock-desktop.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/dock-active.jpg": {
+        "width": 2000,
+        "height": 135
+    },
+    "/images/dock-picker.jpg": {
+        "width": 2000,
+        "height": 135
+    },
+    "/images/browser.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/browser-tools.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/browser-canvas.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/shell-search.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/shell-tab.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/file-manager-archive.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/file-manager-preview.jpg": {
+        "width": 2000,
+        "height": 1381
+    },
+    "/images/clipboard.jpg": {
+        "width": 816,
+        "height": 696
+    },
+    "/images/sidebar-active.jpg": {
+        "width": 816,
+        "height": 1046
+    },
+    "/images/clipboard-all.jpg": {
+        "width": 816,
+        "height": 506
+    },
+    "/images/shell-sidebar.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/new-tab-mirror.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/new-tab-split.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/new-tab-stacked.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/new-tab-focus.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/new-tab-custom.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/new-tab-classic.jpg": {
+        "width": 2000,
+        "height": 1250
+    },
+    "/images/spotlight.jpg": {
+        "width": 1634,
+        "height": 1434
+    },
+    "/images/spotlight-preview.jpg": {
+        "width": 1747,
+        "height": 1927
+    },
+    "/images/new-tab-zen.jpg": {
+        "width": 2000,
+        "height": 1250
+    }
+}

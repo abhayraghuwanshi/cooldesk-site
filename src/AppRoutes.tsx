@@ -14,6 +14,13 @@ import ComparePage from "./pages/Compare";
 import GettingStartedPage from "./pages/GettingStarted";
 import NewTabPage from "./pages/NewTab";
 import BrowserPage from "./pages/Browser";
+import ShellPage from "./pages/Shell";
+import ClipboardPage from "./pages/Clipboard";
+import FileManagerPage from "./pages/FileManager";
+import DockPage from "./pages/Dock";
+import SidebarPage from "./pages/Sidebar";
+import SpotlightPage from "./pages/Spotlight";
+import FeaturesPage from "./pages/Features";
 import ResourcesPage from "./pages/Resources";
 import VersusPage from "./pages/Versus";
 import WidgetStorePage from "./pages/WidgetStore";
@@ -59,8 +66,15 @@ export default function AppRoutes() {
             <Route path="/vs" element={<ComparePage />} />
             <Route path="/vs/:slug" element={<VersusPage />} />
             <Route path="/new-tab" element={<NewTabPage />} />
-            {/* Unreleased feature: noindex and unlinked until the in-app browser ships. */}
+            {/* The desktop app's parts, one page each (src/config/features.ts), and all of them on /features. */}
+            <Route path="/features" element={<FeaturesPage />} />
             <Route path="/browser" element={<BrowserPage />} />
+            <Route path="/shell" element={<ShellPage />} />
+            <Route path="/clipboard" element={<ClipboardPage />} />
+            <Route path="/file-manager" element={<FileManagerPage />} />
+            <Route path="/dock" element={<DockPage />} />
+            <Route path="/sidebar" element={<SidebarPage />} />
+            <Route path="/spotlight" element={<SpotlightPage />} />
             <Route path="/widgets" element={<WidgetStorePage />} />
             {/* Chrome opens this when the extension is removed
                 (setUninstallURL in the extension's background script). */}

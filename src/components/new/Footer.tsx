@@ -1,9 +1,10 @@
+import { FEATURES } from '@/config/features';
 import { GITHUB_REPO, site } from '@/config/site';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { useSectionView } from '@/lib/analytics';
 import { Github } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import { StarDust } from './SectionBackdrop';
+import FooterSpace from './FooterSpace';
 
 export default function Footer() {
   const release = useLatestRelease();
@@ -12,13 +13,11 @@ export default function Footer() {
   const ref = useSectionView<HTMLElement>('footer', { page_path: pathname });
   return (
     <footer ref={ref} className="relative isolate z-10 overflow-hidden border-t border-white/10 bg-black/60 backdrop-blur-sm">
-      {/* The page's last stretch of space: faint star dust. Decorative. */}
-      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <StarDust />
-      </div>
+      {/* The page's last stretch of space: star dust over a planet's horizon. */}
+      <FooterSpace />
       {/* Top section */}
       <div className="container mx-auto px-6 py-12 md:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
           {/* Brand */}
           <div className="space-y-4">
             <a href="/" className="flex items-center gap-3 group">
@@ -34,6 +33,22 @@ export default function Footer() {
             <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
               Browser tabs, desktop apps, links, and notes — kept in spaces in the app.
             </p>
+          </div>
+
+          {/* The desktop app's parts, one page each */}
+          <div>
+            <p className="text-[11px] font-semibold text-gray-500 uppercase tracking-widest mb-4">
+              Features
+            </p>
+            <ul className="space-y-2.5">
+              {FEATURES.map((f) => (
+                <li key={f.slug}>
+                  <a href={f.slug} className="text-sm text-gray-400 hover:text-white transition-colors">
+                    {f.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Quick Links */}

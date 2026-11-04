@@ -1,8 +1,6 @@
 import Downloads from "@/components/new/Downloads";
 import WorkspaceShowcase from "@/components/new/WorkspaceShowcase";
-import SpotlightShowcase from "@/components/new/SpotlightShowcase";
-import NewTabShowcase from "@/components/new/NewTabShowcase";
-import AgentShowcase from "@/components/new/AgentShowcase";
+import FeatureBento from "@/components/new/FeatureBento";
 import FAQ from "@/components/new/FAQ";
 import Footer from "@/components/new/Footer";
 import Hero from "@/components/new/Hero";
@@ -12,7 +10,7 @@ import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { site } from "@/config/site";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // Hero, space, Spotlight, AI agent, browser extension, download (with "which one do I
 // need?"), FAQ, then the videos (Watch and learn).
@@ -52,18 +50,19 @@ const Index = () => {
           <WorkspaceShowcase />
         </section>
 
-        <section id="spotlight" className="relative z-10 py-16 md:py-24 scroll-mt-20">
-          <SpotlightShowcase />
-        </section>
-
-        <section id="agent" className="relative isolate z-10 py-16 md:py-24 scroll-mt-20">
+        {/* Every feature as a bento grid; each tile opens its own page. */}
+        <section id="features" className="relative isolate z-10 py-16 md:py-24 scroll-mt-20">
           <SectionBackdrop variant="constellation" />
-          <AgentShowcase />
-        </section>
-
-        <section id="new-tab" className="relative isolate z-10 py-16 md:py-24 scroll-mt-20">
-          <SectionBackdrop glow="left-1/2 top-[620px] h-[700px] w-[1300px] -ml-[650px]" tint="rgba(56,189,248,0.12)" />
-          <NewTabShowcase />
+          <div className="container mx-auto px-6">
+            <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+              <div>
+                <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">Everything in CoolDesk</h2>
+                <p className="mt-3 max-w-xl text-lg text-white/60">One app on your desktop, one extension in your browser. Pick a part to see how it works.</p>
+              </div>
+              <Link to="/features" className="text-[15px] font-medium text-sky-300 transition-colors hover:text-sky-200">All features →</Link>
+            </div>
+            <FeatureBento page="home" />
+          </div>
         </section>
 
         <section id="downloads" className="relative isolate z-10 scroll-mt-20">

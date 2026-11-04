@@ -5,6 +5,9 @@ import PageIndex, { type IndexItem } from "@/components/new/PageIndex";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SyncSettingsPanel from "@/components/new/SyncSettingsPanel";
 import SEO from "@/components/SEO";
+import { MoreFeatures } from "@/components/new/FeaturePage";
+import Shot from "@/components/new/Shot";
+import { SHOTS, type ShotKey } from "@/config/shots";
 import { CHROME_STORE } from "@/config/site";
 import { trackEvent, useSectionView } from "@/lib/analytics";
 import { ArrowRight } from "lucide-react";
@@ -27,7 +30,9 @@ import { Link } from "react-router-dom";
  * Mountain Sunset, shrunk to public/images/wallpaper-*.jpg (1280px).
  *
  * Screenshot: public/images/full-window.jpg (2000×1254). Never swap in a shot
- * that shows banks or payment pages (see NewTabShowcase.tsx).
+ * that shows banks or payment pages (see NewTabShowcase.tsx). Each layout has
+ * its own shot in src/config/shots.ts (newTab*); the picker shows the one for
+ * the selected layout once its image is in.
  *
  * Tracking: every Chrome Web Store / download link goes through the site-wide
  * listener (download_intent_click, link_area from data-track-area). This page
@@ -64,13 +69,13 @@ const FEED_TABS = [
 ];
 
 // [x, y, w, h] in a 40×28 box, w = widgets, f = feed (same as the extension's previews).
-const LAYOUTS: { key: string; label: string; hint: string; cells: [number, number, number, number][] }[] = [
-    { key: "classic", label: "Classic", hint: "Widgets left, feed right", cells: [[2, 2, 13, 24], [17, 2, 21, 24]] },
-    { key: "mirror", label: "Mirror", hint: "Feed left, widgets right", cells: [[25, 2, 13, 24], [2, 2, 21, 24]] },
-    { key: "split", label: "Split", hint: "Two equal halves", cells: [[2, 2, 17, 24], [21, 2, 17, 24]] },
-    { key: "stacked", label: "Stacked", hint: "Widgets on top, feed below", cells: [[2, 2, 36, 9], [2, 13, 36, 13]] },
-    { key: "focus", label: "Focus", hint: "One centered column", cells: [[10, 2, 20, 8], [10, 12, 20, 14]] },
-    { key: "custom", label: "Custom", hint: "Build your own from cards", cells: [[2, 2, 11, 11], [15, 2, 23, 11], [2, 15, 23, 11], [27, 15, 11, 11]] },
+const LAYOUTS: { key: string; label: string; hint: string; shot: ShotKey; cells: [number, number, number, number][] }[] = [
+    { key: "classic", label: "Classic", hint: "Widgets left, feed right", shot: "newTabClassic", cells: [[2, 2, 13, 24], [17, 2, 21, 24]] },
+    { key: "mirror", label: "Mirror", hint: "Feed left, widgets right", shot: "newTabMirror", cells: [[25, 2, 13, 24], [2, 2, 21, 24]] },
+    { key: "split", label: "Split", hint: "Two equal halves", shot: "newTabSplit", cells: [[2, 2, 17, 24], [21, 2, 17, 24]] },
+    { key: "stacked", label: "Stacked", hint: "Widgets on top, feed below", shot: "newTabStacked", cells: [[2, 2, 36, 9], [2, 13, 36, 13]] },
+    { key: "focus", label: "Focus", hint: "One centered column", shot: "newTabFocus", cells: [[10, 2, 20, 8], [10, 12, 20, 14]] },
+    { key: "custom", label: "Custom", hint: "Build your own from cards", shot: "newTabCustom", cells: [[2, 2, 11, 11], [15, 2, 23, 11], [2, 15, 23, 11], [27, 15, 11, 11]] },
 ];
 
 // The extension's own gradient themes (ThemesTab.jsx), with the font each one pairs with.
@@ -159,7 +164,11 @@ function AddToChrome({ label = "Add to Chrome, free" }: { label?: string }) {
 
 function LayoutPicker() {
     const [current, setCurrent] = useState(LAYOUTS[0].key);
+    const layout = LAYOUTS.find((l) => l.key === current)!;
     return (
+        <div className="space-y-4">
+        {/* key: a fresh <img> per layout, so the old shot never lingers while the new one loads. */}
+        <Shot key={layout.shot} shot={SHOTS[layout.shot]} />
         <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-6">
             {LAYOUTS.map((l) => (
                 <button
@@ -182,8 +191,9 @@ function LayoutPicker() {
                 </button>
             ))}
             <p className="col-span-full text-[14.5px] text-white/55">
-                <span className="text-white">{LAYOUTS.find((l) => l.key === current)?.label}:</span> {LAYOUTS.find((l) => l.key === current)?.hint}.
+                <span className="text-white">{layout.label}:</span> {layout.hint}.
             </p>
+        </div>
         </div>
     );
 }
@@ -357,7 +367,10 @@ export default function NewTabPage() {
                         <Part id="layouts" title="Six layouts">
                             <p>Arrange the page the way you like it. Tap a layout to see it:</p>
                             <LayoutPicker />
+                            <p>On Custom, every piece of the page is its own card: each widget, Favorites, the summary, the feed or a single feed tab. Drag cards anywhere, resize them, and add or remove them from a list.</p>
+                            <Shot shot={SHOTS.newTabCustomize} />
                             <p>Hide the widgets, the summary or the feed, or turn them all off and keep just the background.</p>
+                            <Shot shot={SHOTS.newTabZen} />
                         </Part>
 
                         <Part id="themes" title="Themes and wallpapers">
@@ -431,6 +444,8 @@ export default function NewTabPage() {
                                 </a>
                             </div>
                         </section>
+
+                        <MoreFeatures current="/new-tab" page="new_tab" />
                     </div>
                 </div>
             </div>

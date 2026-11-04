@@ -113,9 +113,10 @@ export default function Navbar() {
     // Add Docs here once /docs ships.
     const links: NavLink[] = [
         { href: '/', label: 'Home' },
+        // Features covers /new-tab and every other feature page.
+        { href: '/features', label: 'Features', match: ['/spotlight', '/sidebar', '/dock', '/browser', '/shell', '/file-manager', '/clipboard', '/new-tab'] },
         // The hub links out to these, so they read as part of Resources.
         { href: '/resources', label: 'Resources', match: ['/getting-started', '/vs', '/blog', '/releases', '/under-the-hood'] },
-        { href: '/new-tab', label: 'New Tab' },
         { href: '/widgets', label: 'Widgets' },
     ];
 

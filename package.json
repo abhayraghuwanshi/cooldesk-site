@@ -12,7 +12,8 @@
     "lint": "eslint .",
     "indexnow": "node scripts/indexnow-submit.mjs",
     "preview": "vite preview",
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "shot": "node scripts/shot/shot.mjs"
   },
   "dependencies": {
     "@formspree/react": "^3.0.0",

@@ -3,6 +3,9 @@ import Navbar from "@/components/new/Navbar";
 import PageIndex, { type IndexItem } from "@/components/new/PageIndex";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
+import { MoreFeatures } from "@/components/new/FeaturePage";
+import Shot from "@/components/new/Shot";
+import { SHOTS } from "@/config/shots";
 import { trackEvent, useSectionView } from "@/lib/analytics";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -10,13 +13,10 @@ import { Link } from "react-router-dom";
 /**
  * The desktop app's built-in browser (the "Browse" space).
  *
- * UNRELEASED: the browser lives on cooldesk-extension's feature/in-app-browser
- * branch. Until it ships, this page is noindex, missing from public/sitemap.xml
- * and linked from nowhere. At release: drop `noindex`, add the sitemap entry,
- * add a hero screenshot (public/images/browser.jpg), and link it from the
- * Arc / dock blog posts.
+ * Shipped in 2.0.17 (feature/in-app-browser merged in #21). Screenshots come
+ * from src/config/shots.ts (browser, browserCanvas, browserTools).
  *
- * Claims follow cooldesk-extension (feature/in-app-browser):
+ * Claims follow cooldesk-extension:
  *   engine, platforms, own cookie jar,   src-tauri/src/browser_pane/mod.rs
  *   no extensions
  *   ad + tracker blocking (macOS only)   src-tauri/src/browser_pane/adblock.rs
@@ -149,7 +149,6 @@ export default function BrowserPage() {
                 title="CoolDesk Browser: A Browser Inside Your Workspace (Free)"
                 description="CoolDesk’s built-in browser keeps a project’s pages next to its notes, files and terminal. Split pages on a canvas, block ads and trackers, highlight and clip pages. Free, no account."
                 canonical={canonical}
-                noindex
                 jsonLd={jsonLd}
             />
             <Navbar />
@@ -175,6 +174,8 @@ export default function BrowserPage() {
                         </a>
                     </div>
                     <p className="mt-3 text-xs text-white/40">Mac, Windows and Linux · no account</p>
+
+                    <Shot shot={SHOTS.browser} priority className="mt-12" />
                 </header>
 
                 <div className="container mx-auto max-w-6xl px-6 pb-24 lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14">
@@ -188,6 +189,7 @@ export default function BrowserPage() {
 
                         <Part id="canvas" title="Canvas: pages side by side">
                             <p>Put several pages on one screen as tiles on a snapping grid: the docs next to the app you’re building, a dashboard next to the ticket, a video next to your notes.</p>
+                            <Shot shot={SHOTS.browserCanvas} />
                         </Part>
 
                         <Part id="blocking" title="Ads and trackers blocked">
@@ -204,10 +206,14 @@ export default function BrowserPage() {
                                 <li><strong className="text-white">Copy as Markdown</strong>, find in page, screenshots, and dark mode for any site.</li>
                             </ul>
                             <p className="text-[15px] text-white/60">Page tools are on Mac for now.<MacOnly /></p>
+                            <Shot shot={SHOTS.browserTools} />
                         </Part>
 
                         <Part id="terminal" title="A terminal in the same window">
                             <p>Open a terminal as a tab, or pull up a drawer at the bottom with <strong className="text-white">Ctrl+`</strong>. It’s your real login shell, in your theme’s colours, and links in its output open as tabs.</p>
+                            <p>
+                                More on the <Link to="/shell" className={link}>built-in shell</Link>.
+                            </p>
                         </Part>
 
                         <Part id="files" title="Files and archives, without another app">
@@ -260,6 +266,8 @@ export default function BrowserPage() {
                                 <Download label="Download CoolDesk" />
                             </div>
                         </section>
+
+                        <MoreFeatures current="/browser" page="browser" />
                     </div>
                 </div>
             </div>
