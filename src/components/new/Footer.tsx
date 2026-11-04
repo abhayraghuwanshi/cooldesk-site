@@ -4,7 +4,7 @@ import { useLatestRelease } from '@/hooks/useLatestRelease';
 import { useSectionView } from '@/lib/analytics';
 import { Github } from 'lucide-react';
 import { useLocation } from 'react-router-dom';
-import FooterSpace from './FooterSpace';
+import { StarDust } from './SectionBackdrop';
 
 export default function Footer() {
   const release = useLatestRelease();
@@ -13,8 +13,10 @@ export default function Footer() {
   const ref = useSectionView<HTMLElement>('footer', { page_path: pathname });
   return (
     <footer ref={ref} className="relative isolate z-10 overflow-hidden border-t border-white/10 bg-black/60 backdrop-blur-sm">
-      {/* The page's last stretch of space: star dust over a planet's horizon. */}
-      <FooterSpace />
+      {/* The page's last stretch of space: faint star dust. Decorative. */}
+      <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+        <StarDust />
+      </div>
       {/* Top section */}
       <div className="container mx-auto px-6 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-8">
@@ -115,6 +117,23 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+      </div>
+
+      {/* The name, huge and faint, cut off by the bottom bar. Decorative: the
+          logo above already says it, so it's hidden from screen readers. */}
+      <div aria-hidden="true" className="pointer-events-none select-none overflow-hidden">
+        <p
+          className="font-display font-bold leading-[0.8] tracking-[-0.05em] text-center whitespace-nowrap -mb-[0.18em] text-[clamp(5rem,19vw,17rem)]"
+          style={{
+            color: 'transparent',
+            WebkitTextStroke: '1px rgba(255,255,255,0.09)',
+            backgroundImage: 'linear-gradient(to bottom, rgba(255,255,255,0.07), rgba(255,255,255,0))',
+            WebkitBackgroundClip: 'text',
+            backgroundClip: 'text',
+          }}
+        >
+          CoolDesk
+        </p>
       </div>
 
       {/* Bottom bar */}
