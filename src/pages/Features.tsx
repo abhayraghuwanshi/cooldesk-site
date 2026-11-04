@@ -20,7 +20,7 @@ export default function FeaturesPage() {
             <Navbar />
             <div className="relative isolate">
                 <SectionBackdrop glow="left-1/2 top-[200px] h-[700px] w-[1300px] -ml-[650px]" tint="rgba(56,189,248,0.12)" />
-                <header className="container mx-auto max-w-6xl px-6 pt-32 pb-10">
+                <header className="container mx-auto px-6 pt-32 pb-10">
                     <nav aria-label="Breadcrumb" className="text-[13px] text-white/50">
                         <Link to="/" className="text-white/60 transition-colors hover:text-white">Home</Link>
                         {" / "}
@@ -31,10 +31,10 @@ export default function FeaturesPage() {
                         A desktop app that keeps each project’s tabs, apps, files and notes together, and a browser extension for your new tab. Pick a part to see how it works.
                     </p>
                 </header>
-                <div className="container mx-auto max-w-6xl px-6 pb-16">
+                <div className="container mx-auto px-6 pb-16">
                     <FeatureBento page="features" />
                 </div>
-                <section ref={ctaRef} data-track-area="cta" className="container mx-auto max-w-6xl px-6 pb-24">
+                <section ref={ctaRef} data-track-area="cta" className="container mx-auto px-6 pb-24">
                     <div className="relative overflow-hidden rounded-[22px] border border-sky-300/25 bg-[#0a0d16] px-6 py-9 md:px-8">
                         <div aria-hidden="true" className="pointer-events-none absolute -right-20 -top-20 h-[300px] w-[300px] rounded-full bg-[radial-gradient(closest-side,rgba(56,189,248,0.3),transparent)]" />
                         <h2 className="relative text-[26px] font-bold">Free, no account</h2>
