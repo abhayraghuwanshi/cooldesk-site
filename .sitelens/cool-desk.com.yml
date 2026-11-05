@@ -1,0 +1,118 @@
+# What SiteLens Studio measures for cool-desk.com, and what it should be found for.
+# Spec: docs/sitelens-yml.md in sitelens-studio. This repo also builds the newtab
+# site (vite --mode newtab); give it its own .sitelens/<host>.yml when it launches.
+# Search numbers in the comments are Search Console, Aug–Nov 2026 (90 days).
+version: 1
+site: cool-desk.com
+kind: desktop
+
+goals:
+  # Chrome Web Store installs of the new-tab extension (ioggffobciopdddacpclplkeodllhjko).
+  - { source: installs, label: Extension installs }
+  # GitHub release downloads of the desktop app (abhayraghuwanshi/cooldesk-extension).
+  - { source: downloads, label: Desktop downloads }
+  # GA4 enhanced measurement: a click on a release file link. About one a day now,
+  # so this only alerts once a day reaches 3 downloads.
+  - { event: file_download, label: Started a download, alert: { when: drop, pct: 60, min: 3 } }
+  # Downloads.tsx: trackDownloadEvent("download_cta_click") on a download button.
+  - { event: download_cta_click, label: Clicked to download, role: step }
+  # Downloads.tsx: trackDownloadEvent("downloads_section_view") when the section scrolls into view.
+  - { event: downloads_section_view, label: Saw the downloads section, role: step }
+
+funnels:
+  # The two articles that bring most search visitors, down to a download.
+  - name: Raycast article to download
+    steps: [page:/blog/raycast-alternatives-windows, event:downloads_section_view, event:download_cta_click, event:file_download]
+  - name: Dock article to download
+    steps: [page:/blog/best-dock-apps-windows, event:downloads_section_view, event:download_cta_click, event:file_download]
+  # analytics.ts: download_intent_click on the home page's install links.
+  - name: Home page to install
+    steps: [page:/, event:download_intent_click]
+
+search:
+  # Typos people really search: coldesk (88 impressions), coodesk, cool desktop.com.
+  brand: [CoolDesk, cool desk, coldesk, coodesk, cool desktop.com]
+  # The /vs/* comparison pages (src/config/comparisonGroups.ts). Topics come first,
+  # so "raycast alternative" counts under its topic, and this group keeps the rest.
+  competitors: [raycast, alfred, flow launcher, listary, powertoys, workona, arc browser, toby, onetab, momentum]
+  topics:
+    # The biggest topic: ~5,900 impressions and 104 clicks, at position 5–8 for the
+    # head queries. Moving "raycast alternative" (1,756 impressions, pos 5.4) into
+    # the top 3 is the largest win on the site.
+    - name: Raycast alternative
+      page: /blog/raycast-alternatives-windows
+      match: raycast
+      targets:
+        - raycast alternative
+        - raycast alternatives
+        - raycast alternative for windows
+        - best raycast alternatives
+        - raycast open source alternative
+        - raycast free alternative
+        - raycast vs powertoys
+      ask_ai:
+        - What's the best Raycast alternative for Windows?
+        - Is there a free, open-source alternative to Raycast?
+    # ~950 impressions but only 4 clicks: /vs/flow-launcher sits at position 8.5 and
+    # most of these queries reach no page of ours yet. CoolDesk's launcher is /spotlight.
+    - name: Windows launchers
+      page: /vs/flow-launcher
+      match: launcher|listary|wox|keypirinha|fluent search|powertoys|command palette|alfred|spotlight alternative|universal search
+      targets:
+        - flow launcher alternative
+        - listary vs flow launcher
+        - flow launcher vs command palette
+        - alfred alternative for windows
+      ask_ai:
+        - What's a good keyboard launcher for Windows, like Alfred or Spotlight on a Mac?
+        - Flow Launcher, Listary or PowerToys Run - which launcher should I use on Windows?
+    # ~430 impressions; the article ranks at 5.8. The product page is /dock.
+    - name: Dock apps
+      page: /blog/best-dock-apps-windows
+      match: \bdocks?\b|objectdock|taskbar organi[sz]er|mydockfinder|activedock
+      targets:
+        - best dock app for windows 11
+        - dock for windows
+        - app dock for windows 11
+        - free dock for windows 11
+        - mydockfinder alternative
+      ask_ai:
+        - What's the best dock app for Windows 11?
+        - Is there a free macOS-style dock for Windows?
+    # The extension's own category, and nearly unfound: 27 impressions in 90 days.
+    # The article ranks at 6.3 for the few it gets; the product page is /new-tab.
+    - name: New tab
+      page: /blog/best-new-tab-extensions
+      match: new ?tab|start ?page|tabliss|momentum
+      targets:
+        - best new tab extension
+        - best new tab extensions
+        - new tab extension for productivity
+        - momentum alternative
+        - tabliss alternative
+      ask_ai:
+        - What's the best new tab extension for Chrome to organize work?
+        - What's a good alternative to Momentum for the new tab page?
+    # Tabs and workspaces by project: what CoolDesk is for, and barely found yet
+    # (~60 impressions; the article sits at 15.8). The product page is /browser.
+    - name: Tabs by project
+      page: /blog/organize-browser-tabs-by-project
+      match: tabs?\b.*(manag|group|organi[sz]|hoard)|organi[sz]e .*tabs|workona|toby|onetab|session buddy|arc (spaces|browser alternative|alternative)
+      targets:
+        - organize browser tabs by project
+        - tab manager for work
+        - arc spaces alternative
+        - arc browser alternative
+      ask_ai:
+        - How can I organize browser tabs by project?
+    # Mac readers: /blog/launchpad-alternatives-mac sits at 15.5 (96 impressions) and
+    # /blog/best-sidebar-apps-mac-windows at 8.7. Small for now.
+    - name: Mac launchpad & sidebar
+      page: /blog/launchpad-alternatives-mac
+      match: launchpad|sidebar
+      targets: [launchpad alternative mac, launchpad macos, desktop sidebar, sidebar mac]
+      ask_ai:
+        - What can I use instead of Launchpad on macOS?
+  ask_ai:
+    # CoolDesk's whole pitch (site.ts seo.description), asked without its name.
+    - Is there an app that keeps my tabs, apps and files together for each project?
