@@ -116,3 +116,66 @@ search:
   ask_ai:
     # CoolDesk's whole pitch (site.ts seo.description), asked without its name.
     - Is there an app that keeps my tabs, apps and files together for each project?
+
+# The desktop app's own usage, from the cooldesk-analytics D1 database that the
+# worker in cooldesk-extension/worker writes (schema.sql there). One pings row per
+# install per day. Pings from app versions before 2.0.18 have no channel, so a
+# missing channel counts as release; dev and test builds are left out.
+# The Cloudflare token (Account → D1 → Read) stays in Studio: Settings → Custom
+# metrics, or CLOUDFLARE_API_TOKEN in its .env.
+metrics:
+  - label: Daily active installs
+    unit: installs
+    summary: average
+    d1: &analytics { account: 285527c4fedc050321588335f50096de, database: 281366e4-45e0-4ab5-acd9-90d2fe36b653 }
+    sql: |
+      SELECT date AS day, count(*) AS value, os AS dimension
+      FROM pings
+      WHERE COALESCE(channel, 'release') = 'release' AND date >= {{start}} AND date < {{end}}
+      GROUP BY 1, 3
+  # An install's first ping day; works for every app version (first_run is 2.0.18+ only).
+  - label: New installs
+    unit: installs
+    d1: *analytics
+    sql: |
+      SELECT first_day AS day, count(*) AS value, os AS dimension
+      FROM (SELECT install_id, min(date) AS first_day, min(os) AS os FROM pings
+            WHERE COALESCE(channel, 'release') = 'release' GROUP BY install_id)
+      WHERE first_day >= {{start}} AND first_day < {{end}}
+      GROUP BY 1, 3
+  # Minutes with keyboard or mouse input in the app; 2.0.18+ only.
+  - label: Active minutes
+    unit: minutes
+    d1: *analytics
+    sql: |
+      SELECT date AS day, sum(active_minutes) AS value
+      FROM pings
+      WHERE COALESCE(channel, 'release') = 'release' AND date >= {{start}} AND date < {{end}}
+      GROUP BY 1
+  - label: Spotlight opens
+    unit: opens
+    d1: *analytics
+    sql: |
+      SELECT date AS day, sum(spotlight_opens) AS value
+      FROM pings
+      WHERE COALESCE(channel, 'release') = 'release' AND date >= {{start}} AND date < {{end}}
+      GROUP BY 1
+  # Uses of each whitelisted feature (dock_enabled, open_app, clipboard_copy, …).
+  - label: Feature uses
+    unit: uses
+    d1: *analytics
+    sql: |
+      SELECT f.date AS day, sum(f.count) AS value, f.feature AS dimension
+      FROM feature_counts f
+      JOIN pings p ON p.install_id = f.install_id AND p.date = f.date
+      WHERE COALESCE(p.channel, 'release') = 'release' AND f.date >= {{start}} AND f.date < {{end}}
+      GROUP BY 1, 3
+  # Answers on cool-desk.com/uninstall, by platform (extension included).
+  - label: Uninstalls with a reason
+    unit: uninstalls
+    d1: *analytics
+    sql: |
+      SELECT date AS day, count(*) AS value, os AS dimension
+      FROM goodbyes
+      WHERE date >= {{start}} AND date < {{end}}
+      GROUP BY 1, 3
