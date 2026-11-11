@@ -36,8 +36,12 @@ const SCOPES: [string, React.ReactNode][] = [
     ["/a", "apps only"],
     ["/f", "files and folders only"],
     [">", <>run a command in a <Link to="/shell" className={link}>CoolDesk shell</Link></>],
+    ["/shell", "a full terminal right inside Spotlight, still running when Spotlight closes"],
+    ["/todo", "the workspace’s to-dos: type to add one, or pick another workspace"],
+    ["/notes", "the workspace’s notes: type to jot one down"],
     ["/agent", "ask an AI agent about your work"],
     ["/new-workspace", "set up a workspace for a project"],
+    ["/help", "what Spotlight can do, and what’s running right now"],
 ];
 
 const FAQ = [

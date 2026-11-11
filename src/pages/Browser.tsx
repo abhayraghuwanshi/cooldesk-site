@@ -26,6 +26,9 @@ import { Link } from "react-router-dom";
  *   tabs, canvas, side panel, shelf,     commits 1893a02, bba528e, b8659db
  *   terminal, file viewers, archives,
  *   page guard, crash recovery
+ *   multi view, Home | Page panel,       CHANGELOG 2.0.19 / 2.0.20
+ *   Single | Multi switch, scratch notes,
+ *   folders as tabs, clipboard in Home
  */
 
 const canonical = "https://cool-desk.com/browser";
@@ -35,7 +38,7 @@ const link = "text-sky-300 underline decoration-sky-300/30 underline-offset-4 tr
 
 const INDEX: IndexItem[] = [
     { id: "panel", label: "Side panel" },
-    { id: "canvas", label: "Canvas" },
+    { id: "canvas", label: "Multi view" },
     { id: "blocking", label: "Ad blocking" },
     { id: "tools", label: "Page tools" },
     { id: "terminal", label: "Terminal" },
@@ -46,11 +49,7 @@ const INDEX: IndexItem[] = [
 ];
 
 const PANEL_TABS = [
-    ["Home", "the current workspace: pinned items, notes, to-dos, open tabs, apps and running dev servers"],
-    ["Tabs", "the workspace’s pinned links, plus every tab open here and in your other browser"],
-    ["Files", "browse the project’s folders; files open in the main view"],
-    ["Shelf", "downloads, pasted clips and dropped files, until you put them somewhere"],
-    ["Notes", "the workspace’s notes, next to the page you’re reading"],
+    ["Home", "one page for the workspace: search with suggestions, your open tabs, the workspace’s pinned links (switch workspace right in its header), its folders, notes on the page you’re reading, clipboard history and the Shelf"],
     ["Page", "tools and site settings for the page in front of you"],
 ];
 
@@ -73,7 +72,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
     },
     {
         q: "Which platforms is it on?",
-        a: <p>The browser, Canvas, terminal and file viewers work on Mac, Windows and Linux. Ad blocking, the page tools and site permissions are Mac-only for now.</p>,
+        a: <p>The browser, multi view, terminal and file viewers work on Mac, Windows and Linux. Ad blocking, the page tools and site permissions are Mac-only for now.</p>,
     },
     {
         q: "Am I signed in to my usual sites?",
@@ -146,8 +145,8 @@ export default function BrowserPage() {
     return (
         <main className="min-h-screen text-white">
             <SEO
-                title="CoolDesk Browser: A Browser Inside Your Workspace (Free)"
-                description="CoolDesk’s built-in browser keeps a project’s pages next to its notes, files and terminal. Split pages on a canvas, block ads and trackers, highlight and clip pages. Free, no account."
+                title="CoolDesk Browser: Pages, Files and Terminal in One Browser (Free)"
+                description="A new kind of browser where web pages, files, folders, notes and a terminal are all tabs. Use one at a time or side by side in multi view. Ad blocking, page tools, free, no account."
                 canonical={canonical}
                 jsonLd={jsonLd}
             />
@@ -163,9 +162,9 @@ export default function BrowserPage() {
                         {" / "}
                         <span className="text-sky-300">Browser</span>
                     </nav>
-                    <h1 className="mt-4 max-w-3xl text-[38px] font-bold leading-[1.05] tracking-[-0.03em] md:text-6xl">A browser inside your workspace.</h1>
+                    <h1 className="mt-4 max-w-3xl text-[38px] font-bold leading-[1.05] tracking-[-0.03em] md:text-6xl">One browser for pages, files and your terminal.</h1>
                     <p className="mt-5 max-w-2xl text-lg leading-relaxed text-white/65">
-                        Open a project’s docs, dashboards and localhost app right next to its notes, files and terminal. Put pages side by side, block ads, highlight what matters and clip it into your notes. It’s built into the free desktop app.
+                        A new kind of browser where a web page, a folder, a file, a note and a terminal are all just tabs. Open one at a time, or flip to multi view and see them side by side. Block ads, highlight what matters and clip it into your notes. It’s built into the free desktop app.
                     </p>
                     <div className="mt-7 flex flex-wrap items-center gap-3">
                         <Download />
@@ -182,13 +181,15 @@ export default function BrowserPage() {
                     <PageIndex items={INDEX} accent="sky" />
                     <div className="min-w-0 max-w-3xl">
                         <Part id="panel" title="The page on the left, your project on the right">
-                            <p>The main view shows only what you’re looking at: a page, a file or a terminal. The side panel is where you find things:</p>
+                            <p>The main view shows only what you’re looking at: a page, a file, a folder, a note or a terminal. The side panel has two tabs:</p>
                             <Rows rows={PANEL_TABS} />
-                            <p>Pages, files and terminals share one row of tabs, with Back and Forward across all of them. The usual shortcuts work: ⌘T, ⌘L, ⌘R, ⌘F and ⌘[ / ⌘].</p>
+                            <p>Pages, files, folders, notes and terminals share one row of tabs, with Back and Forward across all of them. The usual shortcuts work: ⌘T, ⌘L, ⌘R, ⌘F and ⌘[ / ⌘].</p>
+                            <p>A new tab starts with search, plus one click to open a shell, a note or your files. <strong className="text-white">New note</strong> opens a scratch note that stays with its tab until you save it to a workspace.</p>
                         </Part>
 
-                        <Part id="canvas" title="Canvas: pages side by side">
-                            <p>Put several pages on one screen as tiles on a snapping grid: the docs next to the app you’re building, a dashboard next to the ticket, a video next to your notes.</p>
+                        <Part id="canvas" title="Multi view: tabs side by side">
+                            <p>Flip the <strong className="text-white">Single | Multi</strong> switch in the toolbar and your open tabs, whether pages, terminals, files or folders, sit side by side in a grid that fits the window. Drag the dividers to resize them: the docs next to the app you’re building, a dashboard next to the ticket, a terminal next to your notes.</p>
+                            <p>Focus mode, its own button next to the switch (⌘⇧F), hides everything but your tabs.</p>
                             <Shot shot={SHOTS.browserCanvas} />
                         </Part>
 
@@ -210,16 +211,16 @@ export default function BrowserPage() {
                         </Part>
 
                         <Part id="terminal" title="A terminal in the same window">
-                            <p>Open a terminal as a tab, or pull up a drawer at the bottom with <strong className="text-white">Ctrl+`</strong>. It’s your real login shell, in your theme’s colours, and links in its output open as tabs.</p>
+                            <p>Open a terminal as a tab, or pull up a drawer at the bottom with <strong className="text-white">Ctrl+`</strong>. It’s your real login shell, in your theme’s colours, and links in its output open as tabs. Full-screen programs like Claude Code, vim and htop draw just as they do in Terminal.</p>
                             <p>
                                 More on the <Link to="/shell" className={link}>built-in shell</Link>.
                             </p>
                         </Part>
 
                         <Part id="files" title="Files and archives, without another app">
-                            <p>Files open in the main view, next to your pages:</p>
+                            <p>Folders open as tabs with the full file manager, and files open in the main view, next to your pages:</p>
                             <Rows rows={FILE_VIEWERS} width="sm:w-36" />
-                            <p>Downloads land on the Shelf, so they don’t disappear into a Downloads folder.</p>
+                            <p>Downloads and dropped files land on the Shelf in Home, so they don’t disappear into a Downloads folder. Copied text and images are in the clipboard history beside it.</p>
                         </Part>
 
                         <Part id="guard" title="It stays light">

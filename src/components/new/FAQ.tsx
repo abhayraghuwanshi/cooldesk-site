@@ -97,7 +97,7 @@ export default function FAQ() {
                             ))}
                         </div>
                         <p className="mt-3 text-xs text-gray-500">
-                            Other Chromium browsers work too · Firefox is on the roadmap
+                            Other Chromium browsers work too · Firefox coming soon
                         </p>
                     </div>
                 </div>

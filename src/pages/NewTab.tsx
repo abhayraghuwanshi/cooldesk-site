@@ -295,7 +295,7 @@ export default function NewTabPage() {
         <main className="min-h-screen text-white">
             <SEO
                 title="CoolDesk New Tab — Widgets, Activity and Your Day in Every Tab (Free)"
-                description="A free new tab extension for Chrome, Edge and Brave: widgets, favorites, an activity feed, today’s timeline, six layouts and wallpapers. No account; connects to the CoolDesk desktop app."
+                description="A free new tab extension for Chrome, Edge and Brave: widgets, favorites, an activity feed, today’s timeline, 49 layouts and wallpapers. No account; connects to the CoolDesk desktop app."
                 canonical={canonical}
                 jsonLd={jsonLd}
             />
@@ -364,8 +364,9 @@ export default function NewTabPage() {
                             </ul>
                         </Part>
 
-                        <Part id="layouts" title="Six layouts">
-                            <p>Arrange the page the way you like it. Tap a layout to see it:</p>
+                        <Part id="layouts" title="49 layouts">
+                            <p>Pick from 49 layouts in the Customize panel, in five groups: <strong className="text-white">Vibes</strong> (Search, Zen, Deep work, Fun, Morning, Dev), <strong className="text-white">Start pages</strong> (Greeting, Shortcuts, Minimal, Launchpad and more), <strong className="text-white">Just for fun</strong> (Poster, Orbit, Newspaper, Terminal, Bento…), <strong className="text-white">Designs</strong> (Word Clock, Flip Clock, Synthwave, Retro OS, Blueprint, Boarding Pass…) and the card boards below. Search them or hit shuffle.</p>
+                            <p>The card boards arrange the page the way you like it. Tap one to see it:</p>
                             <LayoutPicker />
                             <p>On Custom, every piece of the page is its own card: each widget, Favorites, the summary, the feed or a single feed tab. Drag cards anywhere, resize them, and add or remove them from a list.</p>
                             <Shot shot={SHOTS.newTabCustomize} />

@@ -58,7 +58,7 @@ export const SHOTS = {
 
     // ── /browser (webview) ───────────────────────────────────────────────
     browser: todo("/images/browser.jpg", "CoolDesk’s browser with cool-desk.com open on the left and the side panel’s Files tab on the right, listing the website project’s folders."),
-    browserCanvas: todo("/images/browser-canvas.jpg", "Canvas: the CoolDesk homepage and the /new-tab page tiled side by side.", "Canvas: pages side by side on a snapping grid."),
+    browserCanvas: todo("/images/browser-canvas.jpg", "Multi view: the CoolDesk homepage and the /new-tab page tiled side by side.", "Multi view: open tabs side by side."),
     browserTools: todo("/images/browser-tools.jpg", "The Page tab in the side panel: highlights, clip, copy as Markdown, dark mode and site permissions for the open page.", "Page tools and site permissions."),
 
     // ── /clipboard ───────────────────────────────────────────────────────

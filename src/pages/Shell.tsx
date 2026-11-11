@@ -85,6 +85,7 @@ export default function ShellPage() {
                     In <Link to="/spotlight" className={link}>Spotlight</Link> (<Kbd>Alt+K</Kbd> from anywhere, or the search bar at the top of CoolDesk), type <Kbd>&gt;</Kbd> and a command, like <code className="text-white">&gt; git status</code>, and press Enter. It’s typed into a real shell, so <code className="text-white">cd</code>, <code className="text-white">&amp;&amp;</code>, pipes and aliases all work, and the shell stays open for what comes next.
                 </p>
                 <p>It starts in the folder of the tab you’re working in, or your home folder if there isn’t one.</p>
+                <p>For a full terminal right in Spotlight, type <code className="text-white">/shell</code>. It keeps running when Spotlight closes, so a dev server or a long build is still there when you come back. <code className="text-white">/todo</code> and <code className="text-white">/notes</code> sit next to it, for the workspace’s to-dos and notes.</p>
                 <Shot shot={SHOTS.shellSearch} />
             </Section>
 

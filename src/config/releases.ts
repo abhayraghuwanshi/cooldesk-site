@@ -20,6 +20,102 @@ export interface Release {
 
 export const releases: Release[] = [
     {
+        version: "2.0.20",
+        date: "2026-11-11",
+        summary: "Claude Code runs cleanly in the built-in terminal, plus a Single | Multi switch in Browse.",
+        added: [
+            "Single | Multi switch in Browse's toolbar, with its own focus-mode button",
+            "Scratch notes — a New note button (Tabs header, multi view bar, new-tab screen) opens a note that stays with the tab until you save it to a workspace",
+            "A blank tab offers a shell, a note or your files, right on the new-tab screen",
+        ],
+        fixed: [
+            "Claude Code and other full-screen terminal programs drew garbled in terminal tabs — lines at the wrong width, overwriting each other",
+            "The file manager stays usable in narrow multi view tiles — its sidebar becomes a drawer and the preview keeps its room",
+        ],
+    },
+    {
+        version: "2.0.19",
+        date: "2026-11-11",
+        summary: "14 languages, separate sidebar and dock windows, multi view and a simpler Browse.",
+        isMajor: true,
+        added: [
+            "CoolDesk speaks 14 languages — English, Spanish, French, German, Italian, Portuguese, Russian, Turkish, Indonesian, Hindi, Arabic (right-to-left), Chinese, Japanese and Korean",
+            "The sidebar and the dock are separate windows — turn each on in Settings → Windows or from the tray, alongside the full app",
+            "Multi view — your open pages, terminals, files and folders side by side in a grid, with dividers you can drag",
+            "Search suggestions from your engine in Spotlight, the address bar and Home's search",
+            "Spotlight commands — /shell for real shells inside Spotlight, /todo and /notes per workspace, and /help",
+            "Clipboard history in Browse's Home — click a clip to copy it back",
+            "Cool Activity and Settings open as tabs; folders open as tabs with the full file manager",
+        ],
+        fixed: [
+            "Pages now appear as soon as they can draw, instead of after every image and ad has loaded",
+            "A page could stay stuck on screen after closing its tab while it was still opening",
+            "A white block could cover Settings, and a terminal could start all white",
+        ],
+    },
+    {
+        version: "2.0.18",
+        date: "2026-11-06",
+        summary: "49 new-tab layouts, search suggestions and one Customize panel.",
+        added: [
+            "49 new-tab layouts in five groups — Vibes, Start pages, Just for fun and Designs, from Word Clock and Flip Clock to Synthwave, Newspaper and Boarding Pass",
+            "Search bar with suggestions from your engine plus your open tabs, bookmarks and history — open tabs switch instead of duplicating",
+            "One Customize panel for the whole new tab: Layout, Look (40 wallpapers or your own) and Settings, applied instantly",
+            "Widgets refreshed across all 39",
+        ],
+        fixed: [
+            "The Currency widget was always “Offline”",
+            "Year in Dots, Color Palette, Decision Maker, Moon Phase and Timer no longer overflow their cards",
+            "White-on-white text on light designs with a wallpaper",
+            "Theme changes in Settings now apply to the whole page right away",
+        ],
+    },
+    {
+        version: "2.0.17",
+        date: "2026-11-03",
+        summary: "Reliable Windows updates and an installer that sets up WebView2.",
+        added: [
+            "The Windows installer installs WebView2 when it's missing, so CoolDesk starts on older Windows 10, LTSC and managed PCs",
+            "Optional one-tap feedback after a week of use, and on uninstall — anonymous, and off with the usage stats setting",
+        ],
+        fixed: [
+            "Windows in-app updates were rejected by their own signature check",
+            "Windows now offers one installer, so a PC can't end up with two copies of CoolDesk",
+        ],
+    },
+    {
+        version: "2.0.16",
+        date: "2026-10-18",
+        summary: "Build your own new tab, and a see-through dock on Windows.",
+        added: [
+            "New tab layouts — Classic, Mirror, Split, Stacked and Focus, with any piece shown or hidden (or Zen: wallpaper only)",
+            "Custom layout — every piece of the new tab becomes a card you can drag, resize and add on a widget grid",
+            "25 featured 4K wallpapers",
+            "Widgets scale to the size of their card",
+            "Windows: the docked sidebar and bar are see-through, like on Mac",
+        ],
+        fixed: [
+            "Windows: dozens of terminal windows could open on launch (regression in 2.0.15)",
+            "Windows: “Update” in the app never actually updated — it now uses the built-in updater, with winget as a fallback",
+        ],
+    },
+    {
+        version: "2.0.15",
+        date: "2026-10-06",
+        summary: "The agent looks at your tabs and history itself, and learns from what you keep.",
+        added: [
+            "/agent can read your open tabs, history and apps on its own to suggest workspaces — it still can't change anything without your OK",
+            "CoolDesk learns from the proposals you apply or turn down, and stops re-suggesting what you rejected",
+            "Proposals shown as a diff of your workspaces, with a one-line reason per change — or review them one by one with Y / N",
+            "The file manager updates live when files change in the open folder",
+            "/u, /a and /f become pills in Spotlight, like /agent",
+        ],
+        fixed: [
+            "Pressing Enter on a follow-up applied the whole pending proposal instead of sending your message",
+            "The agent claimed it couldn't see your history while CoolDesk's local server was restarting",
+        ],
+    },
+    {
         version: "2.0.14",
         date: "2026-09-24",
         summary: "CoolDesk comes to Linux.",

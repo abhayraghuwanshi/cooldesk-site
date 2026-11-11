@@ -92,7 +92,7 @@ export const comparisons: Record<string, Comparison> = {
             },
             {
                 q: "Does CoolDesk work on Windows?",
-                a: "Yes — CoolDesk runs on Windows and macOS, with a browser extension for Chrome, Edge, Brave and other Chromium browsers.",
+                a: "Yes — CoolDesk runs on Windows, macOS and Linux, with a browser extension for Chrome, Edge, Brave and other Chromium browsers. A Firefox version is coming soon.",
             },
         ],
     },
@@ -211,7 +211,7 @@ export const comparisons: Record<string, Comparison> = {
         chooseThem: [
             "Your whole workflow lives in the browser and you need it synced across several machines",
             "You collaborate in shared spaces with a team every day",
-            "You use Firefox — CoolDesk currently supports Chromium browsers",
+            "You use Firefox — CoolDesk’s Firefox add-on isn’t out yet",
         ],
         chooseUs: [
             "Your projects span more than tabs — code editors, Slack, local files — and you want one place that brings all of it back",
@@ -696,7 +696,7 @@ export const comparisons: Record<string, Comparison> = {
         ],
         chooseThem: [
             "You just want to clear your tab bar and save memory in one click",
-            "You use Firefox",
+            "You use Firefox — CoolDesk’s Firefox add-on isn’t out yet",
             "You don't need tabs organised or searchable later",
         ],
         chooseUs: [

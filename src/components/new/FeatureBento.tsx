@@ -90,7 +90,7 @@ const TILES: Tile[] = [
         text: "A project’s pages beside its notes and files. Tile them side by side.",
         span: "lg:col-span-4 lg:row-span-2",
         accent: "rgba(34,211,238,0.25)",
-        img: { src: "/images/bento/browser.jpg", w: 1600, h: 922, alt: "Canvas in CoolDesk’s browser: two pages tiled side by side." },
+        img: { src: "/images/bento/browser.jpg", w: 1600, h: 922, alt: "Multi view in CoolDesk’s browser: two pages tiled side by side." },
         place: "lg:absolute lg:top-36 lg:right-0 lg:w-[80%] lg:translate-x-[3%]",
         fade: "b",
     },
@@ -115,7 +115,7 @@ const TILES: Tile[] = [
     },
     {
         slug: "/new-tab",
-        text: "Widgets, favorites and your activity in every browser tab. Six layouts, sixteen themes.",
+        text: "Widgets, favorites and your activity in every browser tab. 49 layouts, sixteen themes.",
         span: "lg:col-span-6 lg:row-span-2",
         accent: "rgba(244,63,94,0.22)",
         img: { src: "/images/bento/new-tab.jpg", w: 1600, h: 1000, alt: "The new tab in the Classic layout: clock, weather, tasks and a quote beside favorites and the activity feed." },
