@@ -20,9 +20,9 @@ export interface Release {
 
 export const releases: Release[] = [
     {
-        version: "2.0.20",
+        version: "2.0.21",
         date: "2026-11-11",
-        summary: "Claude Code runs cleanly in the built-in terminal, plus a Single | Multi switch in Browse.",
+        summary: "Claude Code runs cleanly in the built-in terminal, the sidebar's shell works again, and a Single | Multi switch in Browse. Includes 2.0.20.",
         added: [
             "Single | Multi switch in Browse's toolbar, with its own focus-mode button",
             "Scratch notes — a New note button (Tabs header, multi view bar, new-tab screen) opens a note that stays with the tab until you save it to a workspace",
@@ -30,6 +30,7 @@ export const releases: Release[] = [
         ],
         fixed: [
             "Claude Code and other full-screen terminal programs drew garbled in terminal tabs — lines at the wrong width, overwriting each other",
+            "The sidebar's shell said “Couldn't start a shell” since the sidebar became its own window in 2.0.19",
             "The file manager stays usable in narrow multi view tiles — its sidebar becomes a drawer and the preview keeps its room",
         ],
     },
