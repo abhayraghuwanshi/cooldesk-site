@@ -108,7 +108,7 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 }
 
 export const blogPosts: BlogPost[] = [
-    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search', '2026-07-06', '2026-10-04'),
+    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search', '2026-07-06', '2026-11-12'),
     parseBlogPost(developerContextSwitchingContent, 'developer-context-switching-setup', 'guides', 'Code', '2026-10-05'),
     parseBlogPost(arcAlternativesContent, 'arc-browser-alternatives', 'guides', 'Globe', '2026-10-26'),
     parseBlogPost(launchpadAlternativesContent, 'launchpad-alternatives-mac', 'guides', 'LayoutGrid', '2026-10-26'),
