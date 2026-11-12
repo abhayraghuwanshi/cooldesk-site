@@ -34,6 +34,7 @@ import arcAlternativesContent from './blog-posts/arc-browser-alternatives.md?raw
 import developerContextSwitchingContent from './blog-posts/developer-context-switching-setup.md?raw';
 import bestNewTabExtensionsContent from './blog-posts/best-new-tab-extensions.md?raw';
 import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
+import splitScreenTabsContent from './blog-posts/split-screen-tabs-browser.md?raw';
 
 // Parse markdown frontmatter and content
 // `date` is the real publish date (YYYY-MM-DD) — never derive it from the build time,
@@ -108,6 +109,7 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 }
 
 export const blogPosts: BlogPost[] = [
+    parseBlogPost(splitScreenTabsContent, 'split-screen-tabs-browser', 'guides', 'Columns2', '2026-11-12'),
     parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search', '2026-07-06', '2026-11-12'),
     parseBlogPost(developerContextSwitchingContent, 'developer-context-switching-setup', 'guides', 'Code', '2026-10-05'),
     parseBlogPost(arcAlternativesContent, 'arc-browser-alternatives', 'guides', 'Globe', '2026-10-26'),

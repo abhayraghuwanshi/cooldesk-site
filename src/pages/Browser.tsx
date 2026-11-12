@@ -190,6 +190,9 @@ export default function BrowserPage() {
                         <Part id="canvas" title="Multi view: tabs side by side">
                             <p>Flip the <strong className="text-white">Single | Multi</strong> switch in the toolbar and your open tabs, whether pages, terminals, files or folders, sit side by side in a grid that fits the window. Drag the dividers to resize them: the docs next to the app you’re building, a dashboard next to the ticket, a terminal next to your notes.</p>
                             <p>Focus mode, its own button next to the switch (⌘⇧F), hides everything but your tabs.</p>
+                            <p>
+                                How does it compare with split view in Chrome, Edge, Firefox and the rest? See <Link to="/blog/split-screen-tabs-browser" className={link}>how to split screen tabs in any browser</Link>.
+                            </p>
                             <Shot shot={SHOTS.browserCanvas} />
                         </Part>
 
