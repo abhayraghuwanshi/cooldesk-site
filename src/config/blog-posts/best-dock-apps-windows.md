@@ -55,8 +55,8 @@ RocketDock and Stardock's ObjectDock are where Windows docks started, and you'll
 CoolDesk is a free project workspace for Windows and macOS, and its dock is built around one idea: show what belongs to the work you're doing right now. One shortcut — **Ctrl+Shift+D** (⌘+Shift+D on Mac) — cycles between three layouts:
 
 - **Full window** — the complete CoolDesk workspace view.
-- **Side dock** — a slim handle on the left or right edge of your screen. Click it and a sidebar slides in over your apps with your workspaces, tabs and notes; click away and it tucks back to the edge. Nothing on your screen gets resized.
-- **Bottom bar** — a Mac-style dock strip. One view shows everything open right now (running apps and browser tabs); the other shows the current project's links, apps, folders and files. Drop a file from your file manager onto the bar to add it to the project.
+- **[Side dock](/sidebar)** — a slim handle on the left or right edge of your screen. Click it and a sidebar slides in over your apps with your workspaces, tabs and notes; click away and it tucks back to the edge. Nothing on your screen gets resized.
+- **[Bottom bar](/dock)** — a Mac-style dock strip. One view shows everything open right now (running apps and browser tabs); the other shows the current project's links, apps, folders and files. Drop a file from your file manager onto the bar to add it to the project.
 
 Folder chips are developer-aware: they show the project's stack logo, the git branch and whether it has uncommitted changes, and when a dev server is running.
 

@@ -13,6 +13,9 @@ Each `.md` file here is registered in `src/config/blogs.ts` with its real publis
 4. **"Which one should you pick?"** — one line per reader type
 5. **Download CTA** + links to the matching `/vs/` pages and the Raycast hub post
 
+Register roundups with category `'best'` in `blogs.ts`, then add them to `BEST_GROUPS` in `src/pages/Resources.tsx`
+(the "Best apps" section) and to the matching feature's `guides` in `src/config/features.ts`. How-tos stay `'guides'`.
+
 ## Monthly loop
 
 1. **Look** — Search Console → Queries: find terms with impressions but few clicks.

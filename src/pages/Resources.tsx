@@ -4,6 +4,7 @@ import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SEO from "@/components/SEO";
 import { blogPosts, getCategoryLabel } from "@/config/blogs";
 import { comparisonGroups } from "@/config/comparisonGroups";
+import { FEATURES } from "@/config/features";
 import { Search } from "lucide-react";
 import { trackEvent } from "@/lib/analytics";
 import { useEffect, useMemo, useState } from "react";
@@ -44,6 +45,23 @@ const VS: Entry[] = comparisonGroups
 const POSTS = blogPosts
     .filter((p) => p.category !== "comparisons")
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+/**
+ * "Best apps": the roundup posts, grouped by the CoolDesk feature they're about,
+ * busiest topics first. Each group links the roundups and the feature's own page.
+ */
+const BEST_GROUPS: [feature: string, posts: string[]][] = [
+    ["/spotlight", ["raycast-alternatives-windows", "launchpad-alternatives-mac"]],
+    ["/dock", ["best-dock-apps-windows", "best-dock-apps-mac"]],
+    ["/clipboard", ["best-clipboard-managers"]],
+    ["/sidebar", ["best-sidebar-apps-mac-windows"]],
+    ["/new-tab", ["best-new-tab-extensions"]],
+    ["/browser", ["arc-browser-alternatives"]],
+];
+const BEST = BEST_GROUPS.map(([slug, posts]) => ({
+    feature: FEATURES.find((f) => f.slug === slug)!,
+    posts: posts.map((g) => blogPosts.find((p) => p.slug === g && !p.href)).filter((p): p is NonNullable<typeof p> => !!p),
+})).filter((g) => g.feature && g.posts.length > 0);
 
 const BLOG: Entry[] = POSTS.map((p) => ({ title: p.title, to: p.href ?? `/blog/${p.slug}`, kind: "Blog" as const }));
 
@@ -210,6 +228,39 @@ export default function ResourcesPage() {
                                                 {s.title}
                                                 <span aria-hidden="true" className="text-indigo-200/70 transition-transform group-hover:translate-x-0.5">→</span>
                                             </Go>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </section>
+
+                            <section aria-labelledby="rs-best" className="mt-14">
+                                <h2 id="rs-best" className="text-[22px] font-semibold">Best apps</h2>
+                                <p className="mt-1.5 text-[15px] text-white/55">Honest roundups for each kind of tool, including where CoolDesk loses.</p>
+                                <ul className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                                    {BEST.map(({ feature: { slug, name, job, Icon }, posts }) => (
+                                        <li key={slug} className="flex flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-4">
+                                            <div className="flex items-center gap-2.5">
+                                                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-sky-400/10 text-sky-300">
+                                                    <Icon className="h-4 w-4" />
+                                                </span>
+                                                <h3 className="text-[16px] font-semibold">{job}</h3>
+                                            </div>
+                                            <ul className="mt-3 flex-1 space-y-1.5">
+                                                {posts.map((p) => (
+                                                    <li key={p.slug}>
+                                                        <Link
+                                                            to={`/blog/${p.slug}`}
+                                                            onClick={() => trackEvent("resources_best_link", { to: p.slug })}
+                                                            className="block text-[14.5px] leading-snug text-white/80 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+                                                        >
+                                                            {p.title.replace(/\s*\(20\d\d\).*$/, "")}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                            <Link to={slug} className="mt-3 text-[13.5px] font-medium text-sky-300 hover:text-sky-200">
+                                                CoolDesk {name} →
+                                            </Link>
                                         </li>
                                     ))}
                                 </ul>

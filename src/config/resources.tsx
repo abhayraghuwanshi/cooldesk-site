@@ -73,16 +73,6 @@ export const resources: Resource[] = [
         icon: <Mail className="w-6 h-6" />
     },
 
-    // Founder Notes
-    {
-        id: 'founder-story',
-        title: 'Founder Story',
-        description: 'The journey and vision behind CoolDesk',
-        url: '/founder',
-        category: 'founder',
-        icon: <Target className="w-6 h-6" />
-    },
-
     // Preview Gallery
     // {
     //     id: 'preview-gallery',

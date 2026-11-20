@@ -61,7 +61,7 @@ WindowSill isn't a sidebar in the strict sense. It's a slim command bar for Wind
 
 ## CoolDesk (that's us)
 
-CoolDesk is a free project workspace for Mac and Windows, and its side dock is built around one idea: show what belongs to the work you're doing right now. Press **Ctrl+Shift+D** (⌘+Shift+D on Mac) to switch to the side dock. A slim handle sits on the left or right edge of the screen. Hover or click and a sidebar slides in over your apps with your workspaces, open tabs and notes. Click away and it tucks back to the edge, and nothing on your screen gets resized.
+CoolDesk is a free project workspace for Mac and Windows, and its side dock is built around one idea: show what belongs to the work you're doing right now. Press **Ctrl+Shift+D** (⌘+Shift+D on Mac) to switch to the [side dock](/sidebar). A slim handle sits on the left or right edge of the screen. Hover or click and a sidebar slides in over your apps with your workspaces, open tabs and notes. Click away and it tucks back to the edge, and nothing on your screen gets resized.
 
 Each workspace holds a project's links, apps, folders and files. Switch workspace and the sidebar fills with that project's things. Your browser tabs show up alongside your desktop apps. On a Mac the sidebar also works over full-screen apps and on whichever display your cursor is on.
 

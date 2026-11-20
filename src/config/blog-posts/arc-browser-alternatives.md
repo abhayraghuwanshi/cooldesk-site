@@ -88,8 +88,8 @@ Edge often gets overlooked, but it has vertical tabs, Workspaces for grouping ta
 CoolDesk isn't a browser replacement. It's a free project workspace for Mac, Windows and Linux that brings **Arc-style Spaces to the browser you already use**: Chrome, Edge or Brave. Each space holds a project's tabs and links, plus the desktop apps, folders, files and notes that go with it.
 
 - **Spaces without switching browsers.** Keep Chrome or Edge, with your extensions and logins, and still get one space per project.
-- **A sidebar, like Arc's.** Press **⌘+Shift+D** (Ctrl+Shift+D on Windows) for a side dock with your spaces, open tabs and notes. It slides in from the screen edge and works over any app.
-- **Find any tab.** **Alt+K** (Option+K on Mac) searches open tabs, history, bookmarks, apps and files together, and jumps to the tab if it's already open.
+- **A [sidebar](/sidebar), like Arc's.** Press **⌘+Shift+D** (Ctrl+Shift+D on Windows) for a side dock with your spaces, open tabs and notes. It slides in from the screen edge and works over any app.
+- **Find any tab.** **Alt+K** (Option+K on Mac) searches open tabs, history, bookmarks, apps and files together, and jumps to the tab if it's already open. [How the search works](/spotlight).
 
 **Moving from Arc:** export your Spaces as links from Arc's settings, open each Space's links in Chrome, Edge or Brave, and CoolDesk can sort open tabs into spaces for you.
 
@@ -107,7 +107,7 @@ CoolDesk isn't a browser replacement. It's a free project workspace for Mac, Win
 - **"I can't install a new browser at work"** → Edge
 - **"I want Arc's Spaces in Chrome, Edge or Brave, with my apps and files too"** → [CoolDesk](/)
 
-**Try CoolDesk free:** [download for Mac, Windows or Linux](/api/download). No account needed, and it takes about a minute to set up. For a detailed side-by-side, see [CoolDesk vs Arc](/vs/arc).
+**Try CoolDesk free:** [download for Mac, Windows or Linux](/api/download). No account needed, and it takes about a minute to set up. Or see [everything CoolDesk does](/features).
 
 ## FAQ
 
@@ -126,6 +126,6 @@ Yes. Arc's browser features are free in Dia, and its AI features are optional.
 **Can I keep using Chrome and still have Arc-style Spaces?**
 Yes. That's what CoolDesk does: project spaces on top of Chrome, Edge or Brave, plus a sidebar and one-shortcut tab search.
 
-Looking for a sidebar outside the browser? See [The Best Sidebar Apps for Mac and Windows](/blog/best-sidebar-apps-mac-windows). Or for tab tools, see [CoolDesk vs Chrome Tab Groups](/vs/chrome-tab-groups).
+Looking for a sidebar outside the browser? See [The Best Sidebar Apps for Mac and Windows](/blog/best-sidebar-apps-mac-windows). Or for tab tools, see [The Best New Tab Extensions](/blog/best-new-tab-extensions).
 
 Tags: arc browser alternative, arc browser shutting down, zen browser, helium browser, dia browser, productivity

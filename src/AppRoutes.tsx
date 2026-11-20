@@ -2,8 +2,6 @@ import { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import PrivacyPolicyStatic from "./components/privacy/PrivacyPolicyStatic";
 import Contact from "./pages/Contact";
-import FounderPage from "./pages/Founder";
-import GalleryPage from "./pages/Gallery";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import PricingPage from "./pages/Pricing";
@@ -56,9 +54,7 @@ export default function AppRoutes() {
             <Route path="/blog" element={<Navigate to="/resources" replace />} />
             <Route path="/library" element={<Navigate to="/" replace />} />
             <Route path="/search" element={<Navigate to="/" replace />} />
-            <Route path="/founder" element={<FounderPage />} />
             <Route path="/under-the-hood" element={<UnderTheHoodPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy-details" element={<PrivacyPolicyStatic />} />
             <Route path="/terms" element={<TermsPage />} />

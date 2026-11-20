@@ -36,11 +36,11 @@ Add the ticket board, the open PR, the docs pages and the staging URL to the sam
 
 ### 4. Keep the project one glance away
 
-Turn on the **bottom bar** or the **side dock** (Ctrl+Shift+D cycles the layouts, ⌘+Shift+D on Mac). The bar shows the current project's folders, apps and links, or everything you have open right now — your editor, terminals and browser tabs. One click opens or focuses each one. More on this in [The Best Dock and Sidebar Apps for Windows](/blog/best-dock-apps-windows).
+Turn on the **[bottom bar](/dock)** or the **[side dock](/sidebar)** (Ctrl+Shift+D cycles the layouts, ⌘+Shift+D on Mac). The bar shows the current project's folders, apps and links, or everything you have open right now — your editor, terminals and browser tabs. One click opens or focuses each one. More on this in [The Best Dock and Sidebar Apps for Windows](/blog/best-dock-apps-windows).
 
 ### 5. Jump with the keyboard
 
-Press **Alt+K** and type: "billing pr", "staging", "openapi". One search covers open tabs, history, bookmarks, apps, running windows and your workspaces — and jumps to the tab or window that's already open instead of opening a copy. See [Raycast alternatives for Windows](/blog/raycast-alternatives-windows) for how it compares to other launchers.
+Press **Alt+K** to open [Spotlight](/spotlight) and type: "billing pr", "staging", "openapi". One search covers open tabs, history, bookmarks, apps, running windows and your workspaces — and jumps to the tab or window that's already open instead of opening a copy. See [Raycast alternatives for Windows](/blog/raycast-alternatives-windows) for how it compares to other launchers.
 
 ### 6. Leave a note when you switch away
 
@@ -50,7 +50,7 @@ Before you jump to the urgent thing, write one line in the workspace's notes: "N
 
 - **VS Code workspaces and profiles** — great for editor settings and folder sets per project, but they stop at the editor.
 - **tmux / terminal sessions** — keep your shells per project; nothing for the browser.
-- **Browser workspaces (Workona, Arc Spaces, Chrome tab groups)** — keep the tabs per project, but not the repo or the editor. See our [Workona](/vs/workona) and [Arc](/vs/arc) comparisons.
+- **Browser workspaces (Workona, Arc Spaces, Chrome tab groups)** — keep the tabs per project, but not the repo or the editor. See our [Workona comparison](/vs/workona) and [Arc alternatives](/blog/arc-browser-alternatives).
 - **Window managers (FancyZones, Rectangle)** — arrange windows on screen, but don't know which windows belong to which project.
 
 These all work well *alongside* a project workspace. A good setup is CoolDesk for "what belongs to this project", plus your editor's workspaces and a window manager for layout.

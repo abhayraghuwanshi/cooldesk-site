@@ -97,7 +97,7 @@ CoolDesk is a free desktop app for **Windows, Mac and Linux**. It includes a [bu
 
 **How to do it:** flip the **Single | Multi** switch in the toolbar. All your open tabs sit side by side in a grid that fits the window. Drag the dividers to resize them. Focus mode (⌘⇧F) hides everything except the tabs.
 
-**What it's best at:** splitting more than web pages. In CoolDesk, a page, a **terminal**, a **folder**, a **file** (Markdown, JSON, CSV and more) and a **note** are all tabs. So multi view can put the docs next to the app you're building, a localhost page next to the terminal running it, or a dashboard next to your notes. Every other browser here can only split web pages. The side panel also keeps the project's open tabs, pinned links and clipboard history one click away. It's free and needs no account.
+**What it's best at:** splitting more than web pages. In CoolDesk, a page, a **[terminal](/shell)**, a **[folder](/file-manager)**, a **file** (Markdown, JSON, CSV and more) and a **note** are all tabs. So multi view can put the docs next to the app you're building, a localhost page next to the terminal running it, or a dashboard next to your notes. Every other browser here can only split web pages. The side panel also keeps the project's open tabs, pinned links and clipboard history one click away. It's free and needs no account.
 
 **Where others beat it:** it's not meant to replace your main browser. It runs on your computer's own web engine, so **Chrome extensions don't work**. It keeps its own sign-ins, so you log in to sites once inside CoolDesk. Ad blocking and page tools are Mac-only for now. If all you need is two web pages side by side, the split view already in your browser is the simpler choice.
 

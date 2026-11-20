@@ -69,8 +69,8 @@ HyperDock was the original Mac window-preview app, and it still turns up in olde
 CoolDesk is a free project workspace for Mac and Windows, and its dock is built around one idea: show what belongs to the work you're doing right now. **⌘+Shift+D** switches between three layouts:
 
 - **Full window**: the complete CoolDesk workspace view.
-- **Bottom bar**: a dock strip that sits above Apple's Dock. One view shows everything open right now (running apps *and* browser tabs). The other shows the current project's links, apps, folders and files. Drop a file from Finder onto the bar to add it to the project.
-- **Side dock**: a slim handle on the screen edge. Hover or click and a sidebar slides in with your workspaces, tabs and notes. It works over full-screen apps and on whichever display your cursor is on.
+- **[Bottom bar](/dock)**: a dock strip that sits above Apple's Dock. One view shows everything open right now (running apps *and* browser tabs). The other shows the current project's links, apps, folders and files. Drop a file from Finder onto the bar to add it to the project.
+- **[Side dock](/sidebar)**: a slim handle on the screen edge. Hover or click and a sidebar slides in with your workspaces, tabs and notes. It works over full-screen apps and on whichever display your cursor is on.
 
 Folder chips are developer-aware: they show the project's stack logo, the git branch and whether it has uncommitted changes, and when a dev server is running.
 

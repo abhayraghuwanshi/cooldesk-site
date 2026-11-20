@@ -8,6 +8,7 @@ import SectionBackdrop from '../components/new/SectionBackdrop';
 import SEO from '../components/SEO';
 import { trackEvent, useReadTracking, useSectionView } from '../lib/analytics';
 import { blogPosts, getBlogPostBySlug, getCategoryLabel } from '../config/blogs';
+import { featuresForGuide } from '../config/features';
 import { parsePost, slugify, type Tool } from '../lib/parsePost';
 import { comparisons } from './Versus';
 
@@ -170,6 +171,7 @@ export default function BlogPostPage() {
     const vsLinks = [...new Set([...post.content.matchAll(/\]\(\/vs\/([a-z0-9-]+)\)/g)].map((m) => m[1]))]
         .filter((s) => comparisons[s])
         .slice(0, 3);
+    const features = featuresForGuide(post.slug);
     const more = blogPosts.filter((b) => b.category !== 'comparisons' && b.id !== post.id).slice(0, 3);
 
     const jsonLd = [
@@ -333,6 +335,32 @@ export default function BlogPostPage() {
                                     <Md>{p.afterFaq}</Md>
                                 </div>
                             )}
+                        </section>
+                    )}
+
+                    {/* The CoolDesk features this post talks about */}
+                    {features.length > 0 && (
+                        <section aria-labelledby="bp-features" data-track-area="features" className="mt-14">
+                            <h2 id="bp-features" className="text-[13px] font-semibold uppercase tracking-widest text-white/45">CoolDesk features in this guide</h2>
+                            <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                                {features.map(({ slug, name, blurb, Icon }) => (
+                                    <li key={slug}>
+                                        <Link
+                                            to={slug}
+                                            onClick={() => trackEvent('blog_feature_link', { post: post.slug, to: slug })}
+                                            className="group flex h-full gap-3.5 rounded-2xl border border-white/10 bg-white/[0.02] p-4 transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+                                        >
+                                            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-sky-400/10 text-sky-300">
+                                                <Icon className="h-4 w-4" />
+                                            </span>
+                                            <span>
+                                                <span className="block text-[15px] font-semibold text-white">{name}</span>
+                                                <span className="mt-0.5 block text-[13.5px] leading-snug text-white/50">{blurb}</span>
+                                            </span>
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </section>
                     )}
 

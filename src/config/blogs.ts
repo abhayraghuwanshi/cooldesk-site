@@ -22,6 +22,7 @@ export type BlogCategory =
     | 'tips'
     | 'updates'
     | 'guides'
+    | 'best'
     | 'comparisons';
 
 // Import blog posts from markdown files.
@@ -35,6 +36,7 @@ import developerContextSwitchingContent from './blog-posts/developer-context-swi
 import bestNewTabExtensionsContent from './blog-posts/best-new-tab-extensions.md?raw';
 import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
 import splitScreenTabsContent from './blog-posts/split-screen-tabs-browser.md?raw';
+import bestClipboardManagersContent from './blog-posts/best-clipboard-managers.md?raw';
 
 // Parse markdown frontmatter and content
 // `date` is the real publish date (YYYY-MM-DD) — never derive it from the build time,
@@ -109,44 +111,15 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 }
 
 export const blogPosts: BlogPost[] = [
+    parseBlogPost(bestClipboardManagersContent, 'best-clipboard-managers', 'best', 'Clipboard', '2026-11-21'),
     parseBlogPost(splitScreenTabsContent, 'split-screen-tabs-browser', 'guides', 'Columns2', '2026-11-12'),
-    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'guides', 'Search', '2026-07-06', '2026-11-12'),
+    parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'best', 'Search', '2026-07-06', '2026-11-12'),
     parseBlogPost(developerContextSwitchingContent, 'developer-context-switching-setup', 'guides', 'Code', '2026-10-05'),
-    parseBlogPost(arcAlternativesContent, 'arc-browser-alternatives', 'guides', 'Globe', '2026-10-26'),
-    parseBlogPost(launchpadAlternativesContent, 'launchpad-alternatives-mac', 'guides', 'LayoutGrid', '2026-10-26'),
-    parseBlogPost(bestDockAppsMacContent, 'best-dock-apps-mac', 'guides', 'PanelBottom', '2026-10-26'),
-    parseBlogPost(bestSidebarAppsContent, 'best-sidebar-apps-mac-windows', 'guides', 'PanelRight', '2026-10-26'),
-    parseBlogPost(bestDockAppsContent, 'best-dock-apps-windows', 'guides', 'PanelBottom', '2026-10-04'),
-    comparisonCard(
-        'arc',
-        'CoolDesk vs Arc Browser Spaces — An Honest Comparison',
-        'Arc\'s Spaces made project-based browsing popular. CoolDesk brings project workspaces to the browser you already use — plus your desktop apps, files and notes. An honest comparison.',
-        '2026-09-27',
-    ),
-    comparisonCard(
-        'flow-launcher',
-        'CoolDesk vs Flow Launcher — An Honest Comparison',
-        'Flow Launcher is a fast, free, open-source launcher for Windows. CoolDesk is a free launcher built around your projects, with browser tabs as first-class results. An honest comparison.',
-        '2026-09-27',
-    ),
-    comparisonCard(
-        'chrome-tab-groups',
-        'CoolDesk vs Chrome Tab Groups — An Honest Comparison',
-        'Chrome\'s tab groups are the easy way to tidy a tab bar. CoolDesk turns groups into project workspaces with your apps, notes and one-keystroke search. An honest comparison.',
-        '2026-09-27',
-    ),
-    comparisonCard(
-        'onetab',
-        'CoolDesk vs OneTab — An Honest Comparison',
-        'OneTab collapses your tabs into a list to save memory. CoolDesk organises them into project workspaces you can search and reopen — along with your apps and notes. An honest comparison.',
-        '2026-09-27',
-    ),
-    comparisonCard(
-        'session-buddy',
-        'CoolDesk vs Session Buddy — An Honest Comparison',
-        'Session Buddy saves and restores browser sessions. CoolDesk saves whole projects — tabs, apps, files and notes — and finds any of them with one keystroke. An honest comparison.',
-        '2026-09-27',
-    ),
+    parseBlogPost(arcAlternativesContent, 'arc-browser-alternatives', 'best', 'Globe', '2026-10-26'),
+    parseBlogPost(launchpadAlternativesContent, 'launchpad-alternatives-mac', 'best', 'LayoutGrid', '2026-10-26'),
+    parseBlogPost(bestDockAppsMacContent, 'best-dock-apps-mac', 'best', 'PanelBottom', '2026-10-26'),
+    parseBlogPost(bestSidebarAppsContent, 'best-sidebar-apps-mac-windows', 'best', 'PanelRight', '2026-10-26'),
+    parseBlogPost(bestDockAppsContent, 'best-dock-apps-windows', 'best', 'PanelBottom', '2026-10-04'),
     comparisonCard(
         'workona',
         'CoolDesk vs Workona — An Honest Comparison',
@@ -171,7 +144,7 @@ export const blogPosts: BlogPost[] = [
         'Alfred is a Mac classic with powerful workflows. CoolDesk is a free launcher for Windows and Mac, built around your projects. An honest comparison — including when to pick Alfred.',
         '2026-07-05',
     ),
-    parseBlogPost(bestNewTabExtensionsContent, 'best-new-tab-extensions', 'guides', 'Layout', '2026-08-29', '2026-10-04'),
+    parseBlogPost(bestNewTabExtensionsContent, 'best-new-tab-extensions', 'best', 'Layout', '2026-08-29', '2026-10-04'),
 ];
 
 export const getCategoryLabel = (category: BlogCategory): string => {
@@ -181,6 +154,7 @@ export const getCategoryLabel = (category: BlogCategory): string => {
         tips: 'Tips & Tricks',
         updates: 'Updates',
         guides: 'Guides',
+        best: 'Best apps',
         comparisons: 'Comparisons'
     };
     return labels[category];

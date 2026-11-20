@@ -6,12 +6,12 @@ export const comparisonGroups: { title: string; blurb: string; slugs: string[] }
     {
         title: "Launchers",
         blurb: "Keyboard launchers that open apps and files fast.",
-        slugs: ["raycast", "alfred", "spotlight", "powertoys", "flow-launcher"],
+        slugs: ["raycast", "alfred", "spotlight"],
     },
     {
         title: "Browser workspaces & tab managers",
         blurb: "Tools that organise, save and restore your tabs.",
-        slugs: ["workona", "arc", "toby", "onetab", "session-buddy", "chrome-tab-groups"],
+        slugs: ["workona", "toby"],
     },
     {
         title: "New tab pages",

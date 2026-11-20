@@ -34,37 +34,37 @@
     },
     {
       "source": "/blog/the-hidden-cost-of-tab-hoarding",
-      "destination": "/vs/onetab",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
       "source": "/blog/bookmarks-vs-recall",
-      "destination": "/vs/onetab",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
       "source": "/blog/saving-vs-owning",
-      "destination": "/vs/onetab",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
       "source": "/blog/magic-of-browser-autosave",
-      "destination": "/vs/session-buddy",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
       "source": "/blog/fighting-browser-amnesia",
-      "destination": "/vs/session-buddy",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
       "source": "/blog/tabs-to-traces",
-      "destination": "/vs/session-buddy",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
       "source": "/blog/save-for-later-fail",
-      "destination": "/vs/session-buddy",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
@@ -109,7 +109,47 @@
     },
     {
       "source": "/blog/organize-browser-tabs-by-project",
-      "destination": "/vs/chrome-tab-groups",
+      "destination": "/blog/best-new-tab-extensions",
+      "type": 301
+    },
+    {
+      "source": "/founder",
+      "destination": "/",
+      "type": 301
+    },
+    {
+      "source": "/gallery",
+      "destination": "/features",
+      "type": 301
+    },
+    {
+      "source": "/vs/flow-launcher",
+      "destination": "/blog/raycast-alternatives-windows",
+      "type": 301
+    },
+    {
+      "source": "/vs/arc",
+      "destination": "/blog/arc-browser-alternatives",
+      "type": 301
+    },
+    {
+      "source": "/vs/session-buddy",
+      "destination": "/blog/best-new-tab-extensions",
+      "type": 301
+    },
+    {
+      "source": "/vs/powertoys",
+      "destination": "/blog/raycast-alternatives-windows",
+      "type": 301
+    },
+    {
+      "source": "/vs/onetab",
+      "destination": "/blog/best-new-tab-extensions",
+      "type": 301
+    },
+    {
+      "source": "/vs/chrome-tab-groups",
+      "destination": "/blog/best-new-tab-extensions",
       "type": 301
     },
     {
@@ -139,14 +179,6 @@
     },
     {
       "source": "/blog/**",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/founder",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/gallery",
       "destination": "/index.html"
     },
     {

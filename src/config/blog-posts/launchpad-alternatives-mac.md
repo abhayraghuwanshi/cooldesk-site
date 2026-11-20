@@ -63,8 +63,8 @@ Many Mac power users never touched Launchpad, because a keyboard launcher is fas
 
 CoolDesk is a free project workspace for Mac and Windows. It isn't a Launchpad clone. It gives you two ways to get to your apps:
 
-- **Option+K** opens a search that covers installed apps, running windows, open browser tabs, history, bookmarks and files. If the thing you want is already open, it jumps to it instead of opening a copy.
-- **Spaces** group a project's apps, folders, links and notes together. Switch project and the bottom bar or side dock (**⌘+Shift+D**) fills with that project's apps, folders and links.
+- **Option+K** opens a [search](/spotlight) that covers installed apps, running windows, open browser tabs, history, bookmarks and files. If the thing you want is already open, it jumps to it instead of opening a copy.
+- **Spaces** group a project's apps, folders, links and notes together. Switch project and the bottom bar or side dock (**⌘+Shift+D**) fills with that project's apps, folders and links. See the [dock](/dock) and [sidebar](/sidebar).
 
 **What it's best at:** context. Launchpad, LaunchOS and Apps show *every* app, sorted by name or by hand. CoolDesk shows the apps that belong to what you're working on, alongside your browser tabs and files. It's free, needs no account, and keeps everything on your device.
 

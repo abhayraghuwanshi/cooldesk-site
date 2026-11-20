@@ -64,7 +64,7 @@ OneTab does one thing: one click collapses every open tab into a list, freeing m
 
 **What it's best at:** instant relief from tab overload. Free, no account, nothing to learn.
 
-**Where others beat it:** the list just grows. There's no grouping by project and finding something later means scrolling. It doesn't replace your new tab, so pair it with one that does. [CoolDesk vs OneTab →](/vs/onetab)
+**Where others beat it:** the list just grows. There's no grouping by project and finding something later means scrolling. It doesn't replace your new tab, so pair it with one that does.
 
 ### Session Buddy
 
@@ -72,7 +72,7 @@ Session Buddy saves your open windows and tabs as sessions you can search and re
 
 **What it's best at:** crash recovery and "save everything right now." Free, no account.
 
-**Where others beat it:** a session is a snapshot of whatever happened to be open, not a project you shape over time. [CoolDesk vs Session Buddy →](/vs/session-buddy)
+**Where others beat it:** a session is a snapshot of whatever happened to be open, not a project you shape over time.
 
 ### Chrome tab groups (built in)
 
@@ -80,7 +80,7 @@ Not an extension at all — Chrome lets you color-label groups of tabs, collapse
 
 **What it's best at:** zero install, zero learning curve. For many people it's enough.
 
-**Where others beat it:** you drag tabs into groups by hand, groups only hold tabs, and there's no search across them. [CoolDesk vs Chrome tab groups →](/vs/chrome-tab-groups)
+**Where others beat it:** you drag tabs into groups by hand, groups only hold tabs, and there's no search across them.
 
 ## Workspaces: hold a whole project
 
@@ -94,7 +94,7 @@ Workona defined the browser workspace: spaces that hold your tabs, docs and task
 
 ### CoolDesk (that's us)
 
-CoolDesk treats the new tab as a project, not a dashboard. Tabs, desktop apps, links, files and notes are grouped per project, and one spotlight search (Alt+K) covers all of it — open tabs, history, bookmarks, notes and running apps, including things you never saved. Its AI can sort your open tabs into projects for you.
+CoolDesk treats the [new tab](/new-tab) as a project, not a dashboard. Tabs, desktop apps, links, files and notes are grouped per project, and one [spotlight search](/spotlight) (Alt+K) covers all of it — open tabs, history, bookmarks, notes and running apps, including things you never saved. Its AI can sort your open tabs into projects for you.
 
 **What it's best at:** context. Switch projects and the whole working set comes back together, not just the tabs. It's free with no caps, needs no account, and keeps everything on your device.
 

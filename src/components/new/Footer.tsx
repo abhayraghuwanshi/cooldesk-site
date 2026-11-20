@@ -68,13 +68,7 @@ export default function Footer() {
                 { label: 'CoolDesk vs Raycast', href: '/vs/raycast' },
                 { label: 'CoolDesk vs Alfred', href: '/vs/alfred' },
                 { label: 'CoolDesk vs Spotlight', href: '/vs/spotlight' },
-                { label: 'CoolDesk vs PowerToys', href: '/vs/powertoys' },
                 { label: 'CoolDesk vs Momentum', href: '/vs/momentum' },
-                { label: 'CoolDesk vs Flow Launcher', href: '/vs/flow-launcher' },
-                { label: 'CoolDesk vs Arc', href: '/vs/arc' },
-                { label: 'CoolDesk vs OneTab', href: '/vs/onetab' },
-                { label: 'CoolDesk vs Session Buddy', href: '/vs/session-buddy' },
-                { label: 'CoolDesk vs Chrome Tab Groups', href: '/vs/chrome-tab-groups' },
                 { label: 'All comparisons', href: '/vs' },
               ].map((link) => (
                 <li key={link.href}>
@@ -100,7 +94,6 @@ export default function Footer() {
                 { label: 'Getting started', href: '/getting-started' },
                 { label: 'Release Notes', href: '/releases' },
                 { label: 'Under the Hood', href: '/under-the-hood' },
-                { label: 'Founder Story', href: '/founder' },
                 { label: 'Contact Us', href: '/contact' },
                 { label: 'Privacy Policy', href: '/privacy-details' },
                 { label: 'Terms of Service', href: '/terms' },

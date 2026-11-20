@@ -4,6 +4,7 @@ import PageIndex, { type IndexItem } from "@/components/new/PageIndex";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import Shot from "@/components/new/Shot";
 import SEO from "@/components/SEO";
+import { blogPosts } from "@/config/blogs";
 import { FEATURES } from "@/config/features";
 import type { Shot as ShotData } from "@/config/shots";
 import { trackEvent, useSectionView } from "@/lib/analytics";
@@ -75,7 +76,32 @@ function Download({ label = "Download free" }: { label?: string }) {
 
 /** The other feature pages, as a grid of cards. Used here and on /new-tab, /browser. */
 export function MoreFeatures({ current, page }: { current: string; page: string }) {
+    const guides = (FEATURES.find((f) => f.slug === current)?.guides ?? [])
+        .map((slug) => blogPosts.find((b) => b.slug === slug && !b.href))
+        .filter((b): b is NonNullable<typeof b> => !!b);
     return (
+        <>
+        {guides.length > 0 && (
+            <nav aria-labelledby="guides-h" data-track-area="guides" className="mt-14">
+                <h2 id="guides-h" className="text-[13px] font-semibold uppercase tracking-widest text-white/45">
+                    Guides
+                </h2>
+                <ul className="mt-4 space-y-2">
+                    {guides.map((b) => (
+                        <li key={b.slug}>
+                            <Link
+                                to={`/blog/${b.slug}`}
+                                onClick={() => trackEvent("feature_guide_link", { page_type: page, to: b.slug })}
+                                className="group flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.02] px-4 py-3.5 transition-colors hover:border-white/25 hover:bg-white/[0.04]"
+                            >
+                                <span className="text-[15px] font-semibold text-white">{b.title}</span>
+                                <ArrowRight className="h-4 w-4 shrink-0 text-white/40 transition-transform group-hover:translate-x-0.5" />
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        )}
         <nav aria-labelledby="more-features-h" data-track-area="more_features" className="mt-14">
             <h2 id="more-features-h" className="text-[13px] font-semibold uppercase tracking-widest text-white/45">
                 More in CoolDesk
@@ -100,6 +126,7 @@ export function MoreFeatures({ current, page }: { current: string; page: string 
                 ))}
             </ul>
         </nav>
+        </>
     );
 }
 

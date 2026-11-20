@@ -142,7 +142,7 @@ CoolDesk is a free, open-source launcher for **Windows, macOS and Linux** with a
 
 **Where others beat it:** maturity and breadth. We're one of the youngest tools here. Flow Launcher and Alfred have a plugin or workflow for everything; we don't have a plugin store. Command Palette and Spotlight have Microsoft and Apple behind them; we're an indie project. Fluent Search's screen search has no equivalent in CoolDesk, and Listary's file-dialog integration is unique and we don't do it. And we don't have text expansion — if that's core to your workflow, pair CoolDesk with one of the tools above (they coexist happily; different hotkeys).
 
-For a deeper head-to-head with Raycast itself, see [CoolDesk vs Raycast](/vs/raycast).
+To see what the search covers, read about [CoolDesk Spotlight](/spotlight). For a deeper head-to-head with Raycast itself, see [CoolDesk vs Raycast](/vs/raycast).
 
 ## What about Raycast for Windows?
 
@@ -202,6 +202,6 @@ Yes — just give them different hotkeys. A common setup is a launcher for apps 
 
 Whichever you choose, the real upgrade is the habit: one keystroke instead of hunting through menus and forty tabs. Every tool on this list delivers that. The differences are about what happens *after* the keystroke.
 
-Want a dock or a slide-out sidebar too? See [The Best Dock and Sidebar Apps for Windows](/blog/best-dock-apps-windows) and [the best dock apps for Mac](/blog/best-dock-apps-mac).
+Want a dock or a slide-out sidebar too? See [The Best Dock and Sidebar Apps for Windows](/blog/best-dock-apps-windows) and [the best dock apps for Mac](/blog/best-dock-apps-mac). Need a clipboard history? See [the best clipboard managers](/blog/best-clipboard-managers).
 
 Tags: raycast alternative, windows launcher, mac launcher, linux launcher, app launcher, spotlight search, productivity
