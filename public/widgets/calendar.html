@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Calendar — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <style>
   .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; flex: 1; }
   .cal .h { font-family: ui-monospace, monospace; font-size: 9px; letter-spacing: .1em; color: var(--muted); text-align: center; text-transform: uppercase; align-self: center; }
@@ -23,42 +23,7 @@
   </div>
   <div class="cal" id="cal"></div>
 </main>
-<script>
-  var view = new Date();
-  view.setDate(1);
-  function render() {
-    var cal = document.getElementById("cal");
-    cal.innerHTML = "";
-    ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].forEach(function (d) {
-      var el = document.createElement("div");
-      el.className = "h";
-      el.textContent = d;
-      cal.appendChild(el);
-    });
-    document.getElementById("title").textContent =
-      view.toLocaleDateString("en-US", { month: "long", year: "numeric" });
-    var firstDow = (view.getDay() + 6) % 7; // Monday-start
-    var daysInMonth = new Date(view.getFullYear(), view.getMonth() + 1, 0).getDate();
-    var daysInPrev = new Date(view.getFullYear(), view.getMonth(), 0).getDate();
-    var today = new Date();
-    var isThisMonth = today.getFullYear() === view.getFullYear() && today.getMonth() === view.getMonth();
-    var cells = Math.ceil((firstDow + daysInMonth) / 7) * 7;
-    for (var i = 0; i < cells; i++) {
-      var el = document.createElement("div");
-      var n = i - firstDow + 1;
-      el.className = "d";
-      if (n < 1) { el.textContent = daysInPrev + n; el.className += " dim"; }
-      else if (n > daysInMonth) { el.textContent = n - daysInMonth; el.className += " dim"; }
-      else {
-        el.textContent = n;
-        if (isThisMonth && n === today.getDate()) el.className += " today";
-      }
-      cal.appendChild(el);
-    }
-  }
-  document.getElementById("prev").onclick = function () { view.setMonth(view.getMonth() - 1); render(); };
-  document.getElementById("next").onclick = function () { view.setMonth(view.getMonth() + 1); render(); };
-  render();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="calendar.js?v=5"></script>
 </body>
 </html>

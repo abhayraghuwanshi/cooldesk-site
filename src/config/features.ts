@@ -18,7 +18,7 @@ export type Feature = {
 };
 
 export const FEATURES: Feature[] = [
-    { slug: "/spotlight", name: "Spotlight", job: "Launchers", blurb: "Alt+K for any tab, page, app, file or workspace.", Icon: Search, guides: ["raycast-alternatives-windows", "launchpad-alternatives-mac", "developer-context-switching-setup"] },
+    { slug: "/spotlight", name: "Spotlight", job: "Launchers", blurb: "Alt+K for any tab, page, app, file or workspace.", Icon: Search, guides: ["raycast-alternatives-windows", "flow-launcher-vs-powertoys-vs-raycast", "alfred-alternatives-windows", "launchpad-alternatives-mac", "developer-context-switching-setup"] },
     { slug: "/sidebar", name: "Sidebar", job: "Sidebars", blurb: "Your project beside your work, tucked to the screen edge.", Icon: PanelRight, guides: ["best-sidebar-apps-mac-windows", "arc-browser-alternatives", "developer-context-switching-setup"] },
     { slug: "/dock", name: "Dock", job: "Docks", blurb: "A slim bar of a project’s links and apps along the bottom.", Icon: PanelBottom, guides: ["best-dock-apps-windows", "best-dock-apps-mac", "launchpad-alternatives-mac"] },
     { slug: "/browser", name: "Browser", job: "Browsers", blurb: "A project’s pages next to its notes, files and terminal.", Icon: Globe, guides: ["split-screen-tabs-browser", "arc-browser-alternatives"] },

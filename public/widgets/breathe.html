@@ -4,18 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Breathe — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
+<link rel="stylesheet" href="base.css?v=12">
 <style>
   .orb {
-    width: 90px; height: 90px; border-radius: 50%;
-    border: 2px solid var(--accent);
-    background: color-mix(in srgb, var(--accent) 12%, transparent);
-    transition: transform 3.8s ease-in-out;
-    transform: scale(0.6);
+    width: 108px; height: 108px; border-radius: 50%;
+    background:
+      radial-gradient(circle at 35% 30%, rgba(255,255,255,.55), transparent 42%),
+      radial-gradient(circle, color-mix(in srgb, var(--accent) 75%, transparent) 0%, color-mix(in srgb, var(--accent) 28%, transparent) 62%, transparent 72%);
+    box-shadow: 0 0 36px color-mix(in srgb, var(--accent) 40%, transparent);
+    transition: transform 3.8s ease-in-out, box-shadow 3.8s ease-in-out;
+    transform: scale(0.62);
   }
-  .orb.in { transform: scale(1); }
+  .orb.in { transform: scale(1); box-shadow: 0 0 60px color-mix(in srgb, var(--accent) 55%, transparent); }
 </style>
-<script src="/widgets/cooldesk.js?v=4"></script>
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget" style="align-items:center;justify-content:center;gap:14px">
@@ -23,27 +25,7 @@
   <span class="label" id="phase">Box breathing · 4-4-4-4</span>
   <button id="toggle">Start</button>
 </main>
-<script>
-  // Box breathing: inhale 4s, hold 4s, exhale 4s, hold 4s.
-  var PHASES = [["Breathe in", true], ["Hold", true], ["Breathe out", false], ["Hold", false]];
-  var running = false, step = 0, timer = null;
-  var orb = document.getElementById("orb"), phase = document.getElementById("phase");
-  function advance() {
-    var p = PHASES[step % 4];
-    phase.textContent = p[0];
-    orb.className = "orb" + (p[1] ? " in" : "");
-    step++;
-  }
-  document.getElementById("toggle").onclick = function () {
-    running = !running;
-    this.textContent = running ? "Stop" : "Start";
-    if (running) { step = 0; advance(); timer = setInterval(advance, 4000); }
-    else {
-      clearInterval(timer);
-      orb.className = "orb";
-      phase.textContent = "Box breathing · 4-4-4-4";
-    }
-  };
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="breathe.js?v=5"></script>
 </body>
 </html>

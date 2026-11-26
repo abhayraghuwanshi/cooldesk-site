@@ -3,7 +3,6 @@ import { CHROME_STORE, site } from "@/config/site";
 import { getSourcePage } from "@/lib/analytics";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
-import StatsSlideshow from "./StatsSlideshow";
 import WhichOne from "./WhichOne";
 
 // Extension lives on the Chrome Web Store and auto-updates there, so no version is shown.
@@ -126,164 +125,165 @@ function Downloads() {
     mac: { href: release.mac, label: "Download for macOS", detail: `v${version} · Apple Silicon (.dmg)`, target: "macos_installer", method: "direct_dmg" },
     linux: { href: release.linux, label: "Download for Linux", detail: `v${version} · AppImage, runs on any distro`, target: "linux_installer", method: "direct_appimage" },
   };
-  const p = primary[os];
+  const detectedLabel = OS_TABS.find((t) => t.key === os)?.label ?? "Windows";
 
   return (
     <section
-      className="py-20 relative"
+      className="relative py-20"
       data-gtm-section={DOWNLOADS_SECTION}
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 mx-auto h-[420px] max-w-4xl rounded-full bg-sky-500/[0.08] blur-3xl" />
       <div className="container mx-auto px-6">
-        <div>
+        <div className="mx-auto max-w-5xl">
 
-          {/* Header */}
-          <div className="mb-8 max-w-xl">
-            <div className="flex items-baseline gap-3 mb-2">
-              <h2 className="heading-2">{site.downloads.heading}</h2>
+          {/* Centered header */}
+          <div className="text-center">
+            <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-sky-300/70">Download</p>
+            <h2 className="mt-3 heading-2">{site.downloads.heading}</h2>
+            <p className="mx-auto mt-3 max-w-2xl body-lg">{site.downloads.blurb}</p>
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs text-white/45">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                Free &amp; open source
+              </span>
+              <span>No account</span>
+              <span>Windows · macOS · Linux</span>
               {site.downloads.desktop && (
-                <span className="text-sm text-txt-muted font-mono">v{version}</span>
+                <span className="rounded-full border border-white/15 bg-white/[0.04] px-2.5 py-0.5 font-mono text-white/55">v{version}</span>
               )}
             </div>
-            <p className="body-lg">
-              {site.downloads.blurb}
-            </p>
           </div>
 
-          {/* Merged panel: community + latest release | downloads, then "which one" across both */}
-          <div className="rounded-2xl border border-white/15 overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-white/15">
+          {/* Three platform cards — all visible at once, detected one highlighted */}
+          {site.downloads.desktop && (
+            <div className="mt-10 grid gap-4 md:grid-cols-3">
+              {OS_TABS.map(({ key, label, Icon }) => {
+                const info = primary[key];
+                const active = os === key;
+                return (
+                  <div
+                    key={key}
+                    className={`relative flex flex-col rounded-2xl border p-5 transition-colors ${active ? "border-sky-400/40 bg-sky-400/[0.05]" : "border-white/10 bg-white/[0.02] hover:border-white/20"}`}
+                  >
+                    {active && (
+                      <span className="absolute right-4 top-4 rounded-full bg-sky-400/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-sky-300">
+                        Your system
+                      </span>
+                    )}
+                    <div className={`flex h-11 w-11 items-center justify-center rounded-xl border ${active ? "border-sky-400/30 bg-sky-400/10 text-sky-200" : "border-white/10 bg-white/5 text-white/70"}`}>
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <p className="mt-4 text-[15px] font-semibold text-white">{label}</p>
+                    <p className="mt-1 flex-1 text-xs leading-relaxed text-white/40">
+                      {info.detail}
+                      {key === "mac" && <span className="mt-1 block text-amber-300/80">Not notarized yet — fix below.</span>}
+                    </p>
+                    <a
+                      href={info.href}
+                      download
+                      onClick={() => trackDownloadClick({ download_target: info.target, download_platform: key, download_version: version, download_method: info.method })}
+                      data-gtm-element="download-cta"
+                      data-gtm-action="click"
+                      data-gtm-section={DOWNLOADS_SECTION}
+                      data-gtm-target={info.target}
+                      data-gtm-platform={key}
+                      data-gtm-version={version}
+                      data-gtm-method={info.method}
+                      className={`mt-5 inline-flex items-center justify-between gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all ${active ? "bg-white text-black hover:-translate-y-0.5 hover:shadow-[0_12px_30px_-10px_rgba(56,189,248,0.6)]" : "border border-white/15 text-white hover:bg-white/[0.06]"}`}
+                    >
+                      Download
+                      <DownloadIcon className="h-4 w-4" />
+                    </a>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
-              {/* Community column */}
-              <div className="bg-white/[0.015] order-2 lg:order-1">
-                <StatsSlideshow />
-              </div>
+          {/* The macOS "damaged" fix, shown rather than buried: it is the
+              first thing a new Mac user hits because the app isn't notarized. */}
+          {site.downloads.desktop && os === "mac" && (
+            <div className="mt-4 rounded-2xl border border-amber-300/25 bg-amber-300/[0.06] p-5">
+              <p className="text-sm font-semibold text-amber-200">macOS says the app is damaged?</p>
+              <p className="mt-1 text-xs leading-relaxed text-white/55">
+                It isn’t — the build just isn’t notarized yet. After installing, run this once in Terminal to clear the quarantine flag:
+              </p>
+              <CommandBox command={QUARANTINE_COMMAND} copied={copied === QUARANTINE_COMMAND} onCopy={() => copy(QUARANTINE_COMMAND, "quarantine_command", "macos", "xattr")} />
+            </div>
+          )}
 
-              {/* Download column */}
-              <div className="order-1 lg:order-2">
-
-                {site.downloads.desktop && (
+          {/* Package-manager install, folded away */}
+          {site.downloads.desktop && (
+            <details className="group mt-4 rounded-2xl border border-white/10 bg-black/20">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-5 py-3.5 text-[13px] font-medium text-white/60 transition-colors hover:text-white/90">
+                <span>Install with a package manager <span className="text-white/35">({detectedLabel})</span></span>
+                <svg className="h-4 w-4 shrink-0 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 9l6 6 6-6" />
+                </svg>
+              </summary>
+              <div className="border-t border-white/10 px-5 pb-5 pt-4">
+                {os === "windows" && (
                   <>
-                    <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/15">
-                      <p className="label">Desktop app</p>
-                    </div>
-
-                    <div className="p-5 border-b border-white/15">
-                      {/* OS picker — preselected from the visitor's system */}
-                      <div role="tablist" aria-label="Operating system" className="grid grid-cols-3 gap-1 p-1 rounded-xl bg-white/[0.04] border border-white/10">
-                        {OS_TABS.map(({ key, label, Icon }) => (
-                          <button
-                            key={key}
-                            type="button"
-                            role="tab"
-                            aria-selected={os === key}
-                            onClick={() => {
-                              setOs(key);
-                              trackDownloadEvent("download_os_select", { action: "select", download_platform: key });
-                            }}
-                            className={`inline-flex items-center justify-center gap-2 rounded-lg py-2 text-sm font-semibold transition-colors ${os === key ? "bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]" : "text-white/50 hover:text-white/80"}`}
-                          >
-                            <Icon className="w-4 h-4" />
-                            {label}
-                          </button>
-                        ))}
-                      </div>
-
-                      {/* Main download */}
-                      <a
-                        href={p.href}
-                        download
-                        onClick={() => trackDownloadClick({ download_target: p.target, download_platform: os, download_version: version, download_method: p.method })}
-                        data-gtm-element="download-cta"
-                        data-gtm-action="click"
-                        data-gtm-section={DOWNLOADS_SECTION}
-                        data-gtm-target={p.target}
-                        data-gtm-platform={os}
-                        data-gtm-version={version}
-                        data-gtm-method={p.method}
-                        className="group mt-4 flex items-center justify-between gap-4 rounded-xl bg-white px-5 py-3.5 text-black transition-transform hover:-translate-y-px shadow-[0_8px_30px_rgba(56,189,248,0.18)]"
-                      >
-                        <span className="min-w-0">
-                          <span className="block text-[15px] font-semibold">{p.label}</span>
-                          <span className="block text-xs text-black/55 mt-0.5 truncate">{p.detail}</span>
-                        </span>
-                        <DownloadIcon className="w-5 h-5 shrink-0" />
-                      </a>
-
-                      {/* One secondary option per OS */}
-                      <div className="mt-4">
-                        {os === "windows" && (
-                          <>
-                            <p className="caption">Or install with winget</p>
-                            <CommandBox command={WINGET_COMMAND} copied={copied === WINGET_COMMAND} onCopy={() => copy(WINGET_COMMAND, "winget_command", "windows", "winget")} />
-                          </>
-                        )}
-                        {os === "mac" && (
-                          <>
-                            <p className="caption">Or install with Homebrew (tap, trust, install)</p>
-                            <CommandBox command={BREW_COMMAND} copied={copied === BREW_COMMAND} onCopy={() => copy(BREW_COMMAND, "brew_command", "macos", "homebrew")} />
-                            <p className="caption leading-relaxed mt-3">
-                              <span className="text-amber-300/90 font-medium">Not notarized yet.</span> Using the DMG and macOS
-                              says the app is damaged? Run this in Terminal:
-                            </p>
-                            <CommandBox command={QUARANTINE_COMMAND} copied={copied === QUARANTINE_COMMAND} onCopy={() => copy(QUARANTINE_COMMAND, "quarantine_command", "macos", "xattr")} />
-                          </>
-                        )}
-                        {os === "linux" && (
-                          <p className="caption">Make it executable (<code className="font-mono">chmod +x</code>) and run it.</p>
-                        )}
-                      </div>
-                    </div>
+                    <p className="caption">Or install with winget</p>
+                    <CommandBox command={WINGET_COMMAND} copied={copied === WINGET_COMMAND} onCopy={() => copy(WINGET_COMMAND, "winget_command", "windows", "winget")} />
                   </>
                 )}
-
-                {/* Browser section */}
-                <div className="px-5 py-2.5 bg-white/[0.03] border-b border-white/15">
-                  <p className="label">Browser extension</p>
-                </div>
-
-                <a
-                  href={EXTENSION_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() =>
-                    trackDownloadClick({
-                      download_target: "browser_extension",
-                      download_platform: "chrome",
-                      download_version: "store",
-                      download_method: "chrome_web_store",
-                    })
-                  }
-                  data-gtm-element="download-cta"
-                  data-gtm-action="click"
-                  data-gtm-section={DOWNLOADS_SECTION}
-                  data-gtm-target="browser_extension"
-                  data-gtm-platform="chrome"
-                  data-gtm-version="store"
-                  data-gtm-method="chrome_web_store"
-                  className="flex items-center gap-3 sm:gap-4 px-4 sm:px-5 py-4 hover:bg-white/[0.04] transition-colors group"
-                >
-                  <div className="w-9 h-9 rounded-lg bg-white/5 border border-white/15 flex items-center justify-center shrink-0">
-                    <ExtensionIcon className="w-5 h-5 text-blue-400" />
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="heading-5">New tab extension</p>
-                    <p className="caption mt-0.5">Chrome, Edge, Brave · updates itself</p>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 group-hover:text-blue-300 transition-colors shrink-0">
-                    Add to Chrome
-                    <svg className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </span>
-                </a>
-
+                {os === "mac" && (
+                  <>
+                    <p className="caption">Or install with Homebrew (tap, trust, install)</p>
+                    <CommandBox command={BREW_COMMAND} copied={copied === BREW_COMMAND} onCopy={() => copy(BREW_COMMAND, "brew_command", "macos", "homebrew")} />
+                  </>
+                )}
+                {os === "linux" && (
+                  <p className="caption">Make it executable (<code className="font-mono">chmod +x</code>) and run it.</p>
+                )}
               </div>
+            </details>
+          )}
 
+          {/* Browser extension banner */}
+          <a
+            href={EXTENSION_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() =>
+              trackDownloadClick({
+                download_target: "browser_extension",
+                download_platform: "chrome",
+                download_version: "store",
+                download_method: "chrome_web_store",
+              })
+            }
+            data-gtm-element="download-cta"
+            data-gtm-action="click"
+            data-gtm-section={DOWNLOADS_SECTION}
+            data-gtm-target="browser_extension"
+            data-gtm-platform="chrome"
+            data-gtm-version="store"
+            data-gtm-method="chrome_web_store"
+            className="group mt-4 flex flex-col gap-4 rounded-2xl border border-white/10 bg-gradient-to-r from-blue-500/[0.09] via-white/[0.02] to-purple-500/[0.09] p-5 transition-colors hover:border-blue-400/40 sm:flex-row sm:items-center"
+          >
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-400/25 bg-blue-400/10 text-blue-300">
+              <ExtensionIcon className="h-5 w-5" />
             </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-[15px] font-semibold text-white">New tab extension</p>
+              <p className="mt-0.5 text-xs text-white/45">Chrome, Edge, Brave · updates itself · free</p>
+            </div>
+            <span className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform group-hover:-translate-y-0.5">
+              Add to Chrome
+              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </a>
 
-            {/* Full width under both columns: extension vs app vs both */}
-            {site.downloads.desktop && <WhichOne />}
-          </div>
+          {/* Full width under both: extension vs app vs both */}
+          {site.downloads.desktop && (
+            <div className="mt-4 overflow-hidden rounded-2xl border border-white/10">
+              <WhichOne />
+            </div>
+          )}
 
           {/* Tip */}
           <p className="caption text-center mt-5">

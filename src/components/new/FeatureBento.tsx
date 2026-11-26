@@ -1,7 +1,8 @@
 import { FEATURES } from "@/config/features";
 import { trackEvent, useSectionView } from "@/lib/analytics";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight, LayoutGrid, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
+import { WIDGET_VERSION } from "./WidgetDemo";
 
 /**
  * Every feature as a bento grid, each tile a link to its page. Used on the
@@ -26,6 +27,8 @@ const TILE_BG = "#0d1017"; // must match the colour the bento crops were flatten
 type Tile = {
     slug: string;
     title?: string;
+    /** For tiles with no entry in config/features.ts (e.g. /widgets). */
+    icon?: typeof Sparkles;
     text: string;
     span: string;
     accent: string;
@@ -37,89 +40,65 @@ type Tile = {
     /** Fade the image out where the tile cuts it: bottom, or bottom and left. */
     fade?: "b" | "bl";
     tag?: string;
+    /** A live /widgets/*.html page shown inside the tile (pointer-events off). */
+    demo?: { id: string; h: number; tint: string };
 };
 
+// Support tools only — the four navigation solutions (Spotlight, Dock,
+// Sidebar, Browser) get their own guided section above, so they're not repeated here.
 const TILES: Tile[] = [
-    {
-        slug: "/spotlight",
-        text: "Alt+K from any app. Open tabs, history, apps, files and workspaces in one search.",
-        span: "lg:col-span-4 lg:row-span-2",
-        accent: "rgba(139,92,246,0.35)",
-        img: { src: "/images/bento/spotlight.png", w: 1200, h: 1054, alt: "Spotlight searching “cooldesk”: a running app, open tabs, a history entry and project folders." },
-        place: "lg:absolute lg:top-36 lg:right-0 lg:w-[70%] lg:translate-x-[3%]",
-        bare: true,
-        fade: "bl",
-    },
     {
         slug: "/clipboard",
         text: "Everything you copy, one hover away.",
-        span: "lg:col-span-2 lg:row-span-2",
-        accent: "rgba(245,158,11,0.25)",
+        span: "lg:col-span-3 lg:row-span-2",
+        accent: "rgba(99,102,241,0.26)",
         img: { src: "/images/bento/clipboard.png", w: 600, h: 517, alt: "The clipboard card: filters by kind above a color, a link and a command." },
-        place: "lg:absolute lg:top-32 lg:left-7 lg:right-7",
+        place: "lg:absolute lg:top-24 lg:left-5 lg:right-5",
         bare: true,
     },
     {
         slug: "/spotlight#agent",
         title: "AI agent",
         text: "Ask in plain words. It proposes, you apply.",
-        span: "lg:col-span-2",
-        accent: "rgba(217,70,239,0.3)",
+        span: "lg:col-span-3",
+        accent: "rgba(147,51,234,0.28)",
     },
     {
-        slug: "/dock",
-        text: "A slim bar of the project’s links, apps and folders along the bottom of your screen.",
-        span: "lg:col-span-4",
-        accent: "rgba(16,185,129,0.22)",
-        img: { src: "/images/bento/dock.png", w: 2000, h: 83, alt: "The dock: the workspace’s GitHub repo, design chats, analytics, two dev servers and a repo folder with its branch." },
-        place: "lg:absolute lg:bottom-7 lg:left-1/2 lg:w-[94%] lg:-translate-x-1/2",
-        bare: true,
-    },
-    {
-        slug: "/sidebar",
-        text: "Your project on the screen edge, tucked away until you hover.",
-        span: "lg:col-span-2 lg:row-span-2",
-        accent: "rgba(56,189,248,0.3)",
-        img: { src: "/images/bento/sidebar.png", w: 600, h: 833, alt: "The sidebar: open apps and tabs, then two workspaces with their links." },
-        place: "lg:absolute lg:top-36 lg:right-0 lg:w-[80%] lg:translate-x-[4%]",
-        bare: true,
-        fade: "bl",
-    },
-    {
-        slug: "/browser",
-        text: "A project’s pages beside its notes and files. Tile them side by side.",
-        span: "lg:col-span-4 lg:row-span-2",
-        accent: "rgba(34,211,238,0.25)",
-        img: { src: "/images/bento/browser.jpg", w: 1600, h: 922, alt: "Multi view in CoolDesk’s browser: two pages tiled side by side." },
-        place: "lg:absolute lg:top-36 lg:right-0 lg:w-[80%] lg:translate-x-[3%]",
+        slug: "/file-manager",
+        text: "Folders that know their project, its commands and the projects linked to it.",
+        span: "lg:col-span-3 lg:row-span-2",
+        accent: "rgba(139,92,246,0.24)",
+        img: { src: "/images/bento/file-manager.jpg", w: 1000, h: 760, alt: "The Files panel in the cooldesk-extension project, with linked projects along the top." },
+        place: "lg:absolute lg:top-28 lg:right-0 lg:w-[76%] lg:translate-x-[6%]",
         fade: "b",
     },
     {
         slug: "/shell",
         text: "A real terminal in the sidebar and as a tab.",
         span: "lg:col-span-3 lg:row-span-2",
-        accent: "rgba(132,204,22,0.2)",
+        accent: "rgba(99,102,241,0.22)",
         img: { src: "/images/bento/shell.png", w: 600, h: 600, alt: "The sidebar’s shell listing a project’s recent commits." },
-        place: "lg:absolute lg:top-32 lg:right-0 lg:w-[62%] lg:translate-x-[4%]",
+        place: "lg:absolute lg:top-24 lg:right-0 lg:w-[62%] lg:translate-x-[4%]",
         bare: true,
         fade: "bl",
     },
     {
-        slug: "/file-manager",
-        text: "Folders that know their project, its commands and the projects linked to it.",
-        span: "lg:col-span-3 lg:row-span-2",
-        accent: "rgba(251,191,36,0.2)",
-        img: { src: "/images/bento/file-manager.jpg", w: 1000, h: 760, alt: "The Files panel in the cooldesk-extension project, with linked projects along the top." },
-        place: "lg:absolute lg:top-36 lg:right-0 lg:w-[76%] lg:translate-x-[6%]",
-        fade: "b",
+        slug: "/widgets",
+        title: "Widgets",
+        icon: LayoutGrid,
+        text: "39 little tools — clock, weather, tasks, notes. Try one live:",
+        span: "lg:col-span-3",
+        accent: "rgba(79,70,229,0.24)",
+        tag: "Widget store",
+        demo: { id: "clock", h: 92, tint: "6366f1" },
     },
     {
         slug: "/new-tab",
         text: "Widgets, favorites and your activity in every browser tab. 49 layouts, sixteen themes.",
         span: "lg:col-span-6 lg:row-span-2",
-        accent: "rgba(244,63,94,0.22)",
+        accent: "rgba(79,70,229,0.26)",
         img: { src: "/images/bento/new-tab.jpg", w: 1600, h: 1000, alt: "The new tab in the Classic layout: clock, weather, tasks and a quote beside favorites and the activity feed." },
-        place: "lg:absolute lg:top-16 lg:right-0 lg:w-[64%] lg:translate-x-[3%]",
+        place: "lg:absolute lg:top-12 lg:right-0 lg:w-[64%] lg:translate-x-[3%]",
         fade: "b",
         tag: "Browser extension",
     },
@@ -139,7 +118,7 @@ const FADES: Record<"b" | "bl", React.CSSProperties> = {
 function AgentSketch() {
     // An illustration of /agent (no capture yet): the request and its proposal.
     return (
-        <div aria-hidden="true" className="mt-5 rounded-2xl border border-white/10 bg-black/30 p-4 font-mono text-[12px] leading-relaxed">
+        <div aria-hidden="true" className="mt-4 rounded-xl border border-white/10 bg-black/30 p-3 font-mono text-[11px] leading-relaxed">
             <p>
                 <span className="rounded-md bg-fuchsia-400/15 px-1.5 py-0.5 text-fuchsia-200">/agent</span>{" "}
                 <span className="text-white/80">sort my open tabs</span>
@@ -158,36 +137,59 @@ export default function FeatureBento({ page = "home" }: { page?: string }) {
     const bySlug = Object.fromEntries(FEATURES.map((f) => [f.slug, f]));
 
     return (
-        <div ref={ref} className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:auto-rows-[250px] lg:grid-cols-6">
+        <div ref={ref} className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:auto-rows-[215px] lg:grid-cols-6">
             {TILES.map((t) => {
                 const isAgent = t.slug.endsWith("#agent");
                 const f = bySlug[t.slug.split("#")[0]];
-                const Icon = isAgent ? Sparkles : f.Icon;
+                const Icon = isAgent ? Sparkles : (t.icon ?? f?.Icon ?? LayoutGrid);
                 return (
-                    <Link
+                    <div
                         key={t.slug}
-                        to={t.slug}
-                        onClick={() => trackEvent("feature_bento_click", { page_type: page, to: t.slug })}
                         style={{ backgroundColor: TILE_BG }}
-                        className={`group relative isolate flex flex-col overflow-hidden rounded-3xl border border-white/[0.07] p-7 transition-colors duration-300 hover:border-white/20 ${t.span}`}
+                        className={`group relative isolate flex flex-col overflow-hidden rounded-2xl border border-white/[0.07] p-5 transition-colors duration-300 hover:border-white/20 ${t.span}`}
                     >
+                        {/* The whole tile is a link, laid over the content so a
+                            live widget iframe can sit inside without nesting an
+                            anchor around interactive content. */}
+                        <Link
+                            to={t.slug}
+                            onClick={() => trackEvent("feature_bento_click", { page_type: page, to: t.slug })}
+                            aria-label={t.title ?? f?.name}
+                            className="absolute inset-0 z-20 rounded-2xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-400/70"
+                        />
                         <div
                             aria-hidden="true"
-                            className="pointer-events-none absolute -right-24 -top-28 -z-10 h-80 w-80 rounded-full opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
+                            className="pointer-events-none absolute -right-20 -top-24 -z-10 h-64 w-64 rounded-full opacity-70 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
                             style={{ background: `radial-gradient(closest-side, ${t.accent}, transparent)` }}
                         />
 
-                        <div className="relative z-10 max-w-[19rem]">
-                            <div className="flex items-center gap-2.5">
-                                <Icon className="h-[18px] w-[18px] text-white/70" />
-                                <h3 className="text-[19px] font-semibold tracking-tight text-white">{t.title ?? f.name}</h3>
+                        <div className="relative z-10 max-w-[17rem]">
+                            <div className="flex items-center gap-2">
+                                <Icon className="h-4 w-4 text-white/70" />
+                                <h3 className="text-[17px] font-semibold tracking-tight text-white">{t.title ?? f?.name}</h3>
                                 <ArrowUpRight className="h-4 w-4 text-white/0 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white/70" />
                             </div>
-                            {t.tag && <p className="mt-2 text-[12px] font-medium uppercase tracking-widest text-white/40">{t.tag}</p>}
-                            <p className="mt-2 text-[15px] leading-snug text-white/55">{t.text}</p>
+                            {t.tag && <p className="mt-1.5 text-[11px] font-medium uppercase tracking-widest text-white/40">{t.tag}</p>}
+                            <p className="mt-1.5 text-[14px] leading-snug text-white/55">{t.text}</p>
                         </div>
 
                         {isAgent && <AgentSketch />}
+
+                        {t.demo && (
+                            <div
+                                className="pointer-events-none relative mt-3 overflow-hidden rounded-lg border border-white/10 bg-white/[0.04]"
+                                style={{ boxShadow: `0 0 0 1px #${t.demo.tint}24, 0 18px 40px -24px #${t.demo.tint}66` }}
+                            >
+                                <iframe
+                                    src={`/widgets/${t.demo.id}.html?theme=dark&tint=${t.demo.tint}&v=${WIDGET_VERSION}`}
+                                    title="Live widget preview"
+                                    loading="lazy"
+                                    sandbox="allow-scripts allow-same-origin"
+                                    className="block w-full"
+                                    style={{ height: t.demo.h }}
+                                />
+                            </div>
+                        )}
 
                         {t.img && (
                             <div className={`relative mt-6 ${t.place ?? ""}`}>
@@ -203,7 +205,7 @@ export default function FeatureBento({ page = "home" }: { page?: string }) {
                                 />
                             </div>
                         )}
-                    </Link>
+                    </div>
                 );
             })}
         </div>

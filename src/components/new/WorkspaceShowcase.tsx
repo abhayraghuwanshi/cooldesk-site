@@ -4,114 +4,75 @@ import SectionBackdrop from './SectionBackdrop';
 import './workspace-showcase.css';
 
 /**
- * One space, three views, each a real screenshot with its own points:
- * public/images/workspace.jpg (links, apps, folders; 1400×777),
- * public/images/space-notes.jpg (the notes reader; 1400×777) and
- * public/images/file-manager.jpg (the file manager; 1400×891). The frame is
- * sized for the tallest, so switching tabs never moves the page. Image on the
- * left, so it alternates with the sections around it.
+ * Four ways into your work — one guided tour through CoolDesk's navigation
+ * solutions: Spotlight (/images/spotlight.jpg), Dock (/images/dock-desktop.jpg),
+ * Sidebar (/images/sidebar-desktop.jpg) and Browser (/images/browser.jpg).
+ * Each tab is a real screenshot with its own points. The frame is a fixed
+ * aspect ratio so switching tabs never moves the page.
  *
  * A guided tour: while the section is on screen it steps through the points,
- * then on to the next tab, and a spotlight glides to the part of the
- * screenshot each point is about (`spot`, in % of that screenshot; `rings`
- * pulse other places the point means too). Hovering or tapping a point jumps
- * to it and pauses; leaving resumes. Under prefers-reduced-motion it never
- * advances on its own.
+ * then on to the next tab. Hovering or tapping a point jumps to it and pauses;
+ * leaving resumes. Under prefers-reduced-motion it never advances on its own.
  *
- * Behind it, SectionBackdrop: the hero's galaxy, carried on quietly.
- *
- * Claims must match the app (cooldesk-extension/src/):
- * faces/workspace/parts/WorkspaceCard.jsx — links, apps and folders per space;
- * the bar on the left marks what's already open; folder tiles show a running
- * dev server's port and an amber dot for uncommitted changes.
- * faces/workspace/parts/WorkspaceContextPanel.jsx — your own notes (editable)
- * and the space's shared .cooldesk docs (README, notes/*.md).
- * features/file-manager/FileManager.jsx — the project bar shows the owning
- * space's saved commands, each run in its own console at the space's root
- * (runCommand); linked spaces in the sidebar; keys are ↑↓ / Enter /
- * Backspace / Ctrl+L.
+ * Claims follow the app (cooldesk-extension): GlobalSpotlight.jsx (Alt+K search),
+ * WorkspaceDockBar.jsx (bar with git branch + dev server, Ctrl+Shift+D),
+ * the sidebar (links, clipboard, shell) and the browser (multi view, side panel).
  */
 
 type Rect = [x: number, y: number, w: number, h: number];
-type Point = { title: string; text: string; spot: Rect | null; rings?: [number, number][] };
+type Point = { title: string; text: string; spot: Rect | null };
 
-const VIEWS: { key: string; label: string; title: string; intro: string; src: string; width: number; height: number; alt: string; points: Point[] }[] = [
+const VIEWS: { key: string; label: string; title: string; intro: string; src: string; alt: string; points: Point[] }[] = [
     {
-        key: 'space',
-        label: 'Space',
-        title: 'Everything you need, together',
-        intro: 'The tabs, apps and folders you need, grouped in one place and one click away.',
-        src: '/images/workspace.jpg',
-        width: 1400,
-        height: 777,
-        alt: 'The CoolDesk Website space in CoolDesk: four links (Semrush, repo, website, Chrome Web Store), two apps (Music, VS Code), and four folders, one with a dev server running on port 8080 and three with uncommitted changes.',
+        key: 'spotlight',
+        label: 'Spotlight',
+        title: 'Find anything, instantly',
+        intro: 'Alt+K searches tabs, apps, files and workspaces — everything you have open or saved.',
+        src: '/images/spotlight.jpg',
+        alt: 'Spotlight searching “cooldesk”: a running app, two open tabs, a GitHub page from history, project folders and a downloaded file.',
         points: [
-            {
-                title: 'Links, apps and folders, together',
-                text: 'The repo, the live site, the store page, your editor and the project’s folders sit in one place.',
-                spot: [1.7, 16.6, 96.6, 27.4],
-            },
-            {
-                title: 'See what’s already open',
-                text: 'Open items are marked, so one click takes you back to them instead of opening a copy.',
-                spot: [1.7, 30.3, 96.6, 6.6],
-                rings: [[2.3, 61.8]],
-            },
-            {
-                title: 'Know where the code is',
-                text: 'Folders show a running dev server’s port, and an amber dot when there are uncommitted changes.',
-                spot: [92.1, 74.6, 5.6, 4.0],
-                rings: [[96.9, 82.6], [96.9, 88.2], [96.9, 93.6]],
-            },
+            { title: 'One box, everything', text: 'Open tabs, browsing history, apps, files and workspaces in one search.', spot: null },
+            { title: 'Jump to what is open', text: 'Pick a tab and it comes forward instead of opening a copy.', spot: null },
+            { title: 'Narrow it down', text: 'Start with /f, /a or /u to search only files, apps or web pages.', spot: null },
         ],
     },
     {
-        key: 'notes',
-        label: 'Notes',
-        title: 'Notes that stay with the space',
-        intro: 'Your notes and docs live inside the space, so the context is there when you come back.',
-        src: '/images/space-notes.jpg',
-        width: 1400,
-        height: 777,
-        alt: 'A space’s notes in CoolDesk: the project’s shared README, with its layout table, run commands and services, open in the built-in reader.',
+        key: 'dock',
+        label: 'Dock',
+        title: 'Your project, one click away',
+        intro: 'A slim bar along the bottom of your screen with this project’s links, apps and folders.',
+        src: '/images/dock-desktop.jpg',
+        alt: 'CoolDesk’s dock along the bottom of the screen with a project’s links, apps, folders, a git branch and a running dev server.',
         points: [
-            {
-                title: 'Your own notes',
-                text: 'Jot down what you were doing and what’s next. They stay with the space, not in some other app.',
-                spot: null,
-            },
-            {
-                title: 'Shared docs, right there',
-                text: 'Read READMEs and shared notes right inside the space, rendered and ready.',
-                spot: [1.0, 9.8, 70.0, 47.5],
-            },
+            { title: 'The essentials, pinned', text: 'The repo, the live site, your editor and the project’s folders sit in the bar.', spot: null },
+            { title: 'See what is open', text: 'A dot marks what is already running, so one click brings it forward.', spot: null },
+            { title: 'Switch projects in a click', text: 'Scroll over the workspace name to step to the next project.', spot: null },
         ],
     },
     {
-        key: 'files',
-        label: 'Files',
-        title: 'A file manager that knows your spaces',
-        intro: 'Browse any folder without leaving CoolDesk. When it belongs to a space, its commands are right there on top.',
-        src: '/images/file-manager.jpg',
-        width: 1400,
-        height: 891,
-        alt: 'CoolDesk’s file manager open in the cooldesk-extension/src folder, with the space’s commands (Vite dev, Tauri dev, Build frontend, Build desktop app, Lint) as buttons along the top and linked spaces in the sidebar.',
+        key: 'sidebar',
+        label: 'Sidebar',
+        title: 'Always at hand, never in the way',
+        intro: 'Your space on the edge of the screen, tucked away until you hover.',
+        src: '/images/sidebar-desktop.jpg',
+        alt: 'CoolDesk docked as a sidebar on the right of the screen with a project’s open apps, tabs, links, clipboard and shell.',
         points: [
-            {
-                title: 'Each space’s commands, one click away',
-                text: 'Start the dev server, run the build or lint: each runs in its own console at the space’s root folder.',
-                spot: [11.8, 7.8, 71.0, 4.4],
-            },
-            {
-                title: 'Linked spaces, one jump away',
-                text: 'Link spaces that belong together, like an app and its backend, and move between them from the sidebar.',
-                spot: [1.0, 13.6, 15.4, 29.9],
-            },
-            {
-                title: 'Built for the keyboard',
-                text: '↑↓ to move, Enter to open, Backspace to go up, Ctrl+L to type a path.',
-                spot: [75.1, 95.0, 24.0, 4.2],
-            },
+            { title: 'Your space on the edge', text: 'Links, apps and folders for the task at hand, right where you need them.', spot: null },
+            { title: 'More than links', text: 'The clipboard, shell and files live in the same panel.', spot: null },
+            { title: 'One shortcut to switch layouts', text: 'Ctrl+Shift+D cycles full window, sidebar and dock.', spot: null },
+        ],
+    },
+    {
+        key: 'browser',
+        label: 'Browser',
+        title: 'Work on the web, in your space',
+        intro: 'Pages beside your notes and files — tile them side by side.',
+        src: '/images/browser.jpg',
+        alt: 'CoolDesk’s browser with a page open and the side panel’s Files tab listing the project’s folders.',
+        points: [
+            { title: 'Pages beside your files', text: 'The side panel keeps the project’s files and notes next to the page.', spot: null },
+            { title: 'Multi view', text: 'Tile two pages side by side when you need to compare them.', spot: null },
+            { title: 'Page tools', text: 'Highlights, copy as Markdown, dark mode and site permissions in one place.', spot: null },
         ],
     },
 ];
@@ -180,7 +141,7 @@ export default function WorkspaceShowcase() {
         setView(i);
         setStep(0);
         setPaused(false);
-        trackEvent('workspace_showcase_view', { view: VIEWS[i].key });
+        trackEvent('navigation_showcase_view', { view: VIEWS[i].key });
     }
 
     function pickPoint(j: number) {
@@ -190,20 +151,20 @@ export default function WorkspaceShowcase() {
 
     return (
         <section ref={sectionRef} className="relative isolate text-white">
-            <SectionBackdrop glow="left-[2%] top-[320px] h-[640px] w-[900px]" />
+            <SectionBackdrop glow="left-[2%] top-[280px] h-[520px] w-[760px]" />
 
             <div className="container mx-auto px-6">
                 {/* Section header: title, then the tabs that drive everything below */}
                 <div className="flex flex-col items-center text-center">
-                    <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">
-                        What’s in a space
+                    <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight leading-[1.05]">
+                        Four ways into your work
                     </h2>
-                    <p className="mt-4 max-w-2xl text-white/55 text-base md:text-lg">
-                        The tabs, apps, files and notes for one thing you work on, one click away.
+                    <p className="mt-3 max-w-2xl text-white/55 text-sm md:text-base">
+                        Spotlight finds it. Dock keeps it close. Sidebar holds it. Browser opens it.
                     </p>
 
-                    {/* Space | Notes | Files; the active one fills as the tour goes */}
-                    <div role="tablist" aria-label="Space views" className="mt-8 inline-flex gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
+                    {/* Spotlight | Dock | Sidebar | Browser; the active one fills as the tour goes */}
+                    <div role="tablist" aria-label="Navigation solutions" className="mt-6 inline-flex flex-wrap justify-center gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
                         {VIEWS.map((v, i) => (
                             <button
                                 key={v.key}
@@ -211,7 +172,7 @@ export default function WorkspaceShowcase() {
                                 role="tab"
                                 aria-selected={view === i}
                                 onClick={() => pickView(i)}
-                                className={`relative overflow-hidden rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200 ${view === i ? 'bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]' : 'text-white/50 hover:text-white/80'}`}
+                                className={`relative overflow-hidden rounded-full px-3.5 py-1 text-xs font-medium transition-colors duration-200 ${view === i ? 'bg-white/[0.12] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]' : 'text-white/50 hover:text-white/80'}`}
                             >
                                 {view === i && <span ref={fillRef} className="absolute inset-y-0 left-0 bg-white/[0.07]" aria-hidden="true" />}
                                 <span className="relative">{v.label}</span>
@@ -220,27 +181,16 @@ export default function WorkspaceShowcase() {
                     </div>
                 </div>
 
-                <div className="mt-10 grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-10 lg:gap-14 items-center">
-                    {/* Every view stacked, the active one in focus. Sized for the
-                        tallest screenshot, so switching never moves the page. */}
-                    <div className="relative aspect-[1400/891]">
+                <div className="mt-8 grid lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] gap-8 lg:gap-10 items-center">
+                    {/* Every view stacked, the active one in focus. Fixed frame so
+                        switching never moves the page. */}
+                    <div className="relative mx-auto aspect-[16/10] w-full max-w-[880px]">
                         {VIEWS.map((v, i) => {
                             const on = view === i;
-                            const pt = v.points[on ? step : 0];
                             return (
-                                <div key={v.key} className={`ws-shot ${on ? 'on' : ''}`} style={{ aspectRatio: `${v.width} / ${v.height}` }} aria-hidden={!on}>
+                                <div key={v.key} className={`ws-shot ${on ? 'on' : ''}`} style={{ aspectRatio: '16 / 10' }} aria-hidden={!on}>
                                     <div className="relative h-full w-full overflow-hidden rounded-xl border border-white/10 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
-                                        <img src={v.src} alt={v.alt} width={v.width} height={v.height} loading="lazy" decoding="async" className="block h-full w-full" />
-                                        <div
-                                            className="ws-spot"
-                                            aria-hidden="true"
-                                            style={pt.spot
-                                                ? { left: `${pt.spot[0]}%`, top: `${pt.spot[1]}%`, width: `${pt.spot[2]}%`, height: `${pt.spot[3]}%`, opacity: on ? 1 : 0 }
-                                                : { left: 0, top: 0, width: '100%', height: '100%', opacity: 0 }}
-                                        />
-                                        {on && pt.rings?.map(([x, y]) => (
-                                            <span key={`${step}-${x}-${y}`} className="ws-ring" aria-hidden="true" style={{ left: `${x}%`, top: `${y}%` }} />
-                                        ))}
+                                        <img src={v.src} alt={v.alt} loading="lazy" decoding="async" className="block h-full w-full object-contain bg-[#0d1017]" />
                                     </div>
                                 </div>
                             );
@@ -249,9 +199,9 @@ export default function WorkspaceShowcase() {
 
                     {/* The tab's own heading, intro and points; hover or tap one to jump to it */}
                     <div key={active.key} onMouseLeave={() => setPaused(false)} className="motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-1 duration-300">
-                        <h3 className="text-2xl md:text-3xl font-semibold tracking-tight">{active.title}</h3>
-                        <p className="mt-3 text-white/55 text-base md:text-lg">{active.intro}</p>
-                        <ul className="mt-8 space-y-5">
+                        <h3 className="text-xl md:text-2xl font-semibold tracking-tight">{active.title}</h3>
+                        <p className="mt-2 text-white/55 text-sm md:text-base">{active.intro}</p>
+                        <ul className="mt-6 space-y-4">
                             {active.points.map((p, j) => (
                                 <li
                                     key={p.title}
@@ -266,8 +216,8 @@ export default function WorkspaceShowcase() {
                                         style={{ height: j < step ? '100%' : j === step ? undefined : 0 }}
                                         aria-hidden="true"
                                     />
-                                    <h4 className="text-base font-semibold text-white">{p.title}</h4>
-                                    <p className="mt-1 text-sm text-white/50 leading-relaxed">{p.text}</p>
+                                    <h4 className="text-sm font-semibold text-white">{p.title}</h4>
+                                    <p className="mt-1 text-xs text-white/50 leading-relaxed">{p.text}</p>
                                 </li>
                             ))}
                         </ul>

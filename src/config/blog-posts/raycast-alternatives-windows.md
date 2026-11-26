@@ -78,7 +78,7 @@ Raycast is at its best on the Mac, so the bar here is high. These are the tools 
 
 Alfred is the launcher Raycast grew up competing with, and it's still the favourite of a lot of long-time Mac power users.
 
-**What it's best at:** workflows without a subscription. The free version is a fast, clean launcher; the Powerpack (a one-time purchase) unlocks clipboard history, snippets, and Workflows — visual automations you can build yourself or install from a large community library. If Raycast's Pro pricing is what's pushing you away, Alfred is the obvious landing spot.
+**What it's best at:** workflows without a subscription. The free version is a fast, clean launcher; the Powerpack (a one-time purchase) unlocks clipboard history, snippets, and Workflows — visual automations you can build yourself or install from a large community library. If Raycast's Pro pricing is what's pushing you away, Alfred is the obvious landing spot. (On Windows instead? See [Alfred alternatives for Windows](/blog/alfred-alternatives-windows).)
 
 **Where others beat it:** it feels more traditional than Raycast. There's no built-in extension store in the same sense, AI features are something you add yourself rather than a core part of the product, and the best parts sit behind the Powerpack. It's Mac-only.
 
@@ -195,7 +195,7 @@ No. Vicinae is the closest Raycast-style launcher on Linux; Ulauncher and Albert
 CoolDesk runs on all three. Ueli covers Windows and Mac. Raycast itself covers Mac and (in beta) Windows, but not Linux.
 
 **Raycast vs Flow Launcher — which is better?**
-On Windows today, Flow Launcher is more mature and has a far bigger Windows plugin library; Raycast has the more polished interface and built-in AI. On Mac, Flow Launcher isn't an option — it's Windows-only.
+On Windows today, Flow Launcher is more mature and has a far bigger Windows plugin library; Raycast has the more polished interface and built-in AI. On Mac, Flow Launcher isn't an option — it's Windows-only. Full head-to-head, with PowerToys too: [Flow Launcher vs PowerToys vs Raycast](/blog/flow-launcher-vs-powertoys-vs-raycast).
 
 **Can I run two launchers at once?**
 Yes — just give them different hotkeys. A common setup is a launcher for apps and commands plus Listary or Everything for files.

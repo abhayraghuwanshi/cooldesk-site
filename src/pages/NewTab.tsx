@@ -4,6 +4,7 @@ import { CONNECTS } from "@/components/new/connects";
 import PageIndex, { type IndexItem } from "@/components/new/PageIndex";
 import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SyncSettingsPanel from "@/components/new/SyncSettingsPanel";
+import WidgetDemo, { NEW_TAB_WIDGETS } from "@/components/new/WidgetDemo";
 import SEO from "@/components/SEO";
 import { MoreFeatures } from "@/components/new/FeaturePage";
 import Shot from "@/components/new/Shot";
@@ -336,6 +337,8 @@ export default function NewTabPage() {
                             <p>
                                 Browse them all in the <Link to="/widgets" className={link}>widget store</Link>, or add your own.
                             </p>
+                            <WidgetDemo widgets={NEW_TAB_WIDGETS} className="mt-5" />
+                            <p className="text-[13px] text-white/40">Live previews — the same widget pages the extension loads.</p>
                         </Part>
 
                         <Part id="feed" title="Favorites and an activity feed">

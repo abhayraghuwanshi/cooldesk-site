@@ -116,8 +116,7 @@ export default function Navbar() {
         // Features covers /new-tab and every other feature page.
         { href: '/features', label: 'Features', match: ['/spotlight', '/sidebar', '/dock', '/browser', '/shell', '/file-manager', '/clipboard', '/new-tab'] },
         // The hub links out to these, so they read as part of Resources.
-        { href: '/resources', label: 'Resources', match: ['/getting-started', '/vs', '/blog', '/releases', '/under-the-hood'] },
-        { href: '/widgets', label: 'Widgets' },
+        { href: '/resources', label: 'Resources', match: ['/getting-started', '/vs', '/blog', '/releases', '/under-the-hood', '/widgets'] },
     ];
 
     const { pathname } = useLocation();

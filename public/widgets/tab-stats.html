@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tab Pulse — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget">
@@ -29,33 +29,7 @@
   </div>
   <div class="stack grow" id="domains" style="gap:6px;justify-content:flex-end"></div>
 </main>
-<script>
-  // Live in CoolDesk via the bridge (tabs.stats); demo data on the public site.
-  var DEMO = {
-    open: 47, duplicates: 12, oldestDays: 3,
-    topDomains: [["github.com", 11], ["docs.google.com", 8], ["figma.com", 6], ["stackoverflow.com", 5]]
-  };
-  function render(s) {
-    document.getElementById("open").textContent = s.open;
-    document.getElementById("dupes").textContent = s.duplicates;
-    document.getElementById("oldest").textContent = s.oldestDays + "d";
-    var box = document.getElementById("domains");
-    box.innerHTML = "";
-    var max = s.topDomains[0][1];
-    s.topDomains.forEach(function (d) {
-      var el = document.createElement("div");
-      el.className = "row";
-      el.innerHTML = '<span class="muted" style="font-size:11px;width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' +
-        d[0] + '</span><div class="bar grow"><i style="width:' + (d[1] / max * 100) + '%"></i></div>' +
-        '<span class="mono muted" style="font-size:11px;width:18px;text-align:right">' + d[1] + "</span>";
-      box.appendChild(el);
-    });
-  }
-  cooldesk.onHost = function () {
-    document.getElementById("mode").textContent = "Live";
-    cooldesk.call("tabs.stats").then(render).catch(function () { render(DEMO); });
-  };
-  render(DEMO);
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="tab-stats.js?v=5"></script>
 </body>
 </html>

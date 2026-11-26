@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Daily Focus — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget" style="justify-content:center;gap:12px">
@@ -18,36 +18,7 @@
     <span class="grow" id="text" style="font-size:19px;font-weight:700;line-height:1.35;cursor:pointer" title="Click to edit"></span>
   </div>
 </main>
-<script>
-  var todayKey = new Date().toLocaleDateString("en-CA");
-  var state = cooldesk.store.get("focus", {});
-  if (state.date !== todayKey) state = { date: todayKey, text: "", done: false };
-
-  var ask = document.getElementById("ask"), show = document.getElementById("show");
-  function save() { cooldesk.store.set("focus", state); }
-  function render() {
-    var has = !!state.text;
-    ask.style.display = has ? "none" : "flex";
-    show.style.display = has ? "flex" : "none";
-    var text = document.getElementById("text");
-    text.textContent = state.text;
-    text.style.textDecoration = state.done ? "line-through" : "none";
-    text.style.color = state.done ? "var(--muted)" : "var(--fg)";
-    document.getElementById("done").checked = state.done;
-  }
-  ask.onsubmit = function (e) {
-    e.preventDefault();
-    var v = document.getElementById("input").value.trim();
-    if (v) { state.text = v; state.done = false; save(); render(); }
-  };
-  document.getElementById("done").onchange = function () { state.done = this.checked; save(); render(); };
-  document.getElementById("text").onclick = function () {
-    document.getElementById("input").value = state.text;
-    state.text = "";
-    save(); render();
-    document.getElementById("input").focus();
-  };
-  render();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="focus.js?v=5"></script>
 </body>
 </html>

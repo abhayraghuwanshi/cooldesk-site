@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Shortcut of the Day — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
+<link rel="stylesheet" href="base.css?v=12">
 <style>
   kbd {
     font-family: ui-monospace, monospace; font-size: 13px; font-weight: 700;
@@ -12,7 +12,7 @@
     padding: 4px 9px; background: var(--card);
   }
 </style>
-<script src="/widgets/cooldesk.js?v=4"></script>
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget" style="justify-content:center;gap:12px">
@@ -24,41 +24,7 @@
   <span id="what" style="font-size:13px;line-height:1.5"></span>
   <button class="ghost" id="next" style="align-self:flex-start">Next →</button>
 </main>
-<script>
-  var SHORTCUTS = [
-    [["Alt", "K"], "Open CoolDesk Spotlight — search tabs, apps, notes and files from anywhere", "CoolDesk"],
-    [["Ctrl", "Shift", "T"], "Reopen the tab you just closed (works repeatedly)", "Browser"],
-    [["Ctrl", "Shift", "P"], "Command palette — every command, searchable", "VS Code"],
-    [["Ctrl", "L"], "Jump to the address bar without touching the mouse", "Browser"],
-    [["Win", "V"], "Clipboard history — everything you copied, not just the last thing", "Windows"],
-    [["Ctrl", "D"], "Select next occurrence of the current word (multi-cursor)", "VS Code"],
-    [["Ctrl", "Shift", "A"], "Search your open tabs by name", "Chrome"],
-    [["Win", "Shift", "S"], "Screenshot any region of the screen", "Windows"],
-    [["Ctrl", "K", "Z"], "Zen mode — hide everything but the code", "VS Code"],
-    [["Ctrl", "Shift", "V"], "Paste without formatting", "Everywhere"],
-    [["Alt", "Tab"], "Hold Alt and keep tapping Tab to walk through windows", "Windows"],
-    [["Ctrl", "`"], "Toggle the integrated terminal", "VS Code"],
-    [["F2"], "Rename symbol everywhere it's used", "VS Code"],
-    [["Ctrl", "W"], "Close the current tab — and Ctrl+Shift+T undoes it", "Browser"]
-  ];
-  // Day-of-year keeps the daily pick stable; Next cycles.
-  var start = new Date(new Date().getFullYear(), 0, 0);
-  var i = Math.floor((Date.now() - start) / 86400000) % SHORTCUTS.length;
-  function render() {
-    var s = SHORTCUTS[i % SHORTCUTS.length];
-    var keys = document.getElementById("keys");
-    keys.innerHTML = "";
-    s[0].forEach(function (k, n) {
-      if (n > 0) keys.insertAdjacentHTML("beforeend", '<span class="muted">+</span>');
-      var kbd = document.createElement("kbd");
-      kbd.textContent = k;
-      keys.appendChild(kbd);
-    });
-    document.getElementById("what").textContent = s[1];
-    document.getElementById("app").textContent = s[2];
-  }
-  document.getElementById("next").onclick = function () { i++; render(); };
-  render();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="shortcuts.js?v=5"></script>
 </body>
 </html>

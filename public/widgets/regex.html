@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Regex Tester — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
+<link rel="stylesheet" href="base.css?v=12">
 <style>
   #out { flex: 1; overflow: auto; font-size: 12px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; padding: 9px 11px; }
   mark { background: color-mix(in srgb, var(--accent) 35%, transparent); color: var(--fg); border-radius: 3px; padding: 0 1px; }
 </style>
-<script src="/widgets/cooldesk.js?v=4"></script>
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget">
@@ -26,42 +26,7 @@
   <textarea id="text" class="mono" style="resize:none;height:64px;font-size:12px" spellcheck="false">Reach me at hello@cool-desk.com or support@example.org — not at "not-an-email".</textarea>
   <div class="card mono" id="out"></div>
 </main>
-<script>
-  // Runs entirely locally.
-  function esc(s) {
-    return s.replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; });
-  }
-  function run() {
-    var out = document.getElementById("out");
-    var count = document.getElementById("count");
-    var src = document.getElementById("text").value;
-    var pat = document.getElementById("pattern").value;
-    if (!pat) { out.innerHTML = esc(src); count.textContent = ""; return; }
-    var re;
-    try {
-      var flags = document.getElementById("flags").value;
-      re = new RegExp(pat, flags.indexOf("g") === -1 ? flags + "g" : flags);
-    } catch (e) {
-      out.textContent = String(e.message);
-      count.textContent = "invalid";
-      return;
-    }
-    var html = "", last = 0, m, n = 0;
-    while ((m = re.exec(src)) !== null) {
-      html += esc(src.slice(last, m.index)) + "<mark>" + esc(m[0] || "∅") + "</mark>";
-      last = m.index + m[0].length;
-      n++;
-      if (m[0] === "") re.lastIndex++; // avoid infinite loop on empty matches
-      if (n > 999) break;
-    }
-    html += esc(src.slice(last));
-    out.innerHTML = html;
-    count.textContent = n + (n === 1 ? " match" : " matches");
-  }
-  document.getElementById("pattern").oninput = run;
-  document.getElementById("flags").oninput = run;
-  document.getElementById("text").oninput = run;
-  run();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="regex.js?v=5"></script>
 </body>
 </html>

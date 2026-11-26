@@ -165,6 +165,18 @@
 
   <!-- Blog posts — only slugs that exist in blogs.ts -->
   <url>
+    <loc>https://cool-desk.com/blog/flow-launcher-vs-powertoys-vs-raycast</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cool-desk.com/blog/alfred-alternatives-windows</loc>
+    <lastmod>2026-11-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://cool-desk.com/blog/raycast-alternatives-windows</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>monthly</changefreq>

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>GitHub Contributions — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <style>
   img { width: 100%; height: auto; border-radius: 6px; }
   [data-theme="dark"] img { filter: invert(0.92) hue-rotate(180deg); }
@@ -23,23 +23,7 @@
     <img id="chart" alt="GitHub contribution graph" loading="lazy">
   </div>
 </main>
-<script>
-  // Chart image: ghchart.rshah.org (public service rendering GitHub's contribution graph).
-  var user = cooldesk.get("user", cooldesk.store.get("gh-user", "torvalds"));
-  var img = document.getElementById("chart");
-  function render() {
-    document.getElementById("title").textContent = "GitHub · " + user;
-    img.src = "https://ghchart.rshah.org/2563eb/" + encodeURIComponent(user);
-  }
-  img.onerror = function () {
-    document.getElementById("chartBox").innerHTML = '<span class="muted" style="font-size:12px">Could not load chart</span>';
-  };
-  document.getElementById("form").onsubmit = function (e) {
-    e.preventDefault();
-    var v = document.getElementById("user").value.trim();
-    if (v) { user = v; cooldesk.store.set("gh-user", v); render(); }
-  };
-  render();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="github.js?v=5"></script>
 </body>
 </html>

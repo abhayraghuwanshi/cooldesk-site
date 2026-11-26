@@ -46,7 +46,7 @@ const Index = () => {
           <Hero />
         </section>
 
-        <section id="workspace" className="relative z-10 py-16 md:py-24 scroll-mt-20">
+        <section id="workspace" className="relative z-10 py-12 md:py-16 scroll-mt-20">
           <WorkspaceShowcase />
         </section>
 
@@ -56,8 +56,8 @@ const Index = () => {
           <div className="container mx-auto px-6">
             <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
               <div>
-                <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">Everything in CoolDesk</h2>
-                <p className="mt-3 max-w-xl text-lg text-white/60">One app on your desktop, one extension in your browser. Pick a part to see how it works.</p>
+                <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight leading-[1.05]">Everything around your work</h2>
+                <p className="mt-3 max-w-xl text-lg text-white/60">The little tools that keep you moving: clipboard, shell, files and an AI agent.</p>
               </div>
               <Link to="/features" className="text-[15px] font-medium text-sky-300 transition-colors hover:text-sky-200">All features →</Link>
             </div>

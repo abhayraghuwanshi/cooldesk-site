@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Year Progress — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget" style="justify-content:center;gap:14px">
@@ -19,23 +19,7 @@
     <span class="label" id="month"></span>
   </div>
 </main>
-<script>
-  function tick() {
-    var now = new Date();
-    var y = now.getFullYear();
-    var start = new Date(y, 0, 1), end = new Date(y + 1, 0, 1);
-    var pct = (now - start) / (end - start) * 100;
-    var daysLeft = Math.ceil((end - now) / 86400000);
-    var mStart = new Date(y, now.getMonth(), 1), mEnd = new Date(y, now.getMonth() + 1, 1);
-    document.getElementById("pct").textContent = pct.toFixed(1) + "%";
-    document.getElementById("year").textContent = String(y);
-    document.getElementById("fill").style.width = pct + "%";
-    document.getElementById("left").textContent = daysLeft + " days left";
-    document.getElementById("month").textContent =
-      now.toLocaleDateString("en-US", { month: "short" }) + " " + Math.round((now - mStart) / (mEnd - mStart) * 100) + "%";
-  }
-  tick();
-  setInterval(tick, 60000);
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="year-progress.js?v=5"></script>
 </body>
 </html>

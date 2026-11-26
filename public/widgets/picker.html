@@ -4,10 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Decision Maker — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
+<style>
+  #result { text-align: center; }
+  #result.hint { font-size: 12px; color: var(--muted); }
+  #result.big { font-size: 26px; }
+</style>
 <main class="widget" style="justify-content:center;gap:10px">
   <span class="label">Can't decide?</span>
   <form class="row" id="form">
@@ -15,37 +20,14 @@
     <button class="primary">Pick</button>
   </form>
   <div class="grow center">
-    <span class="big" id="result" style="font-size:26px;text-align:center">—</span>
+    <span class="hint" id="result">Type a few options — or flip a coin</span>
   </div>
   <div class="row">
     <button class="grow" id="coin">🪙 Coin flip</button>
     <button class="grow" id="dice">🎲 Roll d6</button>
   </div>
 </main>
-<script>
-  var result = document.getElementById("result");
-  function reveal(final, pool) {
-    // quick shuffle animation, then land on the answer
-    var n = 0;
-    var spin = setInterval(function () {
-      result.textContent = pool[Math.floor(Math.random() * pool.length)];
-      if (++n >= 8) { clearInterval(spin); result.textContent = final; }
-    }, 70);
-  }
-  document.getElementById("form").onsubmit = function (e) {
-    e.preventDefault();
-    var opts = document.getElementById("options").value.split(",")
-      .map(function (s) { return s.trim(); }).filter(Boolean);
-    if (opts.length < 2) { result.textContent = "Give me at least two options"; return; }
-    reveal(opts[Math.floor(Math.random() * opts.length)], opts);
-  };
-  document.getElementById("coin").onclick = function () {
-    reveal(Math.random() < 0.5 ? "Heads" : "Tails", ["Heads", "Tails"]);
-  };
-  document.getElementById("dice").onclick = function () {
-    var faces = ["1", "2", "3", "4", "5", "6"];
-    reveal(faces[Math.floor(Math.random() * 6)], faces);
-  };
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="picker.js?v=6"></script>
 </body>
 </html>

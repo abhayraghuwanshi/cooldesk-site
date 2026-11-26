@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Scratchpad — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget">
@@ -15,20 +15,7 @@
   </div>
   <textarea class="grow" id="pad" placeholder="Type anything — it autosaves." style="resize:none;line-height:1.55"></textarea>
 </main>
-<script>
-  var pad = document.getElementById("pad");
-  var status = document.getElementById("status");
-  pad.value = cooldesk.store.get("notes", "");
-  var t = null;
-  pad.oninput = function () {
-    status.textContent = "…";
-    clearTimeout(t);
-    t = setTimeout(function () {
-      cooldesk.store.set("notes", pad.value);
-      status.textContent = "Saved";
-      setTimeout(function () { status.textContent = ""; }, 1200);
-    }, 400);
-  };
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="notes.js?v=5"></script>
 </body>
 </html>

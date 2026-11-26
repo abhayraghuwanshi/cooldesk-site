@@ -37,6 +37,8 @@ import bestNewTabExtensionsContent from './blog-posts/best-new-tab-extensions.md
 import raycastAlternativesContent from './blog-posts/raycast-alternatives-windows.md?raw';
 import splitScreenTabsContent from './blog-posts/split-screen-tabs-browser.md?raw';
 import bestClipboardManagersContent from './blog-posts/best-clipboard-managers.md?raw';
+import flowVsPowertoysVsRaycastContent from './blog-posts/flow-launcher-vs-powertoys-vs-raycast.md?raw';
+import alfredAlternativesWindowsContent from './blog-posts/alfred-alternatives-windows.md?raw';
 
 // Parse markdown frontmatter and content
 // `date` is the real publish date (YYYY-MM-DD) — never derive it from the build time,
@@ -111,6 +113,8 @@ function comparisonCard(slug: string, title: string, description: string, date: 
 }
 
 export const blogPosts: BlogPost[] = [
+    parseBlogPost(flowVsPowertoysVsRaycastContent, 'flow-launcher-vs-powertoys-vs-raycast', 'best', 'Search', '2026-11-22'),
+    parseBlogPost(alfredAlternativesWindowsContent, 'alfred-alternatives-windows', 'best', 'Search', '2026-11-22'),
     parseBlogPost(bestClipboardManagersContent, 'best-clipboard-managers', 'best', 'Clipboard', '2026-11-21'),
     parseBlogPost(splitScreenTabsContent, 'split-screen-tabs-browser', 'guides', 'Columns2', '2026-11-12'),
     parseBlogPost(raycastAlternativesContent, 'raycast-alternatives-windows', 'best', 'Search', '2026-07-06', '2026-11-12'),

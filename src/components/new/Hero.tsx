@@ -51,17 +51,17 @@ function Hero() {
                         headings use on scroll. Pure CSS, so it runs on the
                         prerendered HTML without waiting for JS. */}
                     <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.02] max-w-4xl">
-                        <RevealWords text="Give your work" />
+                        <RevealWords text="We killed" />
                         <br />
                         <span className="text-white/55">
-                            <RevealWords text="some space." offset={3} bright={['space.']} />
+                            <RevealWords text="the tab hunt." offset={2} bright={['hunt.']} />
                         </span>
                     </h1>
 
                     {/* Kept short on purpose: the full definition (platforms, free,
                         Alt+K) lives in the meta description, JSON-LD and llms.txt. */}
                     <p className="mt-6 text-base md:text-lg text-white/55 max-w-xl leading-relaxed">
-                        Your tabs, apps and files, grouped into spaces.
+                        Then we came for the windows, apps and files.
                     </p>
 
                     <div className="mt-9 flex flex-col sm:flex-row items-center gap-3">

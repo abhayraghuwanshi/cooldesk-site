@@ -51,7 +51,7 @@ const POSTS = blogPosts
  * busiest topics first. Each group links the roundups and the feature's own page.
  */
 const BEST_GROUPS: [feature: string, posts: string[]][] = [
-    ["/spotlight", ["raycast-alternatives-windows", "launchpad-alternatives-mac"]],
+    ["/spotlight", ["raycast-alternatives-windows", "flow-launcher-vs-powertoys-vs-raycast", "alfred-alternatives-windows", "launchpad-alternatives-mac"]],
     ["/dock", ["best-dock-apps-windows", "best-dock-apps-mac"]],
     ["/clipboard", ["best-clipboard-managers"]],
     ["/sidebar", ["best-sidebar-apps-mac-windows"]],

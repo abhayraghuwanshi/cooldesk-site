@@ -3,7 +3,7 @@
 // One repo builds two sites, selected at build time via Vite `--mode`:
 //   - mode "cooldesk" (default)  -> the full suite (browser + desktop)  cool-desk.com
 //   - mode "newtab"              -> the browser extension / new-tab product
-//                                   TODO: not deployed; newtab.kazekit.com is a placeholder.
+//                                   newtab.kazekit.com (a KazeKit tool).
 //
 // vite.config.ts injects `import.meta.env.VITE_SITE` from the mode.
 
@@ -21,7 +21,7 @@ const GITHUB_REPO = "https://github.com/abhayraghuwanshi/cooldesk-extension";
 const REDDIT_URL = "https://www.reddit.com/r/cooldesk/";
 
 const COOLDESK_URL = "https://cool-desk.com";
-// TODO: newtab product not deployed yet — placeholder domain until launch.
+// The new-tab product lives on the KazeKit tools domain, separate from CoolDesk.
 const NEWTAB_URL = "https://newtab.kazekit.com";
 
 interface SiteConfig {
@@ -72,9 +72,9 @@ const configs: Record<SiteId, SiteConfig> = {
     },
     hero: {
       badge: "Free & open source",
-      headlineLead: "Give your work",
-      headlineAccent: "some space.",
-      sub: "CoolDesk is a free launcher for Windows, macOS and Linux, with a new-tab extension for Chrome, Edge and Brave. It keeps your browser tabs, desktop apps, files and notes in spaces, one for each project, and Alt+K jumps back into any of them.",
+      headlineLead: "We killed",
+      headlineAccent: "the tab hunt.",
+      sub: "Then we came for the windows, apps and files. CoolDesk solves navigation with four connected solutions — Spotlight, Dock, Sidebar and Browser. Free on Windows, macOS and Linux.",
     },
     cta: {
       label: "Get Started",
@@ -83,9 +83,9 @@ const configs: Record<SiteId, SiteConfig> = {
     downloads: {
       heading: "Download CoolDesk",
       blurb:
-        "The extension is your new tab. The desktop app is the launcher: Spotlight, spaces and files.",
+        "One desktop app for now: Spotlight, Dock, Sidebar and Browser, connected. Separate apps are coming soon. Add the New Tab extension from KazeKit for your browser — they work together locally.",
       desktop: true,
-      tip: "Start with either one. Install both and they connect on your machine, so Spotlight can reach your browser tabs.",
+      tip: "New Tab lives at newtab.kazekit.com. Install it alongside CoolDesk and Spotlight can reach your browser tabs.",
     },
     crossPromo: {
       text: "Just want the browser new tab?",
@@ -128,4 +128,4 @@ const configs: Record<SiteId, SiteConfig> = {
 
 export const site = configs[SITE_ID];
 
-export { CHROME_STORE, GITHUB_REPO, REDDIT_URL };
+export { CHROME_STORE, GITHUB_REPO, NEWTAB_URL, REDDIT_URL };

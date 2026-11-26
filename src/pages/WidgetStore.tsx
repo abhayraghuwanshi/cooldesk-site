@@ -2,7 +2,7 @@ import Footer from "@/components/new/Footer";
 import Navbar from "@/components/new/Navbar";
 import SEO from "@/components/SEO";
 import { trackEvent, useSectionView } from "@/lib/analytics";
-import { useRef, useState } from "react";
+import { useState } from "react";
 
 interface Widget {
     id: string;
@@ -18,8 +18,6 @@ interface Widget {
 }
 
 type WidgetCategory = "CoolDesk" | "Time & Focus" | "Productivity" | "Data & Life" | "Dev Tools";
-
-const CATEGORIES: WidgetCategory[] = ["CoolDesk", "Time & Focus", "Productivity", "Data & Life", "Dev Tools"];
 
 // Curated top-20, ordered by how often the equivalent widget ships in launchers
 // and new-tab products (Momentum, Toby, Windows 11 widgets, Raycast, iOS).
@@ -65,17 +63,24 @@ const WIDGETS: Widget[] = [
     { id: "regex", name: "Regex Tester", desc: "Live pattern matching with highlighted results. Fully local.", category: "Dev Tools", h: 300 },
 ];
 
-const WIDGET_VERSION = "3";
+// Keep in sync with cooldesk-extension/src/data/widgetCatalog.js WIDGET_VERSION.
+const WIDGET_VERSION = "14";
 
-function widgetPath(id: string, theme: "dark" | "light") {
-    return `/widgets/${id}.html?theme=${theme}&v=${WIDGET_VERSION}`;
+// Per-card accent (?tint=), the same mechanism the app's widget board uses.
+// Rotating through the brand palette gives the gallery its coloured glass look
+// instead of 39 identical grey cards.
+const TINTS = ["3b82f6", "6366f1", "8b5cf6", "a855f7", "0ea5e9", "d946ef"];
+
+function widgetPath(id: string, theme: "dark" | "light", tint?: string) {
+    const t = tint ? `&tint=${tint}` : "";
+    return `/widgets/${id}.html?theme=${theme}${t}&v=${WIDGET_VERSION}`;
 }
 
 function widgetUrl(id: string, theme: "dark" | "light") {
     return `https://cool-desk.com${widgetPath(id, theme)}`;
 }
 
-function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light" }) {
+function WidgetCard({ widget, theme, tint }: { widget: Widget; theme: "dark" | "light"; tint: string }) {
     const [copied, setCopied] = useState(false);
 
     const copy = () => {
@@ -87,9 +92,14 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
     };
 
     return (
-        <div className="w-[260px] shrink-0 snap-start rounded-xl border border-white/10 bg-white/[0.03] overflow-hidden transition-colors hover:border-blue-400/30">
+        <div
+            className="mb-5 break-inside-avoid rounded-xl border border-white/10 bg-white/[0.045] overflow-hidden transition-colors hover:border-white/25"
+            style={{
+                boxShadow: `0 0 0 1px #${tint}24, 0 18px 50px -28px #${tint}66`,
+            }}
+        >
             <iframe
-                src={widgetPath(widget.id, theme)}
+                src={widgetPath(widget.id, theme, tint)}
                 title={`${widget.name} widget preview`}
                 loading="lazy"
                 sandbox={`allow-scripts allow-same-origin ${widget.sandbox ?? ""}`}
@@ -97,6 +107,7 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
                 style={{ height: widget.h }}
             />
             <div className="p-4">
+                <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-white/35 mb-1.5">{widget.category}</p>
                 <h3 className="text-base font-bold mb-1">{widget.name}</h3>
                 {widget.powered && (
                     <p className="font-mono text-[10px] tracking-[0.14em] uppercase text-blue-300/70 mb-1.5">
@@ -124,33 +135,6 @@ function WidgetCard({ widget, theme }: { widget: Widget; theme: "dark" | "light"
                 </div>
             </div>
         </div>
-    );
-}
-
-function CategoryRow({ category, widgets, theme }: { category: WidgetCategory; widgets: Widget[]; theme: "dark" | "light" }) {
-    const ref = useSectionView<HTMLElement>("widget_category", { widget_category: category });
-    // First sideways scroll per row: they're browsing past the first few cards.
-    const scrolled = useRef(false);
-    return (
-        <section ref={ref} className="mb-12">
-            <div className="flex items-baseline justify-between mb-4">
-                <h2 className="text-lg font-bold">{category}</h2>
-                <span className="font-mono text-[10px] tracking-[0.18em] uppercase text-white/30 whitespace-nowrap">
-                    {widgets.length} widgets · scroll →
-                </span>
-            </div>
-            <div
-                onScroll={() => {
-                    if (scrolled.current) return;
-                    scrolled.current = true;
-                    trackEvent("widget_row_scroll", { widget_category: category });
-                }}
-                className="flex gap-5 overflow-x-auto snap-x snap-mandatory pb-3 -mx-6 px-6 [scrollbar-width:thin]">
-                {widgets.map((w) => (
-                    <WidgetCard key={w.id} widget={w} theme={theme} />
-                ))}
-            </div>
-        </section>
     );
 }
 
@@ -247,7 +231,7 @@ export default function WidgetStorePage() {
 
                 {/* Theme toggle */}
                 <div className="flex items-center justify-between mt-10 mb-8">
-                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase">Browse by category</p>
+                    <p className="font-mono text-[11px] tracking-[0.25em] text-white/35 uppercase">All {WIDGETS.length} widgets</p>
                     <button
                         onClick={() => {
                             const next = theme === "dark" ? "light" : "dark";
@@ -260,15 +244,25 @@ export default function WidgetStorePage() {
                     </button>
                 </div>
 
-                {/* Category rows — horizontal scroll keeps ~40 widgets from turning into one long vertical dump */}
-                {CATEGORIES.map((cat) => (
-                    <CategoryRow
-                        key={cat}
-                        category={cat}
-                        widgets={WIDGETS.filter((w) => w.category === cat)}
-                        theme={theme}
+                {/* Google Photos-style masonry gallery on a wallpaper like the
+                    app's widget board: one column on phones, up to four on wide
+                    screens. Each card gets a ?tint= accent so it reads as
+                    coloured glass rather than a flat grey tile. */}
+                <div className="relative rounded-3xl border border-white/10 overflow-hidden p-3 sm:p-5">
+                    <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-0 -z-10"
+                        style={{
+                            background:
+                                "radial-gradient(60% 50% at 85% 4%, rgba(56,189,248,0.34), transparent 60%), radial-gradient(55% 55% at 4% 96%, rgba(236,72,153,0.32), transparent 62%), radial-gradient(60% 60% at 50% 50%, rgba(99,102,241,0.20), transparent 68%), #0b0b12",
+                        }}
                     />
-                ))}
+                    <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5">
+                        {WIDGETS.map((w, i) => (
+                            <WidgetCard key={w.id} widget={w} theme={theme} tint={TINTS[i % TINTS.length]} />
+                        ))}
+                    </div>
+                </div>
 
                 {/* How it works */}
                 <section className="mt-24">

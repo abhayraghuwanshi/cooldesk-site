@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Resume Session — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget" style="justify-content:center;gap:10px">
@@ -20,30 +20,7 @@
   </div>
   <button class="primary" id="restore">Restore session</button>
 </main>
-<script>
-  // Live in CoolDesk via the bridge (session.last / session.restore); demo on the site.
-  var DEMO = {
-    name: "Client — Acme", when: "Yesterday 18:42",
-    tabs: 14, windows: 2, apps: ["VS Code", "Slack", "Figma"]
-  };
-  function render(s) {
-    document.getElementById("name").textContent = s.name;
-    document.getElementById("detail").textContent = s.when + " · " + s.tabs + " tabs · " + s.windows + " windows";
-    document.getElementById("apps").textContent = s.apps.join(" · ");
-  }
-  document.getElementById("restore").onclick = function () {
-    if (cooldesk.hosted) cooldesk.call("session.restore");
-    else {
-      this.textContent = "Works inside CoolDesk →";
-      var btn = this;
-      setTimeout(function () { btn.textContent = "Restore session"; }, 1600);
-    }
-  };
-  cooldesk.onHost = function () {
-    document.getElementById("mode").textContent = "Live";
-    cooldesk.call("session.last").then(render).catch(function () { render(DEMO); });
-  };
-  render(DEMO);
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="session.js?v=5"></script>
 </body>
 </html>

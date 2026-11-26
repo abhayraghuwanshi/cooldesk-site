@@ -4,14 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Quick Links — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <style>
   .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-  .tile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px 8px; border: 1px solid var(--faint); border-radius: 9px; transition: border-color .15s; }
-  .tile:hover { border-color: var(--accent); }
-  .glyph { width: 30px; height: 30px; border-radius: 8px; background: var(--card); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: var(--accent); }
-  .tile span { font-size: 10px; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .tile { position: relative; display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 10px 4px 8px; border-radius: 12px; transition: background-color .15s; }
+  .tile:hover { background: var(--card); }
+  .glyph { width: 38px; height: 38px; border-radius: 11px; background: var(--card); box-shadow: inset 0 0 0 1px var(--faint); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 15px; color: var(--accent); transition: transform .15s; }
+  .tile:hover .glyph { transform: translateY(-2px); }
+  .glyph img { width: 22px; height: 22px; border-radius: 5px; }
+  .tile span { font-size: 11px; color: var(--muted); max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .tile button { position: absolute; top: 2px; right: 2px; padding: 0 5px; border: none; opacity: 0; }
   .tile:hover button { opacity: 1; }
 </style>
@@ -29,50 +31,7 @@
   </form>
   <div class="grid" id="grid"></div>
 </main>
-<script>
-  var links = cooldesk.store.get("links", [
-    { name: "GitHub", url: "https://github.com" },
-    { name: "Gmail", url: "https://mail.google.com" },
-    { name: "YouTube", url: "https://youtube.com" },
-    { name: "HN", url: "https://news.ycombinator.com" }
-  ]);
-  function save() { cooldesk.store.set("links", links); }
-  function render() {
-    var grid = document.getElementById("grid");
-    grid.innerHTML = "";
-    links.forEach(function (l, i) {
-      var a = document.createElement("a");
-      a.className = "tile";
-      a.href = l.url;
-      a.target = "_blank";
-      a.rel = "noopener";
-      var glyph = document.createElement("div");
-      glyph.className = "glyph";
-      glyph.textContent = (l.name || "?").slice(0, 1).toUpperCase();
-      var span = document.createElement("span");
-      span.textContent = l.name;
-      var del = document.createElement("button");
-      del.className = "ghost";
-      del.textContent = "×";
-      del.onclick = function (e) { e.preventDefault(); links.splice(i, 1); save(); render(); };
-      a.append(glyph, span, del);
-      grid.appendChild(a);
-    });
-  }
-  document.getElementById("add").onclick = function () {
-    var f = document.getElementById("form");
-    f.style.display = f.style.display === "none" ? "flex" : "none";
-  };
-  document.getElementById("form").onsubmit = function (e) {
-    e.preventDefault();
-    var url = document.getElementById("url").value.trim();
-    var name = document.getElementById("name").value.trim() || new URL(url).hostname.replace("www.", "");
-    links.push({ name: name, url: url });
-    save(); render();
-    this.reset();
-    this.style.display = "none";
-  };
-  render();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="quick-links.js?v=6"></script>
 </body>
 </html>

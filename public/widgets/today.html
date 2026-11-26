@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Today — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget" style="justify-content:center;gap:12px">
@@ -22,25 +22,7 @@
     <div class="bar"><i id="fill"></i></div>
   </div>
 </main>
-<script>
-  function isoWeek(d) {
-    var date = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    var dayNum = date.getUTCDay() || 7;
-    date.setUTCDate(date.getUTCDate() + 4 - dayNum);
-    var yearStart = new Date(Date.UTC(date.getUTCFullYear(), 0, 1));
-    return Math.ceil(((date - yearStart) / 86400000 + 1) / 7);
-  }
-  function tick() {
-    var now = new Date();
-    document.getElementById("day").textContent = now.toLocaleDateString("en-US", { weekday: "long" });
-    document.getElementById("date").textContent = now.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
-    document.getElementById("week").textContent = "Week " + isoWeek(now);
-    var pct = (now.getHours() * 3600 + now.getMinutes() * 60 + now.getSeconds()) / 864;
-    document.getElementById("fill").style.width = pct + "%";
-    document.getElementById("pct").textContent = pct.toFixed(1) + "%";
-  }
-  tick();
-  setInterval(tick, 30000);
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="today.js?v=5"></script>
 </body>
 </html>

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Pomodoro — CoolDesk Widget</title>
-<link rel="stylesheet" href="/widgets/base.css?v=4">
-<script src="/widgets/cooldesk.js?v=4"></script>
+<link rel="stylesheet" href="base.css?v=12">
+<script src="cooldesk.js?v=9"></script>
 <link rel="icon" href="/favicon.ico"></head>
 <body>
 <main class="widget">
@@ -23,39 +23,7 @@
     <button class="ghost" id="reset">Reset</button>
   </div>
 </main>
-<script>
-  var FOCUS = parseInt(cooldesk.get("focus", "25"), 10) * 60;
-  var BREAK = parseInt(cooldesk.get("break", "5"), 10) * 60;
-  var isFocus = true, left = FOCUS, running = false, session = 1, timer = null;
-
-  function fmt(s) { return String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0"); }
-  function render() {
-    document.getElementById("time").textContent = fmt(left);
-    document.getElementById("phase").textContent = isFocus ? "Focus" : "Break";
-    document.getElementById("count").textContent = "Session " + session;
-    document.getElementById("fill").style.width = (left / (isFocus ? FOCUS : BREAK) * 100) + "%";
-    document.getElementById("toggle").textContent = running ? "Pause" : "Start";
-    document.title = fmt(left) + (isFocus ? " Focus" : " Break");
-  }
-  function switchPhase() {
-    if (isFocus) session++;
-    isFocus = !isFocus;
-    left = isFocus ? FOCUS : BREAK;
-  }
-  function tick() {
-    if (--left <= 0) switchPhase();
-    render();
-  }
-  document.getElementById("toggle").onclick = function () {
-    running = !running;
-    if (running) timer = setInterval(tick, 1000); else clearInterval(timer);
-    render();
-  };
-  document.getElementById("skip").onclick = function () { switchPhase(); render(); };
-  document.getElementById("reset").onclick = function () {
-    clearInterval(timer); running = false; isFocus = true; left = FOCUS; session = 1; render();
-  };
-  render();
-</script>
+<script src="i18n.js?v=3"></script>
+<script src="pomodoro.js?v=5"></script>
 </body>
 </html>
