@@ -87,7 +87,7 @@ export default function FAQ() {
                             Works on
                         </p>
                         <div className="flex flex-wrap gap-2">
-                            {["Windows", "macOS", "Linux", "Chrome", "Edge", "Brave"].map((name) => (
+                            {["Windows", "macOS", "Linux", "Chrome", "Edge", "Brave", "Firefox"].map((name) => (
                                 <span
                                     key={name}
                                     className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-gray-300"
@@ -97,7 +97,7 @@ export default function FAQ() {
                             ))}
                         </div>
                         <p className="mt-3 text-xs text-gray-500">
-                            Other Chromium browsers work too · Firefox coming soon
+                            Other Chromium browsers work too · Firefox available
                         </p>
                     </div>
                 </div>

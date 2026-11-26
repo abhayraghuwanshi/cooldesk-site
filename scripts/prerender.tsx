@@ -25,6 +25,7 @@ import { TooltipProvider } from "../src/components/ui/tooltip";
 import { blogPosts } from "../src/config/blogs";
 import { ssrHead, ssrJsonLd } from "../src/lib/ssrHead";
 import { comparisons } from "../src/pages/Versus";
+import { site } from "../src/config/site";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const distDir = join(__dirname, "..", "dist");
@@ -173,13 +174,17 @@ for (const route of routes) {
         /<meta name="twitter:title" content="[^"]*"\s*\/>/,
         `<meta name="twitter:title" content="${escapeHtml(head.title)}" />`
     );
-    if (head.canonical) {
-        html = replaceTag(
-            html,
-            /<meta property="og:url" content="[^"]*"\s*\/>/,
-            `<meta property="og:url" content="${escapeHtml(head.canonical)}" />`
-        );
-    }
+    // Unique canonical per page. <SEO> already sets one, but fall back to a
+    // self-referencing URL from the route so no page ever reuses the homepage
+    // canonical or emits none at all (the cause of duplicate-canonical warnings).
+    const baseUrl = site.url.replace(/\/+$/, "");
+    const canonicalUrl =
+        head.canonical ?? `${baseUrl}${route === "/" ? "/" : route}`;
+    html = replaceTag(
+        html,
+        /<meta property="og:url" content="[^"]*"\s*\/>/,
+        `<meta property="og:url" content="${escapeHtml(canonicalUrl)}" />`
+    );
 
     // robots + canonical aren't in the static template at all (SEO.tsx adds
     // them client-side) — and per-route JSON-LD never is — so these get
@@ -190,7 +195,7 @@ for (const route of routes) {
         : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
     const extraHead = [
         `<meta name="robots" content="${escapeHtml(robotsContent)}" />`,
-        head.canonical ? `<link rel="canonical" href="${escapeHtml(head.canonical)}" />` : "",
+        `<link rel="canonical" href="${escapeHtml(canonicalUrl)}" />`,
         ...ssrJsonLd.map(
             (schema) =>
                 `<script type="application/ld+json" data-seo-jsonld>${JSON.stringify(schema).replace(/</g, "\\u003c")}</script>`

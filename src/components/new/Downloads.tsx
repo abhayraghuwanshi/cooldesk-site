@@ -1,5 +1,5 @@
 import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
-import { CHROME_STORE, site } from "@/config/site";
+import { CHROME_STORE, FIREFOX_STORE, site } from "@/config/site";
 import { getSourcePage } from "@/lib/analytics";
 import { useLatestRelease } from "@/hooks/useLatestRelease";
 import React from "react";
@@ -241,42 +241,65 @@ function Downloads() {
             </details>
           )}
 
-          {/* Browser extension banner */}
-          <a
-            href={EXTENSION_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() =>
-              trackDownloadClick({
-                download_target: "browser_extension",
-                download_platform: "chrome",
-                download_version: "store",
-                download_method: "chrome_web_store",
-              })
-            }
-            data-gtm-element="download-cta"
-            data-gtm-action="click"
-            data-gtm-section={DOWNLOADS_SECTION}
-            data-gtm-target="browser_extension"
-            data-gtm-platform="chrome"
-            data-gtm-version="store"
-            data-gtm-method="chrome_web_store"
-            className="group mt-4 flex flex-col gap-4 rounded-2xl border border-white/10 bg-gradient-to-r from-blue-500/[0.09] via-white/[0.02] to-purple-500/[0.09] p-5 transition-colors hover:border-blue-400/40 sm:flex-row sm:items-center"
-          >
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-400/25 bg-blue-400/10 text-blue-300">
-              <ExtensionIcon className="h-5 w-5" />
+          {/* Browser extension banner — Chrome-family and Firefox */}
+          <div className="mt-4 flex flex-col gap-4 rounded-2xl border border-white/10 bg-gradient-to-r from-blue-500/[0.09] via-white/[0.02] to-purple-500/[0.09] p-5 transition-colors hover:border-blue-400/40 sm:flex-row sm:items-center">
+            <div className="flex min-w-0 flex-1 items-center gap-4">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-blue-400/25 bg-blue-400/10 text-blue-300">
+                <ExtensionIcon className="h-5 w-5" />
+              </div>
+              <div className="min-w-0">
+                <p className="text-[15px] font-semibold text-white">New tab extension</p>
+                <p className="mt-0.5 text-xs text-white/45">Chrome, Edge, Brave, Firefox · updates itself · free</p>
+              </div>
             </div>
-            <div className="min-w-0 flex-1">
-              <p className="text-[15px] font-semibold text-white">New tab extension</p>
-              <p className="mt-0.5 text-xs text-white/45">Chrome, Edge, Brave · updates itself · free</p>
+            <div className="flex shrink-0 flex-wrap items-center gap-2">
+              <a
+                href={EXTENSION_LINK}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackDownloadClick({
+                    download_target: "browser_extension",
+                    download_platform: "chrome",
+                    download_version: "store",
+                    download_method: "chrome_web_store",
+                  })
+                }
+                data-gtm-element="download-cta"
+                data-gtm-action="click"
+                data-gtm-section={DOWNLOADS_SECTION}
+                data-gtm-target="browser_extension"
+                data-gtm-platform="chrome"
+                data-gtm-version="store"
+                data-gtm-method="chrome_web_store"
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform hover:-translate-y-0.5"
+              >
+                Add to Chrome
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+              <a
+                href={FIREFOX_STORE}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() =>
+                  trackDownloadClick({
+                    download_target: "browser_extension",
+                    download_platform: "firefox",
+                    download_version: "store",
+                    download_method: "firefox_addons",
+                  })
+                }
+                className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-white/20 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/[0.06]"
+              >
+                Firefox add-on
+                <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
-            <span className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-xl bg-white px-4 py-2.5 text-sm font-semibold text-black transition-transform group-hover:-translate-y-0.5">
-              Add to Chrome
-              <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-              </svg>
-            </span>
-          </a>
+          </div>
 
           {/* Full width under both: extension vs app vs both */}
           {site.downloads.desktop && (

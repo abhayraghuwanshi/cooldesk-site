@@ -5,7 +5,7 @@ import SectionBackdrop from "@/components/new/SectionBackdrop";
 import SyncSettingsPanel from "@/components/new/SyncSettingsPanel";
 import SEO from "@/components/SEO";
 import { BREW_COMMAND, QUARANTINE_COMMAND, WINGET_COMMAND } from "@/config/install";
-import { CHROME_STORE, GITHUB_REPO, REDDIT_URL } from "@/config/site";
+import { CHROME_STORE, FIREFOX_STORE, GITHUB_REPO, REDDIT_URL } from "@/config/site";
 import { trackEvent, useSectionView } from "@/lib/analytics";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -200,7 +200,7 @@ export default function GettingStartedPage() {
 
                     <Step n={2} id="extension" title="Add the browser extension">
                         <p>
-                            Get it from the <a href={CHROME_STORE} target="_blank" rel="noopener noreferrer" className={link}>Chrome Web Store</a>. It works in Chrome, Edge, Brave and other Chromium browsers.
+                            Get it from the <a href={CHROME_STORE} target="_blank" rel="noopener noreferrer" className={link}>Chrome Web Store</a> (works in Chrome, Edge, Brave and other Chromium browsers) or the <a href={FIREFOX_STORE} target="_blank" rel="noopener noreferrer" className={link}>Firefox add-on site</a>.
                         </p>
                         <p>Your new tab becomes a dashboard, and the desktop app can now see your open tabs, history and bookmarks. There’s nothing to sign in to.</p>
                         <p className="text-[15px] text-white/60">Only want the new tab? The extension works on its own. Spotlight, spaces and layouts need the desktop app.</p>

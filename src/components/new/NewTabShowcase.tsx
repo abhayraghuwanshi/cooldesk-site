@@ -1,4 +1,4 @@
-import { CHROME_STORE } from '@/config/site';
+import { CHROME_STORE, FIREFOX_STORE } from '@/config/site';
 import { trackEvent, useSectionView } from '@/lib/analytics';
 import { CONNECTS } from './connects';
 import { ArrowRight } from 'lucide-react';
@@ -37,7 +37,7 @@ export default function NewTabShowcase() {
                     <div className="max-w-2xl">
                         <h2 className="font-display text-4xl md:text-5xl font-bold tracking-tight">Connect your browser</h2>
                         <p className="mt-3 text-white/55 text-base md:text-lg">
-                            The free extension links Chrome, Edge or Brave to the desktop app, so CoolDesk knows your tabs. It
+                            The free extension links Chrome, Edge, Brave or Firefox to the desktop app, so CoolDesk knows your tabs. It
                             also turns every new tab into your dashboard.
                         </p>
                         <Link
@@ -61,7 +61,9 @@ export default function NewTabShowcase() {
                             Add to Chrome, free
                             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
                         </a>
-                        <p className="mt-2 text-xs text-white/35">Also works in Edge and Brave</p>
+                        <p className="mt-2 text-xs text-white/35">
+                            Also works in Edge and Brave. <a href={FIREFOX_STORE} target="_blank" rel="noopener noreferrer" className="text-sky-300/80 transition-colors hover:text-sky-200">Firefox add-on →</a>
+                        </p>
                     </div>
                 </div>
 

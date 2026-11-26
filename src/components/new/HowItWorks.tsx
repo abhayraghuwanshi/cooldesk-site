@@ -1,4 +1,4 @@
-import { CHROME_STORE } from '@/config/site';
+import { CHROME_STORE, FIREFOX_STORE } from '@/config/site';
 import { trackEvent, useSectionView } from '@/lib/analytics';
 import { usePrefersReducedMotion } from '@/lib/motion';
 import { ArrowRight } from 'lucide-react';
@@ -330,6 +330,15 @@ export default function HowItWorks() {
                                             className="inline-flex items-center rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white/80 hover:text-white hover:border-white/30 transition-colors"
                                         >
                                             Add to Chrome
+                                        </a>
+                                        <a
+                                            href={FIREFOX_STORE}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            onClick={() => trackEvent('day_cta', { target: 'firefox' })}
+                                            className="inline-flex items-center rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white/80 hover:text-white hover:border-white/30 transition-colors"
+                                        >
+                                            Firefox add-on
                                         </a>
                                     </div>
                                 )}

@@ -9,7 +9,7 @@ import SEO from "@/components/SEO";
 import { MoreFeatures } from "@/components/new/FeaturePage";
 import Shot from "@/components/new/Shot";
 import { SHOTS, type ShotKey } from "@/config/shots";
-import { CHROME_STORE } from "@/config/site";
+import { CHROME_STORE, FIREFOX_STORE } from "@/config/site";
 import { trackEvent, useSectionView } from "@/lib/analytics";
 import { ArrowRight } from "lucide-react";
 import { useState } from "react";
@@ -112,7 +112,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
     },
     {
         q: "Which browsers does it work in?",
-        a: <p>Chrome, Edge, Brave and other Chromium browsers that install from the Chrome Web Store.</p>,
+        a: <p>Chrome, Edge and Brave install from the Chrome Web Store. Firefox uses the <a href={FIREFOX_STORE} target="_blank" rel="noopener noreferrer" className={link}>Mozilla add-on site</a>.</p>,
     },
     {
         q: "Is it free? Do I need an account?",
@@ -286,7 +286,7 @@ export default function NewTabPage() {
         "@type": "SoftwareApplication",
         name: "New Tab by CoolDesk",
         applicationCategory: "BrowserApplication",
-        operatingSystem: "Chrome, Edge, Brave",
+        operatingSystem: "Chrome, Edge, Brave, Firefox",
         url: canonical,
         downloadUrl: CHROME_STORE,
         offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
@@ -296,7 +296,7 @@ export default function NewTabPage() {
         <main className="min-h-screen text-white">
             <SEO
                 title="CoolDesk New Tab — Widgets, Activity and Your Day in Every Tab (Free)"
-                description="A free new tab extension for Chrome, Edge and Brave: widgets, favorites, an activity feed, today’s timeline, 49 layouts and wallpapers. No account; connects to the CoolDesk desktop app."
+                description="A free new tab extension for Chrome, Edge, Brave and Firefox: widgets, favorites, an activity feed, today’s timeline, 49 layouts and wallpapers. No account; connects to the CoolDesk desktop app."
                 canonical={canonical}
                 jsonLd={jsonLd}
             />
@@ -322,7 +322,9 @@ export default function NewTabPage() {
                             How it connects to the app
                         </a>
                     </div>
-                    <p className="mt-3 text-xs text-white/40">Also works in Edge and Brave</p>
+                    <p className="mt-3 text-xs text-white/40">
+                        Also works in Edge and Brave. <a href={FIREFOX_STORE} target="_blank" rel="noopener noreferrer" className="text-sky-300/80 transition-colors hover:text-sky-200">Get the Firefox add-on →</a>
+                    </p>
 
                     <div className="mt-12 overflow-hidden rounded-3xl border border-white/[0.08] shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9)]">
                         <img src="/images/full-window.jpg" alt={ALT} width={2000} height={1254} decoding="async" className="block h-auto w-full" />

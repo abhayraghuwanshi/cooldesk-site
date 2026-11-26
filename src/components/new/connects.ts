@@ -7,7 +7,7 @@ export const CONNECTS = [
     {
         Icon: Share2,
         title: 'Shares your open tabs',
-        text: 'The desktop app sees what’s open in Chrome, Edge or Brave, so Spotlight and your spaces can find it.',
+        text: 'The desktop app sees what’s open in Chrome, Edge, Brave or Firefox, so Spotlight and your spaces can find it.',
     },
     {
         Icon: ArrowRightLeft,

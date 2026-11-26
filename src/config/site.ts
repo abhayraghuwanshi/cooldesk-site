@@ -15,6 +15,10 @@ export const SITE_ID: SiteId =
 const CHROME_STORE =
   "https://chromewebstore.google.com/detail/cooldesk/ioggffobciopdddacpclplkeodllhjko";
 
+// The same extension, reviewed for Firefox.
+const FIREFOX_STORE =
+  "https://addons.mozilla.org/en-GB/firefox/addon/new-tab-by-cooldesk/";
+
 // Public source for the CoolDesk extension/app.
 const GITHUB_REPO = "https://github.com/abhayraghuwanshi/cooldesk-extension";
 
@@ -114,7 +118,7 @@ const configs: Record<SiteId, SiteConfig> = {
     },
     downloads: {
       heading: "Add CoolDesk to your browser",
-      blurb: "Free for Chrome, Edge and Brave. No sign-in required.",
+      blurb: "Free for Chrome, Edge, Brave and Firefox. No sign-in required.",
       desktop: false,
       tip: "Works standalone in your browser — install and start in seconds.",
     },
@@ -128,4 +132,4 @@ const configs: Record<SiteId, SiteConfig> = {
 
 export const site = configs[SITE_ID];
 
-export { CHROME_STORE, GITHUB_REPO, NEWTAB_URL, REDDIT_URL };
+export { CHROME_STORE, FIREFOX_STORE, GITHUB_REPO, NEWTAB_URL, REDDIT_URL };

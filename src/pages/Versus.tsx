@@ -92,7 +92,7 @@ export const comparisons: Record<string, Comparison> = {
             },
             {
                 q: "Does CoolDesk work on Windows?",
-                a: "Yes — CoolDesk runs on Windows, macOS and Linux, with a browser extension for Chrome, Edge, Brave and other Chromium browsers. A Firefox version is coming soon.",
+                a: "Yes — CoolDesk runs on Windows, macOS and Linux, with a browser extension for Chrome, Edge, Brave and other Chromium browsers. A Firefox add-on is also available.",
             },
         ],
     },
@@ -200,7 +200,7 @@ export const comparisons: Record<string, Comparison> = {
         ],
         table: [
             { feature: "Core idea", them: "Browser workspaces (tabs, docs, tasks)", us: "Project workspaces across tabs, apps, notes & files" },
-            { feature: "Browsers", them: "Chrome, Edge, Firefox", us: "Chrome, Edge, Brave" },
+            { feature: "Browsers", them: "Chrome, Edge, Firefox", us: "Chrome, Edge, Brave, Firefox" },
             { feature: "Desktop apps & files", them: "—", us: "Searchable & launchable via desktop app" },
             { feature: "Account required", them: "Yes", us: "Never" },
             { feature: "Where your data lives", them: "Workona cloud", us: "100% local, on your device" },
@@ -211,7 +211,7 @@ export const comparisons: Record<string, Comparison> = {
         chooseThem: [
             "Your whole workflow lives in the browser and you need it synced across several machines",
             "You collaborate in shared spaces with a team every day",
-            "You use Firefox — CoolDesk’s Firefox add-on isn’t out yet",
+            "You want your work synced across several machines",
         ],
         chooseUs: [
             "Your projects span more than tabs — code editors, Slack, local files — and you want one place that brings all of it back",
