@@ -1,3 +1,4 @@
+import { openCookieSettings } from "@/components/CookieBanner";
 import { FEATURES } from '@/config/features';
 import { GITHUB_REPO, site } from '@/config/site';
 import { useLatestRelease } from '@/hooks/useLatestRelease';
@@ -107,6 +108,15 @@ export default function Footer() {
                   </a>
                 </li>
               ))}
+              <li>
+                <button
+                  type="button"
+                  onClick={openCookieSettings}
+                  className="text-sm text-gray-400 hover:text-white transition-colors"
+                >
+                  Cookie settings
+                </button>
+              </li>
             </ul>
           </div>
         </div>

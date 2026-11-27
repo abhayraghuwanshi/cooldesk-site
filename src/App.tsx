@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { BrowserRouter, useLocation } from "react-router-dom";
 import AppRoutes from "./AppRoutes";
+import CookieBanner from "./components/CookieBanner";
 import { usePageTracking } from "./hooks/usePageTracking";
 import { useLinkTracking } from "./lib/analytics";
 
@@ -37,6 +38,7 @@ const App = () => (
         <ScrollToTop />
         <PageTracker />
         <AppRoutes />
+        <CookieBanner />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

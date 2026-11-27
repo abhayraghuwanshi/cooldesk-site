@@ -40,6 +40,16 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
+    // Consent Mode v2: no GA cookies until the visitor accepts the banner
+    // (src/components/CookieBanner.tsx stores the choice under this key).
+    var cdConsent = null;
+    try { cdConsent = localStorage.getItem('cd_cookie_consent'); } catch (e) {}
+    gtag('consent', 'default', {
+      analytics_storage: cdConsent === 'granted' ? 'granted' : 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied'
+    });
     gtag('js', new Date());
     gtag('config', 'G-F1YM216TKY');
   </script>

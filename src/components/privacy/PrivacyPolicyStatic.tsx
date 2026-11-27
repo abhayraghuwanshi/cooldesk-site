@@ -26,6 +26,7 @@ const PolicyNav: React.FC = () => {
         { id: "team-sharing", label: "Team Sharing & Spaces" },
         { id: "app-analytics", label: "Anonymous Usage Analytics" },
         { id: "website-analytics", label: "Website Analytics" },
+        { id: "cookies", label: "Cookies & Browser Storage" },
         { id: "security", label: "Data Security" },
         { id: "user-rights", label: "User Control & Rights" },
         { id: "compliance", label: "Compliance" },
@@ -70,7 +71,7 @@ const PrivacyPolicyStatic: React.FC = () => {
                         <h1 className="text-3xl font-bold text-gray-900 mb-2">Privacy Policy</h1>
                         <p className="text-gray-500 text-sm">Last updated: November 2026</p>
                         <p className="mt-4 text-gray-600 text-sm bg-blue-50 border border-blue-100 rounded-lg px-4 py-3">
-                            This policy covers both the <strong>CoolDesk browser extension</strong> and the <strong>CoolDesk desktop app</strong> (Windows, macOS and Linux). Everything runs locally and <strong>no sign-up or account is required</strong>. Data only leaves your device in three opt-in or opt-out cases: an anonymous <a href="#app-analytics" className="underline text-blue-600">usage ping</a>, optional <a href="#ai-features" className="underline text-blue-600">cloud AI</a> using your own key, and <a href="#team-sharing" className="underline text-blue-600">Team Sharing</a> when you choose to share with others. Website traffic is covered separately under <a href="#website-analytics" className="underline text-blue-600">Website Analytics</a>.
+                            This policy covers both the <strong>CoolDesk browser extension</strong> and the <strong>CoolDesk desktop app</strong> (Windows, macOS and Linux). Everything runs locally and <strong>no sign-up or account is required</strong>. Data only leaves your device in three opt-in or opt-out cases: an anonymous <a href="#app-analytics" className="underline text-blue-600">usage ping</a>, optional <a href="#ai-features" className="underline text-blue-600">cloud AI</a> using your own key, and <a href="#team-sharing" className="underline text-blue-600">Team Sharing</a> when you choose to share with others. Website traffic is covered separately under <a href="#website-analytics" className="underline text-blue-600">Website Analytics</a>, and every cookie the website sets is listed under <a href="#cookies" className="underline text-blue-600">Cookies &amp; Browser Storage</a>.
                         </p>
                     </header>
 
@@ -219,13 +220,58 @@ const PrivacyPolicyStatic: React.FC = () => {
 
                     <PolicySection id="website-analytics" title="Website Analytics">
                         <p>
-                            The <strong>cool-desk.com website</strong> (not the extension) uses Google Analytics (GA4) to collect anonymous usage statistics such as page views and session duration. This helps us understand which content is useful.
+                            The <strong>cool-desk.com website</strong> (not the extension) uses Google Analytics (GA4) to collect usage statistics such as page views, session duration, how far articles are read, and which links and download buttons are clicked. We are also testing Umami, a cookieless analytics tool, alongside it. This helps us understand which content is useful.
                         </p>
                         <ul className="list-disc ml-5 mt-2 space-y-1.5">
                             <li>Analytics apply only to the marketing website, not the extension or desktop app</li>
                             <li>No personally identifiable information is collected via analytics</li>
                             <li>You can opt out using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">Google Analytics Opt-out Browser Add-on</a></li>
                         </ul>
+                    </PolicySection>
+
+                    <PolicySection id="cookies" title="Cookies & Browser Storage">
+                        <p>
+                            <strong>The CoolDesk extension and desktop app set no cookies and do not read your cookies</strong> — the extension does not request Chrome's <code className="text-sm bg-gray-100 px-1 rounded">cookies</code> permission. Cookies are used only on the <strong>cool-desk.com website</strong>, only by Google Analytics, and <strong>only after you click Accept</strong> on the cookie banner. Until then, or if you click Decline, Google Analytics runs in cookieless mode (Google Consent Mode) and sends anonymous page-view pings that cannot recognise you between visits. These are all the cookies set once you accept:
+                        </p>
+                        <div className="overflow-x-auto mt-3">
+                            <table className="w-full text-sm border border-gray-200 rounded-lg">
+                                <thead className="bg-gray-50 text-left text-gray-600">
+                                    <tr>
+                                        <th className="px-3 py-2 font-semibold">Name</th>
+                                        <th className="px-3 py-2 font-semibold">Set by</th>
+                                        <th className="px-3 py-2 font-semibold">Purpose</th>
+                                        <th className="px-3 py-2 font-semibold">Expires</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-gray-100">
+                                    <tr>
+                                        <td className="px-3 py-2 font-mono">_ga</td>
+                                        <td className="px-3 py-2">Google Analytics</td>
+                                        <td className="px-3 py-2">A random ID that tells one visitor apart from another, so visits are not double-counted</td>
+                                        <td className="px-3 py-2">2 years</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="px-3 py-2 font-mono">_ga_F1YM216TKY</td>
+                                        <td className="px-3 py-2">Google Analytics</td>
+                                        <td className="px-3 py-2">Keeps track of the current session (session count and start time)</td>
+                                        <td className="px-3 py-2">2 years</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p className="mt-3">
+                            Umami, which we are testing alongside GA, sets no cookies. We use no advertising, retargeting, or social-media cookies.
+                        </p>
+                        <p className="mt-3">The website also keeps a few small values in your browser's storage. They never leave your browser:</p>
+                        <ul className="list-disc ml-5 mt-2 space-y-1.5">
+                            <li><code className="text-sm bg-gray-100 px-1 rounded">cd_source_page</code> (session storage) — the page you came from before opening the downloads section, so we can tell which article led to a download. Cleared when you close the tab.</li>
+                            <li><code className="text-sm bg-gray-100 px-1 rounded">cd_github_stars</code> (session storage) — caches the GitHub star count shown in the navbar. Cleared when you close the tab.</li>
+                            <li><code className="text-sm bg-gray-100 px-1 rounded">cd_cookie_consent</code> (local storage) — remembers whether you accepted or declined cookies, so the banner doesn't ask again.</li>
+                            <li><code className="text-sm bg-gray-100 px-1 rounded">cooldesk_day_profile</code> (local storage) — remembers which example profile you picked in the homepage demo.</li>
+                        </ul>
+                        <p className="text-sm text-gray-500 mt-3">
+                            <strong>To change your choice:</strong> click <strong>Cookie settings</strong> in the site footer. Declining removes the Google Analytics cookies. You can also clear cookies and site data for cool-desk.com in your browser settings, block third-party or all cookies for the site, or install the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener noreferrer" className="underline text-blue-600">Google Analytics Opt-out Add-on</a>. The site works fully without them.
+                        </p>
                     </PolicySection>
 
                     <PolicySection id="security" title="Data Security">
@@ -273,7 +319,7 @@ const PrivacyPolicyStatic: React.FC = () => {
                             <li>AI is optional: it runs locally by default, or with your own OpenAI/Anthropic key — CoolDesk never stores your key or proxies your data</li>
                             <li>Team Sharing is optional and end-to-end encrypted: only data you put in a Space is shared, peer-to-peer with people who have your secret phrase — CoolDesk never stores your Space content</li>
                             <li>Chrome permissions used only for the features described above</li>
-                            <li>Website uses Google Analytics (anonymous, opt-outable)</li>
+                            <li>The website uses Google Analytics, which sets two cookies only if you accept the cookie banner (<code className="text-sm bg-gray-100 px-1 rounded">_ga</code>, <code className="text-sm bg-gray-100 px-1 rounded">_ga_F1YM216TKY</code>) — the extension and app set none</li>
                             <li>You can delete all data at any time by uninstalling</li>
                         </ul>
                         <p className="mt-4 font-medium text-gray-800">
